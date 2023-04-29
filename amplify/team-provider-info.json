@@ -21,15 +21,10 @@
         "AdminQueries9cf22bb0": {
           "deploymentBucketName": "amplify-ofsbackend-staging-202733-deployment",
           "s3Key": "amplify-builds/AdminQueries9cf22bb0-512f4a4b4f545377374f-build.zip"
-        },
-        "CalendarQueries": {
-          "deploymentBucketName": "amplify-ofsbackend-staging-202733-deployment",
-          "s3Key": "amplify-builds/CalendarQueries-6d2f78676f77324c4a51-build.zip"
         }
       },
       "api": {
-        "AdminQueries": {},
-        "CalendarQueries": {}
+        "AdminQueries": {}
       },
       "hosting": {
         "amplifyhosting": {
