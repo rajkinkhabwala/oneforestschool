@@ -5,9 +5,31 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-width: 320px;
+  min-height: 100vh;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+[data-amplify-authenticator] [data-amplify-router] fieldset {
+  display: none;
+}
+[data-amplify-authenticator] .amplify-divider {
+  display: none;
+}
+[data-amplify-authenticator] form div:not(.federated-sign-in-container) button {
+  display: none;
+}
+[data-amplify-authenticator] form + [data-amplify-footer] {
+  display: none;
+}
+
+.authentication {
+  position: relative;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
