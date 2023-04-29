@@ -1,12 +1,5 @@
 import { API, Auth } from "aws-amplify";
 
-// export interface AdminApiResult {
-//     Users: Array<{Attributes: [] | undefined | null,
-//     Username: string | undefined | null,
-//     UserStatus: string | undefined | null
-// }>
-// }
-
 export async function addUserToGroup(username: string, groupName: string){
     let apiName = 'AdminQueries';
     let path = '/addUserToGroup';
@@ -128,7 +121,7 @@ export async function getUser(username: string){
     }
 
     return new Promise((resolve, reject) => {
-        API.post(apiName, path, myInit).then((value) => {
+        API.get(apiName, path, myInit).then((value) => {
             resolve(value);
         }).catch((err) => reject(err));
     })
@@ -172,7 +165,7 @@ export async function listGroups(token: string, limit: number){
     }
 
     return new Promise((resolve, reject) => {
-        API.post(apiName, path, myInit).then((value) => {
+        API.get(apiName, path, myInit).then((value) => {
             resolve(value);
         }).catch((err) => reject(err));
     })
