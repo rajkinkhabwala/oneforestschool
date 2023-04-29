@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "paths": {
+    "/calendar": {
+      "name": "/calendar",
+      "lambdaFunction": "CalendarQueries",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}

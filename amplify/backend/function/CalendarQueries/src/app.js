@@ -30,10 +30,12 @@ app.use(function(req, res, next) {
 /**********************
  * Example get method *
  **********************/
-app.get('/item', async function(req, res) {
+app.get('/listEvents', async function(req, res) {
   // Add your code here
-  const token = req.apiGateway.event.queryStringParameters.token
-  const result = await listEvents(token)
+  //const token = req.apiGateway.event.queryStringParameters.token
+  const gtoken = req.apiGateway.event.requestContext.authorizer.claims["custom:provider_token"]
+  
+  const result = await listEvents(gtoken)
 
   res.json({success: result, url: req.url});
 });
