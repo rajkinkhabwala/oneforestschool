@@ -8,7 +8,6 @@ export type CreateNotificationInput = {
   message?: string | null,
   context_id?: string | null,
   context?: NotificationContext | null,
-  _version?: number | null,
 };
 
 export enum NotificationContext {
@@ -98,9 +97,6 @@ export type Notification = {
   context?: NotificationContext | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type UpdateNotificationInput = {
@@ -109,12 +105,10 @@ export type UpdateNotificationInput = {
   message?: string | null,
   context_id?: string | null,
   context?: NotificationContext | null,
-  _version?: number | null,
 };
 
 export type DeleteNotificationInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type ModelNotificationFilterInput = {
@@ -132,7 +126,6 @@ export type ModelNotificationConnection = {
   __typename: "ModelNotificationConnection",
   items:  Array<Notification | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelSubscriptionNotificationFilterInput = {
@@ -190,9 +183,6 @@ export type CreateNotificationMutation = {
     context?: NotificationContext | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -211,9 +201,6 @@ export type UpdateNotificationMutation = {
     context?: NotificationContext | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -232,9 +219,6 @@ export type DeleteNotificationMutation = {
     context?: NotificationContext | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -252,9 +236,6 @@ export type GetNotificationQuery = {
     context?: NotificationContext | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -276,40 +257,8 @@ export type ListNotificationsQuery = {
       context?: NotificationContext | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncNotificationsQueryVariables = {
-  filter?: ModelNotificationFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncNotificationsQuery = {
-  syncNotifications?:  {
-    __typename: "ModelNotificationConnection",
-    items:  Array< {
-      __typename: "Notification",
-      id: string,
-      title?: string | null,
-      message?: string | null,
-      context_id?: string | null,
-      context?: NotificationContext | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -327,9 +276,6 @@ export type OnCreateNotificationSubscription = {
     context?: NotificationContext | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -347,9 +293,6 @@ export type OnUpdateNotificationSubscription = {
     context?: NotificationContext | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -367,8 +310,5 @@ export type OnDeleteNotificationSubscription = {
     context?: NotificationContext | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };

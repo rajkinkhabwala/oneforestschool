@@ -5,10 +5,9 @@ export type AmplifyDependentResourcesAttributes = {
       "ApiName": "string",
       "RootUrl": "string"
     },
-    "CalendarApi": {
-      "ApiId": "string",
-      "ApiName": "string",
-      "RootUrl": "string"
+    "ofsbackend": {
+      "GraphQLAPIEndpointOutput": "string",
+      "GraphQLAPIIdOutput": "string"
     }
   },
   "auth": {

@@ -29,7 +29,7 @@
       },
       "api": {
         "AdminQueries": {},
-        "CalendarApi": {}
+        "ofsbackend": {}
       },
       "hosting": {
         "amplifyhosting": {

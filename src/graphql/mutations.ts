@@ -15,9 +15,6 @@ export const createNotification = /* GraphQL */ `
       context
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -34,9 +31,6 @@ export const updateNotification = /* GraphQL */ `
       context
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -53,9 +47,6 @@ export const deleteNotification = /* GraphQL */ `
       context
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
