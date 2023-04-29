@@ -22,6 +22,20 @@
       "providerPlugin": "awscloudformation",
       "service": "API Gateway"
     },
+    "CalendarApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "CalendarQueries"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "ofsbackend": {
       "dependsOn": [
         {
@@ -118,6 +132,11 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "CalendarQueries": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "hosting": {
@@ -140,6 +159,22 @@
         {
           "category": "function",
           "resourceName": "AdminQueries9cf22bb0"
+        }
+      ]
+    },
+    "AMPLIFY_function_CalendarQueries_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "CalendarQueries"
+        }
+      ]
+    },
+    "AMPLIFY_function_CalendarQueries_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "CalendarQueries"
         }
       ]
     },

@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-ofsbackend-staging-202733-unauthRole",
       "StackName": "amplify-ofsbackend-staging-202733",
       "StackId": "arn:aws:cloudformation:us-west-2:223681902151:stack/amplify-ofsbackend-staging-202733/f13b3800-e539-11ed-bb22-02545cc70c73",
-      "AmplifyAppId": "d1j7hkee561c4y"
+      "AmplifyAppId": "d1j7hkee561c4y",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-ofsbackend-staging-202733-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
@@ -20,10 +21,15 @@
         "AdminQueries9cf22bb0": {
           "deploymentBucketName": "amplify-ofsbackend-staging-202733-deployment",
           "s3Key": "amplify-builds/AdminQueries9cf22bb0-512f4a4b4f545377374f-build.zip"
+        },
+        "CalendarQueries": {
+          "deploymentBucketName": "amplify-ofsbackend-staging-202733-deployment",
+          "s3Key": "amplify-builds/CalendarQueries-436333672f4164437349-build.zip"
         }
       },
       "api": {
-        "AdminQueries": {}
+        "AdminQueries": {},
+        "CalendarApi": {}
       },
       "hosting": {
         "amplifyhosting": {

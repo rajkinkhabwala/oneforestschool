@@ -1,0 +1,11 @@
+{
+  "httpMethod": "GET",
+  "path": "/item",
+  "queryStringParameters": {
+    "token": "ya29.a0AWY7CkkusOkxn6I920skBMVqxaDrgN5Kf-V_HFi4SK-EL59ChQNkjndeELLmHMqW8-nfTPxEK2fg7tRsfHq909FgTqEtxWgWYi4z8jNgh0R31NjLGpVxN1LSZhbdYk0qqcRsAUM7SQ54tKgH7vV9Q4SyQvJjPwaCgYKAdESARMSFQG1tDrpVufx0hmZnEvDDtrvKtNB1w0165"
+  },
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{\"msg\":\"Hello from the event.json body\"}"
+}

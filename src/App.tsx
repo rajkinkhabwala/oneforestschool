@@ -7,10 +7,9 @@ import Auth from './common/auth/auth.component';
 
 function App() {
   
-  const { route, user } = useAuthenticator((context) => [context.route]);
+  const { route} = useAuthenticator((context) => [context.route]);
 
   if(route === "authenticated"){
-
     return(
       <RouterProvider router={router} />
     )
