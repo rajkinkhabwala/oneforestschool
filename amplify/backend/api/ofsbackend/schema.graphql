@@ -1,0 +1,13 @@
+enum NotificationContext {
+  DEPARTMENT
+  COURSE
+  USER
+}
+
+type Notification @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}]) {
+  id: ID!
+  title: String
+  message: String
+  context_id: ID
+  context: NotificationContext
+}
