@@ -4,11 +4,6 @@ export type AmplifyDependentResourcesAttributes = {
       "ApiId": "string",
       "ApiName": "string",
       "RootUrl": "string"
-    },
-    "CalendarQueries": {
-      "ApiId": "string",
-      "ApiName": "string",
-      "RootUrl": "string"
     }
   },
   "auth": {
@@ -32,13 +27,6 @@ export type AmplifyDependentResourcesAttributes = {
   },
   "function": {
     "AdminQueries9cf22bb0": {
-      "Arn": "string",
-      "LambdaExecutionRole": "string",
-      "LambdaExecutionRoleArn": "string",
-      "Name": "string",
-      "Region": "string"
-    },
-    "CalendarQueries": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
