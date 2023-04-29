@@ -12,12 +12,6 @@
       "AmplifyAppId": "d1j7hkee561c4y"
     },
     "categories": {
-      "hosting": {
-        "amplifyhosting": {
-          "appId": "d1j7hkee561c4y",
-          "type": "cicd"
-        }
-      },
       "auth": {
         "ofsbackend4bbfe64b": {},
         "userPoolGroups": {}
@@ -30,6 +24,12 @@
       },
       "api": {
         "AdminQueries": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d1j7hkee561c4y",
+          "type": "cicd"
+        }
       }
     }
   }
