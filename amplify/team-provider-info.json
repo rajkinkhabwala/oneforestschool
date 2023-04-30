@@ -25,6 +25,10 @@
         "CalendarQueries": {
           "deploymentBucketName": "amplify-ofsbackend-staging-202733-deployment",
           "s3Key": "amplify-builds/CalendarQueries-436333672f4164437349-build.zip"
+        },
+        "CalendarFunction": {
+          "deploymentBucketName": "amplify-ofsbackend-staging-202733-deployment",
+          "s3Key": "amplify-builds/CalendarFunction-73434f6750486a312b79-build.zip"
         }
       },
       "api": {
