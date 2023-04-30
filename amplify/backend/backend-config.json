@@ -107,11 +107,6 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
-    },
-    "CalendarFunction": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
     }
   },
   "hosting": {
@@ -134,22 +129,6 @@
         {
           "category": "function",
           "resourceName": "AdminQueries9cf22bb0"
-        }
-      ]
-    },
-    "AMPLIFY_function_CalendarFunction_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "CalendarFunction"
-        }
-      ]
-    },
-    "AMPLIFY_function_CalendarFunction_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "CalendarFunction"
         }
       ]
     },

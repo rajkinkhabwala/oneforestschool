@@ -13,8 +13,12 @@ const path = '/calendar/listEvents';
 const myInit = {
     
   headers: {
+    body: {
+      oauth_token: token
+    },
+
     'Content-Type' : 'application/json',
-    Authorization: `${(await Auth.currentSession()).getIdToken().getJwtToken()}`
+    Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
   } 
 };
 
