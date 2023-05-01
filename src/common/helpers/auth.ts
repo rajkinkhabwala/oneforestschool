@@ -35,4 +35,3 @@ export async function isAuthorized(roles: [string]){
         data: "unknown"
     })
 }
-
