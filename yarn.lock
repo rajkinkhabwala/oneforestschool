@@ -3897,6 +3897,13 @@
     "@mantine/utils" "6.0.9"
     react-dropzone "14.2.3"
 
+"@mantine/ds@^6.0.9":
+  version "6.0.9"
+  resolved "https://registry.yarnpkg.com/@mantine/ds/-/ds-6.0.9.tgz#9ce1d9301e409ca32ea4e4352fd0bff80a0635f1"
+  integrity sha512-NPpJGggK40XojfNoWdKYR6FJ2MPyQ5OhK2MO2ZrFtuYXDhsoZk4yt6YU5zWRur+wQtlJs5IEIUGy/uK9oSRFoA==
+  dependencies:
+    "@mantine/utils" "6.0.9"
+
 "@mantine/form@^6.0.9":
   version "6.0.9"
   resolved "https://registry.yarnpkg.com/@mantine/form/-/form-6.0.9.tgz#268f9008bd98d150d38bde4b3e41cda216d0ab61"
@@ -3924,6 +3931,13 @@
   dependencies:
     "@mantine/utils" "6.0.9"
     react-transition-group "4.4.2"
+
+"@mantine/nprogress@^6.0.9":
+  version "6.0.9"
+  resolved "https://registry.yarnpkg.com/@mantine/nprogress/-/nprogress-6.0.9.tgz#f327d2a9471de8a3e52e119dc7847066d07cf781"
+  integrity sha512-I9CEZEEy3rXRxh1VJCYJ6aiFwY6H3KbK07P6JcrG/1zQgWpnX+2BStddYZ1lwI23x8pmUwHTXWHegJAYi/Traw==
+  dependencies:
+    "@mantine/utils" "6.0.9"
 
 "@mantine/styles@6.0.9":
   version "6.0.9"
@@ -4650,6 +4664,19 @@
     "@svgr/plugin-jsx" "^5.5.0"
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
+
+"@tabler/icons-react@^2.17.0":
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons-react/-/icons-react-2.17.0.tgz#8d7b33958bdef17c2aadaa0899b87a259c9f5f01"
+  integrity sha512-kuEW+qNwRqcK5iMl7qTapzX2NiMOwPg4Az01d+IZ1DIMwaZ7iKPJaIor2ihKFLPYrT9D5BZHXB8R5mSkw0FETg==
+  dependencies:
+    "@tabler/icons" "2.17.0"
+    prop-types "^15.7.2"
+
+"@tabler/icons@2.17.0":
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-2.17.0.tgz#3b5ac3d41576894d3e18cd8014ba8ce33f3634be"
+  integrity sha512-UeJaylOGNRhQKyDlgZfrQ3UPSGlfVQuXcmCsTYeXioKKepibW6VZ3H36Lo1jvBTBkQD2e9m+k2NxwkztOTXwrA==
 
 "@testing-library/dom@^8.5.0":
   version "8.20.0"
@@ -9780,6 +9807,11 @@ makeerror@1.0.12:
   dependencies:
     tmpl "1.0.5"
 
+mantine-datatable@^2.4.14:
+  version "2.4.14"
+  resolved "https://registry.yarnpkg.com/mantine-datatable/-/mantine-datatable-2.4.14.tgz#20959da447c632cb905493c00367fbd5214a17f1"
+  integrity sha512-7DCR7rXnnkKmwXuXdN7eSkPJ47CLIz9esiPfUYQmEmz2e5HFt0yA4XvcAi4c+VrsaxMJ3xHNT6jinTqzEaDF7g==
+
 map-obj@^4.0.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-4.3.0.tgz#9304f906e93faae70880da102a9f1df0ea8bb05a"
@@ -11091,7 +11123,7 @@ prompts@^2.0.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.6.2, prop-types@^15.8.1:
+prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
