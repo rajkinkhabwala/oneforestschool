@@ -1,12 +1,17 @@
 import { createBrowserRouter } from "react-router-dom";
 import { isAuthorized } from "../common/helpers/auth";
 import logo from '../logo.svg';
+import React from "react";
+import AdminMain from '../pages/Admin/main'
+// Lazy Imports
+
+
 const router = createBrowserRouter([
     {
         path: '/',
         async loader(){
             const auth = await isAuthorized(["Admins"])
-            console.log(auth)
+
             return auth
         },
         element: (
@@ -27,6 +32,10 @@ const router = createBrowserRouter([
       </header>
     </div>
         )
+    },
+    {
+      path: 'admin/',
+      element: <AdminMain />
     }
 ])
 

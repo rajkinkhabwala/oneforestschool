@@ -50,7 +50,17 @@
   "auth": {
     "ofsbackend4bbfe64b": {
       "customAuth": false,
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "ofsbackend4bbfe64bPostConfirmation",
+          "triggerProvider": "Cognito"
+        }
+      ],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -107,6 +117,11 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "ofsbackend4bbfe64bPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "hosting": {
@@ -116,6 +131,14 @@
     }
   },
   "parameters": {
+    "AMPLIFY_auth_ofsbackend4bbfe64b_googleClientId": {
+      "usedBy": [
+        {
+          "category": "auth",
+          "resourceName": "ofsbackend4bbfe64b"
+        }
+      ]
+    },
     "AMPLIFY_function_AdminQueries9cf22bb0_deploymentBucketName": {
       "usedBy": [
         {
@@ -145,6 +168,22 @@
         {
           "category": "function",
           "resourceName": "CalendarQueries"
+        }
+      ]
+    },
+    "AMPLIFY_function_ofsbackend4bbfe64bPostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ofsbackend4bbfe64bPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_ofsbackend4bbfe64bPostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ofsbackend4bbfe64bPostConfirmation"
         }
       ]
     },
