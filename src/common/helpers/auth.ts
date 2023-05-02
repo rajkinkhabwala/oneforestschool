@@ -7,7 +7,7 @@ export async function isAuthorized(roles: [string]){
     const user: CognitoUser = await Auth.currentAuthenticatedUser();
     
     const groups = user.getSignInUserSession()?.getAccessToken().payload["cognito:groups"];
-
+    
     if(roles.some((group) => groups.includes(group))){
         return({
             status: true,
@@ -35,4 +35,3 @@ export async function isAuthorized(roles: [string]){
         data: "unknown"
     })
 }
-

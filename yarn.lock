@@ -3897,6 +3897,13 @@
     "@mantine/utils" "6.0.9"
     react-dropzone "14.2.3"
 
+"@mantine/ds@^6.0.9":
+  version "6.0.9"
+  resolved "https://registry.yarnpkg.com/@mantine/ds/-/ds-6.0.9.tgz#9ce1d9301e409ca32ea4e4352fd0bff80a0635f1"
+  integrity sha512-NPpJGggK40XojfNoWdKYR6FJ2MPyQ5OhK2MO2ZrFtuYXDhsoZk4yt6YU5zWRur+wQtlJs5IEIUGy/uK9oSRFoA==
+  dependencies:
+    "@mantine/utils" "6.0.9"
+
 "@mantine/form@^6.0.9":
   version "6.0.9"
   resolved "https://registry.yarnpkg.com/@mantine/form/-/form-6.0.9.tgz#268f9008bd98d150d38bde4b3e41cda216d0ab61"
@@ -3924,6 +3931,13 @@
   dependencies:
     "@mantine/utils" "6.0.9"
     react-transition-group "4.4.2"
+
+"@mantine/nprogress@^6.0.9":
+  version "6.0.9"
+  resolved "https://registry.yarnpkg.com/@mantine/nprogress/-/nprogress-6.0.9.tgz#f327d2a9471de8a3e52e119dc7847066d07cf781"
+  integrity sha512-I9CEZEEy3rXRxh1VJCYJ6aiFwY6H3KbK07P6JcrG/1zQgWpnX+2BStddYZ1lwI23x8pmUwHTXWHegJAYi/Traw==
+  dependencies:
+    "@mantine/utils" "6.0.9"
 
 "@mantine/styles@6.0.9":
   version "6.0.9"
@@ -4650,6 +4664,19 @@
     "@svgr/plugin-jsx" "^5.5.0"
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
+
+"@tabler/icons-react@^2.17.0":
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons-react/-/icons-react-2.17.0.tgz#8d7b33958bdef17c2aadaa0899b87a259c9f5f01"
+  integrity sha512-kuEW+qNwRqcK5iMl7qTapzX2NiMOwPg4Az01d+IZ1DIMwaZ7iKPJaIor2ihKFLPYrT9D5BZHXB8R5mSkw0FETg==
+  dependencies:
+    "@tabler/icons" "2.17.0"
+    prop-types "^15.7.2"
+
+"@tabler/icons@2.17.0":
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-2.17.0.tgz#3b5ac3d41576894d3e18cd8014ba8ce33f3634be"
+  integrity sha512-UeJaylOGNRhQKyDlgZfrQ3UPSGlfVQuXcmCsTYeXioKKepibW6VZ3H36Lo1jvBTBkQD2e9m+k2NxwkztOTXwrA==
 
 "@testing-library/dom@^8.5.0":
   version "8.20.0"
@@ -5812,6 +5839,15 @@ axios@0.26.0:
   integrity sha512-lKoGLMYtHvFrPVt3r+RBMp9nh34N0M8zEfCWqdWZx6phynIEhQqAdydpyBAAG211zlhX9Rgu08cOamy6XjE5Og==
   dependencies:
     follow-redirects "^1.14.8"
+
+axios@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.4.0.tgz#38a7bf1224cd308de271146038b551d725f0be1f"
+  integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==
+  dependencies:
+    follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
 
 axobject-query@^3.1.1:
   version "3.1.1"
@@ -7821,7 +7857,7 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.7.tgz#609f39207cb614b89d0765b477cb2d437fbf9787"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
-follow-redirects@^1.0.0, follow-redirects@^1.14.8:
+follow-redirects@^1.0.0, follow-redirects@^1.14.8, follow-redirects@^1.15.0:
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
@@ -7856,6 +7892,15 @@ form-data@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/form-data/-/form-data-3.0.1.tgz#ebd53791b78356a99af9a300d4282c4d5eb9755f"
   integrity sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
+
+form-data@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-4.0.0.tgz#93919daeaf361ee529584b9b31664dc12c9fa452"
+  integrity sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==
   dependencies:
     asynckit "^0.4.0"
     combined-stream "^1.0.8"
@@ -9556,6 +9601,11 @@ jws@^4.0.0:
     jwa "^2.0.0"
     safe-buffer "^5.0.1"
 
+jwt-decode@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-3.1.2.tgz#3fb319f3675a2df0c2895c8f5e9fa4b67b04ed59"
+  integrity sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==
+
 kdbush@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/kdbush/-/kdbush-3.0.0.tgz#f8484794d47004cc2d85ed3a79353dbe0abc2bf0"
@@ -9756,6 +9806,11 @@ makeerror@1.0.12:
   integrity sha512-JmqCvUhmt43madlpFzG4BQzG2Z3m6tvQDNKdClZnO3VbIudJYmxsT0FNJMeiB2+JTSlTQTSbU8QdesVmwJcmLg==
   dependencies:
     tmpl "1.0.5"
+
+mantine-datatable@^2.4.14:
+  version "2.4.14"
+  resolved "https://registry.yarnpkg.com/mantine-datatable/-/mantine-datatable-2.4.14.tgz#20959da447c632cb905493c00367fbd5214a17f1"
+  integrity sha512-7DCR7rXnnkKmwXuXdN7eSkPJ47CLIz9esiPfUYQmEmz2e5HFt0yA4XvcAi4c+VrsaxMJ3xHNT6jinTqzEaDF7g==
 
 map-obj@^4.0.0:
   version "4.3.0"
@@ -11068,7 +11123,7 @@ prompts@^2.0.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.6.2, prop-types@^15.8.1:
+prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -11089,6 +11144,11 @@ proxy-addr@~2.0.7:
   dependencies:
     forwarded "0.2.0"
     ipaddr.js "1.9.1"
+
+proxy-from-env@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/proxy-from-env/-/proxy-from-env-1.1.0.tgz#e102f16ca355424865755d2c9e8ea4f24d58c3e2"
+  integrity sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
 
 psl@^1.1.33:
   version "1.9.0"
