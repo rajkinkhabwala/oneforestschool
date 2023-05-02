@@ -36,12 +36,16 @@
     "sharedId": "4bbfe64b",
     "resourceName": "ofsbackend4bbfe64b",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "defaultSocial",
+    "useDefault": "manual",
     "hostedUI": true,
     "usernameAttributes": [
       "email"
     ],
-    "triggers": {},
+    "triggers": {
+      "PostConfirmation": [
+        "custom"
+      ]
+    },
     "hostedUIDomainName": "ofsbackend",
     "authProvidersUserPool": [
       "Google"
@@ -69,12 +73,29 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": [],
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "ofsbackend4bbfe64bPostConfirmation",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
     "parentStack": {
       "Ref": "AWS::StackId"
     },
     "permissions": [],
+    "adminQueryGroup": "Admins",
+    "thirdPartyAuth": true,
+    "authProviders": [
+      "accounts.google.com"
+    ],
+    "userPoolGroups": true,
+    "adminQueries": true,
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://main.d1j7hkee561c4y.amplifyapp.com/\",\"http://localhost:3000/\"],\"LogoutURLs\":[\"https://main.d1j7hkee561c4y.amplifyapp.com/\",\"http://localhost:3000/\"]}",
-    "adminQueryGroup": "Admins"
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"ofsbackend4bbfe64bPostConfirmation\"\n  }\n]"
   }
 }

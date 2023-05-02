@@ -14,6 +14,7 @@ export type AmplifyDependentResourcesAttributes = {
     "ofsbackend4bbfe64b": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
+      "GoogleWebClient": "string",
       "HostedUIDomain": "string",
       "IdentityPoolId": "string",
       "IdentityPoolName": "string",
@@ -31,6 +32,13 @@ export type AmplifyDependentResourcesAttributes = {
   },
   "function": {
     "AdminQueries9cf22bb0": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "ofsbackend4bbfe64bPostConfirmation": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
