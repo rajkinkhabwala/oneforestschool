@@ -32,7 +32,7 @@ export default function NotificationCreateForm(props) {
     title: "",
     message: "",
     context_id: "",
-    context: "",
+    context: undefined,
   };
   const [title, setTitle] = React.useState(initialValues.title);
   const [message, setMessage] = React.useState(initialValues.message);
