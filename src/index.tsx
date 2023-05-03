@@ -7,6 +7,7 @@ import "@aws-amplify/ui-react/styles.css";
 import { Authenticator } from "@aws-amplify/ui-react";
 import { Amplify } from "aws-amplify";
 import awsmobile from "./aws-exports";
+import {QueryClientProvider, QueryClient} from "react-query"
 
 const isLocalhost = Boolean(
   window.location.hostname === "localhost" ||
@@ -42,11 +43,13 @@ Amplify.configure(updatedAwsConfig);
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-
+const client = new QueryClient()
 root.render(
   <React.StrictMode>
     <Authenticator.Provider>
+    <QueryClientProvider client={client} contextSharing={true}>
       <App />
+    </QueryClientProvider>
     </Authenticator.Provider>
   </React.StrictMode>
 );

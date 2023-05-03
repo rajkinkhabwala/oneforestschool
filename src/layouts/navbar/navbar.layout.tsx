@@ -18,6 +18,9 @@ import {
   IconLogout,
   TablerIconsProps,
 } from "@tabler/icons-react";
+import { Link, NavLink } from "react-router-dom";
+import { Auth } from "aws-amplify";
+import { logout_link } from "../../common/constants/navbars/navbar";
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -97,50 +100,35 @@ interface INavbarLayout {
 
 export function NavbarLayout({ data }: PropsWithChildren<INavbarLayout>) {
   const { classes, cx } = useStyles();
-  const [active, setActive] = useState("Billing");
-
+  
   const links = data.map((item) => (
-    <a
-      className={cx(classes.link, {
-        [classes.linkActive]: item.label === active,
-      })}
-      href={item.link}
-      key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(item.label);
-      }}
-    >
+      <NavLink
+        className={({isActive}) => cx(classes.link, { [classes.linkActive]: isActive })}
+        to={item.link}
+        key={item.link}
+      >
+        
       {item.icon ? (
         <item.icon className={classes.linkIcon} stroke={1.5} />
       ) : (
         <></>
       )}
       <span>{item.label}</span>
-    </a>
+      </NavLink>
   ));
 
   return (
     <>
       <Navbar.Section grow>{links}</Navbar.Section>
       <Navbar.Section className={classes.footer}>
-        <a
-          href="#"
+        <Link
           className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >
-          <IconSwitchHorizontal className={classes.linkIcon} stroke={1.5} />
-          <span>Change account</span>
-        </a>
-
-        <a
-          href="#"
-          className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >
+          onClick={() => {
+            Auth.signOut()
+          }} to={"/"}>
           <IconLogout className={classes.linkIcon} stroke={1.5} />
-          <span>Logout</span>
-        </a>
+          <span>{logout_link}</span>
+        </Link>
       </Navbar.Section>
     </>
   );

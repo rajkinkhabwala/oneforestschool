@@ -3,7 +3,7 @@ import * as mutations from '../../../graphql/mutations';
 import * as queries from '../../../graphql/queries';
 import { GraphQLQuery, graphqlOperation, GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import { CreateDepartmentInput, CreateDepartmentMutation, DeleteDepartmentMutation, Department, GetDepartmentQuery, ListNotificationsQueryVariables , ListDepartmentsQuery, UpdateDepartmentInput, UpdateDepartmentMutation } from "../../../API";
-import { DepartmentGraphQLResult, GraphQLResult } from "../types/api";
+import { DepartmentGraphQLResult } from "../types/api";
 
 
 export async function createDepartment(department: CreateDepartmentInput) {

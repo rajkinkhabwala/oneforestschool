@@ -1,10 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { isAuthorized } from "../common/helpers/auth";
 import logo from '../logo.svg';
-import React from "react";
-import AdminMain from '../pages/Admin/main'
-// Lazy Imports
-
+import AdminMain from '../pages/admin/main';
 
 const router = createBrowserRouter([
     {
@@ -35,7 +32,15 @@ const router = createBrowserRouter([
     },
     {
       path: 'admin/',
-      element: <AdminMain />
+      element: <AdminMain />,
+      children: [{
+        path: "department/",
+        lazy: () => import('../pages/admin/department/department.page'),
+        children: [
+          
+        ],
+        errorElement: <>Error</>
+      }]
     }
 ])
 
