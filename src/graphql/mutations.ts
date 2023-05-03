@@ -15,9 +15,31 @@ export const createUser = /* GraphQL */ `
       address
       picture
       description
+      Notifications {
+        items {
+          id
+          title
+          message
+          courseID
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Courses {
+        items {
+          id
+          userId
+          courseId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -34,9 +56,31 @@ export const updateUser = /* GraphQL */ `
       address
       picture
       description
+      Notifications {
+        items {
+          id
+          title
+          message
+          courseID
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Courses {
+        items {
+          id
+          userId
+          courseId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -53,9 +97,31 @@ export const deleteUser = /* GraphQL */ `
       address
       picture
       description
+      Notifications {
+        items {
+          id
+          title
+          message
+          courseID
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Courses {
+        items {
+          id
+          userId
+          courseId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -68,8 +134,8 @@ export const createNotification = /* GraphQL */ `
       id
       title
       message
-      context_id
-      context
+      courseID
+      userID
       createdAt
       updatedAt
     }
@@ -84,8 +150,8 @@ export const updateNotification = /* GraphQL */ `
       id
       title
       message
-      context_id
-      context
+      courseID
+      userID
       createdAt
       updatedAt
     }
@@ -100,8 +166,407 @@ export const deleteNotification = /* GraphQL */ `
       id
       title
       message
-      context_id
-      context
+      courseID
+      userID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createCourse = /* GraphQL */ `
+  mutation CreateCourse(
+    $input: CreateCourseInput!
+    $condition: ModelCourseConditionInput
+  ) {
+    createCourse(input: $input, condition: $condition) {
+      id
+      name
+      code
+      visibility
+      start_date
+      end_date
+      description
+      main_image
+      images
+      credit
+      departmentID
+      event
+      Users {
+        items {
+          id
+          userId
+          courseId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Notifications {
+        items {
+          id
+          title
+          message
+          courseID
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCourse = /* GraphQL */ `
+  mutation UpdateCourse(
+    $input: UpdateCourseInput!
+    $condition: ModelCourseConditionInput
+  ) {
+    updateCourse(input: $input, condition: $condition) {
+      id
+      name
+      code
+      visibility
+      start_date
+      end_date
+      description
+      main_image
+      images
+      credit
+      departmentID
+      event
+      Users {
+        items {
+          id
+          userId
+          courseId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Notifications {
+        items {
+          id
+          title
+          message
+          courseID
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCourse = /* GraphQL */ `
+  mutation DeleteCourse(
+    $input: DeleteCourseInput!
+    $condition: ModelCourseConditionInput
+  ) {
+    deleteCourse(input: $input, condition: $condition) {
+      id
+      name
+      code
+      visibility
+      start_date
+      end_date
+      description
+      main_image
+      images
+      credit
+      departmentID
+      event
+      Users {
+        items {
+          id
+          userId
+          courseId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Notifications {
+        items {
+          id
+          title
+          message
+          courseID
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createDepartment = /* GraphQL */ `
+  mutation CreateDepartment(
+    $input: CreateDepartmentInput!
+    $condition: ModelDepartmentConditionInput
+  ) {
+    createDepartment(input: $input, condition: $condition) {
+      id
+      name
+      code
+      description
+      Courses {
+        items {
+          id
+          name
+          code
+          visibility
+          start_date
+          end_date
+          description
+          main_image
+          images
+          credit
+          departmentID
+          event
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateDepartment = /* GraphQL */ `
+  mutation UpdateDepartment(
+    $input: UpdateDepartmentInput!
+    $condition: ModelDepartmentConditionInput
+  ) {
+    updateDepartment(input: $input, condition: $condition) {
+      id
+      name
+      code
+      description
+      Courses {
+        items {
+          id
+          name
+          code
+          visibility
+          start_date
+          end_date
+          description
+          main_image
+          images
+          credit
+          departmentID
+          event
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteDepartment = /* GraphQL */ `
+  mutation DeleteDepartment(
+    $input: DeleteDepartmentInput!
+    $condition: ModelDepartmentConditionInput
+  ) {
+    deleteDepartment(input: $input, condition: $condition) {
+      id
+      name
+      code
+      description
+      Courses {
+        items {
+          id
+          name
+          code
+          visibility
+          start_date
+          end_date
+          description
+          main_image
+          images
+          credit
+          departmentID
+          event
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createCourseUsers = /* GraphQL */ `
+  mutation CreateCourseUsers(
+    $input: CreateCourseUsersInput!
+    $condition: ModelCourseUsersConditionInput
+  ) {
+    createCourseUsers(input: $input, condition: $condition) {
+      id
+      userId
+      courseId
+      user {
+        id
+        email
+        name
+        phone
+        address
+        picture
+        description
+        Notifications {
+          nextToken
+        }
+        Courses {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+      }
+      course {
+        id
+        name
+        code
+        visibility
+        start_date
+        end_date
+        description
+        main_image
+        images
+        credit
+        departmentID
+        event
+        Users {
+          nextToken
+        }
+        Notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCourseUsers = /* GraphQL */ `
+  mutation UpdateCourseUsers(
+    $input: UpdateCourseUsersInput!
+    $condition: ModelCourseUsersConditionInput
+  ) {
+    updateCourseUsers(input: $input, condition: $condition) {
+      id
+      userId
+      courseId
+      user {
+        id
+        email
+        name
+        phone
+        address
+        picture
+        description
+        Notifications {
+          nextToken
+        }
+        Courses {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+      }
+      course {
+        id
+        name
+        code
+        visibility
+        start_date
+        end_date
+        description
+        main_image
+        images
+        credit
+        departmentID
+        event
+        Users {
+          nextToken
+        }
+        Notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCourseUsers = /* GraphQL */ `
+  mutation DeleteCourseUsers(
+    $input: DeleteCourseUsersInput!
+    $condition: ModelCourseUsersConditionInput
+  ) {
+    deleteCourseUsers(input: $input, condition: $condition) {
+      id
+      userId
+      courseId
+      user {
+        id
+        email
+        name
+        phone
+        address
+        picture
+        description
+        Notifications {
+          nextToken
+        }
+        Courses {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+      }
+      course {
+        id
+        name
+        code
+        visibility
+        start_date
+        end_date
+        description
+        main_image
+        images
+        credit
+        departmentID
+        event
+        Users {
+          nextToken
+        }
+        Notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }

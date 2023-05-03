@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { Notification } from "../models";
 export declare type ValidationResponse = {
@@ -16,22 +16,16 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type NotificationUpdateFormInputValues = {
     title?: string;
     message?: string;
-    context_id?: string;
-    context?: string;
 };
 export declare type NotificationUpdateFormValidationValues = {
     title?: ValidationFunction<string>;
     message?: ValidationFunction<string>;
-    context_id?: ValidationFunction<string>;
-    context?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type NotificationUpdateFormOverridesProps = {
     NotificationUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     title?: PrimitiveOverrideProps<TextFieldProps>;
     message?: PrimitiveOverrideProps<TextFieldProps>;
-    context_id?: PrimitiveOverrideProps<TextFieldProps>;
-    context?: PrimitiveOverrideProps<SelectFieldProps>;
 } & EscapeHatchProps;
 export declare type NotificationUpdateFormProps = React.PropsWithChildren<{
     overrides?: NotificationUpdateFormOverridesProps | undefined | null;

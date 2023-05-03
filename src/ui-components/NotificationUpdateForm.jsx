@@ -6,13 +6,7 @@
 
 /* eslint-disable */
 import * as React from "react";
-import {
-  Button,
-  Flex,
-  Grid,
-  SelectField,
-  TextField,
-} from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Notification } from "../models";
 import { fetchByPath, validateField } from "./utils";
@@ -32,13 +26,9 @@ export default function NotificationUpdateForm(props) {
   const initialValues = {
     title: "",
     message: "",
-    context_id: "",
-    context: "",
   };
   const [title, setTitle] = React.useState(initialValues.title);
   const [message, setMessage] = React.useState(initialValues.message);
-  const [context_id, setContext_id] = React.useState(initialValues.context_id);
-  const [context, setContext] = React.useState(initialValues.context);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = notificationRecord
@@ -46,8 +36,6 @@ export default function NotificationUpdateForm(props) {
       : initialValues;
     setTitle(cleanValues.title);
     setMessage(cleanValues.message);
-    setContext_id(cleanValues.context_id);
-    setContext(cleanValues.context);
     setErrors({});
   };
   const [notificationRecord, setNotificationRecord] = React.useState(
@@ -66,8 +54,6 @@ export default function NotificationUpdateForm(props) {
   const validations = {
     title: [],
     message: [],
-    context_id: [],
-    context: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -97,8 +83,6 @@ export default function NotificationUpdateForm(props) {
         let modelFields = {
           title,
           message,
-          context_id,
-          context,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -156,8 +140,6 @@ export default function NotificationUpdateForm(props) {
             const modelFields = {
               title: value,
               message,
-              context_id,
-              context,
             };
             const result = onChange(modelFields);
             value = result?.title ?? value;
@@ -183,8 +165,6 @@ export default function NotificationUpdateForm(props) {
             const modelFields = {
               title,
               message: value,
-              context_id,
-              context,
             };
             const result = onChange(modelFields);
             value = result?.message ?? value;
@@ -199,76 +179,6 @@ export default function NotificationUpdateForm(props) {
         hasError={errors.message?.hasError}
         {...getOverrideProps(overrides, "message")}
       ></TextField>
-      <TextField
-        label="Context id"
-        isRequired={false}
-        isReadOnly={false}
-        value={context_id}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              title,
-              message,
-              context_id: value,
-              context,
-            };
-            const result = onChange(modelFields);
-            value = result?.context_id ?? value;
-          }
-          if (errors.context_id?.hasError) {
-            runValidationTasks("context_id", value);
-          }
-          setContext_id(value);
-        }}
-        onBlur={() => runValidationTasks("context_id", context_id)}
-        errorMessage={errors.context_id?.errorMessage}
-        hasError={errors.context_id?.hasError}
-        {...getOverrideProps(overrides, "context_id")}
-      ></TextField>
-      <SelectField
-        label="Context"
-        placeholder="Please select an option"
-        isDisabled={false}
-        value={context}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              title,
-              message,
-              context_id,
-              context: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.context ?? value;
-          }
-          if (errors.context?.hasError) {
-            runValidationTasks("context", value);
-          }
-          setContext(value);
-        }}
-        onBlur={() => runValidationTasks("context", context)}
-        errorMessage={errors.context?.errorMessage}
-        hasError={errors.context?.hasError}
-        {...getOverrideProps(overrides, "context")}
-      >
-        <option
-          children="Department"
-          value="DEPARTMENT"
-          {...getOverrideProps(overrides, "contextoption0")}
-        ></option>
-        <option
-          children="Course"
-          value="COURSE"
-          {...getOverrideProps(overrides, "contextoption1")}
-        ></option>
-        <option
-          children="User"
-          value="USER"
-          {...getOverrideProps(overrides, "contextoption2")}
-        ></option>
-      </SelectField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
