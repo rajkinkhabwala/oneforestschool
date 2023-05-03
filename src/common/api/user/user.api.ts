@@ -3,7 +3,7 @@ import * as mutations from '../../../graphql/mutations';
 import * as queries from '../../../graphql/queries';
 import { GraphQLQuery, graphqlOperation, GRAPHQL_AUTH_MODE} from '@aws-amplify/api';
 import { CreateUserInput, UpdateUserMutation, DeleteUserInput, GetUserQuery, ListUsersQuery, UpdateUserInput, User, ListUsersQueryVariables} from '../../../API'
-import { UserGraphQLResult } from "../../../models/result.type";
+import { UserGraphQLResult } from "../types/api";
 
 export async function createUser(user: CreateUserInput) {
     return await API.graphql<GraphQLQuery<UpdateUserMutation>>({...graphqlOperation(mutations.createUser, { input: user }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
