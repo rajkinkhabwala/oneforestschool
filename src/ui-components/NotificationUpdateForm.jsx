@@ -14,7 +14,7 @@ import { DataStore } from "aws-amplify";
 export default function NotificationUpdateForm(props) {
   const {
     id: idProp,
-    notification: notificationModelProp,
+    notification,
     onSuccess,
     onError,
     onSubmit,
@@ -38,18 +38,17 @@ export default function NotificationUpdateForm(props) {
     setMessage(cleanValues.message);
     setErrors({});
   };
-  const [notificationRecord, setNotificationRecord] = React.useState(
-    notificationModelProp
-  );
+  const [notificationRecord, setNotificationRecord] =
+    React.useState(notification);
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
         ? await DataStore.query(Notification, idProp)
-        : notificationModelProp;
+        : notification;
       setNotificationRecord(record);
     };
     queryData();
-  }, [idProp, notificationModelProp]);
+  }, [idProp, notification]);
   React.useEffect(resetStateValues, [notificationRecord]);
   const validations = {
     title: [],
@@ -190,7 +189,7 @@ export default function NotificationUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || notificationModelProp)}
+          isDisabled={!(idProp || notification)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -202,7 +201,7 @@ export default function NotificationUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || notificationModelProp) ||
+              !(idProp || notification) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}
