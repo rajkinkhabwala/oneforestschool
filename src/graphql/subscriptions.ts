@@ -15,9 +15,31 @@ export const onCreateUser = /* GraphQL */ `
       address
       picture
       description
+      Notifications {
+        items {
+          id
+          title
+          message
+          courseID
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Courses {
+        items {
+          id
+          userId
+          courseId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -34,9 +56,31 @@ export const onUpdateUser = /* GraphQL */ `
       address
       picture
       description
+      Notifications {
+        items {
+          id
+          title
+          message
+          courseID
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Courses {
+        items {
+          id
+          userId
+          courseId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -53,9 +97,31 @@ export const onDeleteUser = /* GraphQL */ `
       address
       picture
       description
+      Notifications {
+        items {
+          id
+          title
+          message
+          courseID
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Courses {
+        items {
+          id
+          userId
+          courseId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      owner
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -67,8 +133,8 @@ export const onCreateNotification = /* GraphQL */ `
       id
       title
       message
-      context_id
-      context
+      courseID
+      userID
       createdAt
       updatedAt
     }
@@ -82,8 +148,8 @@ export const onUpdateNotification = /* GraphQL */ `
       id
       title
       message
-      context_id
-      context
+      courseID
+      userID
       createdAt
       updatedAt
     }
@@ -97,8 +163,392 @@ export const onDeleteNotification = /* GraphQL */ `
       id
       title
       message
-      context_id
-      context
+      courseID
+      userID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateCourse = /* GraphQL */ `
+  subscription OnCreateCourse($filter: ModelSubscriptionCourseFilterInput) {
+    onCreateCourse(filter: $filter) {
+      id
+      name
+      code
+      visibility
+      start_date
+      end_date
+      description
+      main_image
+      images
+      credit
+      departmentID
+      event
+      Users {
+        items {
+          id
+          userId
+          courseId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Notifications {
+        items {
+          id
+          title
+          message
+          courseID
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCourse = /* GraphQL */ `
+  subscription OnUpdateCourse($filter: ModelSubscriptionCourseFilterInput) {
+    onUpdateCourse(filter: $filter) {
+      id
+      name
+      code
+      visibility
+      start_date
+      end_date
+      description
+      main_image
+      images
+      credit
+      departmentID
+      event
+      Users {
+        items {
+          id
+          userId
+          courseId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Notifications {
+        items {
+          id
+          title
+          message
+          courseID
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCourse = /* GraphQL */ `
+  subscription OnDeleteCourse($filter: ModelSubscriptionCourseFilterInput) {
+    onDeleteCourse(filter: $filter) {
+      id
+      name
+      code
+      visibility
+      start_date
+      end_date
+      description
+      main_image
+      images
+      credit
+      departmentID
+      event
+      Users {
+        items {
+          id
+          userId
+          courseId
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      Notifications {
+        items {
+          id
+          title
+          message
+          courseID
+          userID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateDepartment = /* GraphQL */ `
+  subscription OnCreateDepartment(
+    $filter: ModelSubscriptionDepartmentFilterInput
+  ) {
+    onCreateDepartment(filter: $filter) {
+      id
+      name
+      code
+      description
+      Courses {
+        items {
+          id
+          name
+          code
+          visibility
+          start_date
+          end_date
+          description
+          main_image
+          images
+          credit
+          departmentID
+          event
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateDepartment = /* GraphQL */ `
+  subscription OnUpdateDepartment(
+    $filter: ModelSubscriptionDepartmentFilterInput
+  ) {
+    onUpdateDepartment(filter: $filter) {
+      id
+      name
+      code
+      description
+      Courses {
+        items {
+          id
+          name
+          code
+          visibility
+          start_date
+          end_date
+          description
+          main_image
+          images
+          credit
+          departmentID
+          event
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteDepartment = /* GraphQL */ `
+  subscription OnDeleteDepartment(
+    $filter: ModelSubscriptionDepartmentFilterInput
+  ) {
+    onDeleteDepartment(filter: $filter) {
+      id
+      name
+      code
+      description
+      Courses {
+        items {
+          id
+          name
+          code
+          visibility
+          start_date
+          end_date
+          description
+          main_image
+          images
+          credit
+          departmentID
+          event
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateCourseUsers = /* GraphQL */ `
+  subscription OnCreateCourseUsers(
+    $filter: ModelSubscriptionCourseUsersFilterInput
+  ) {
+    onCreateCourseUsers(filter: $filter) {
+      id
+      userId
+      courseId
+      user {
+        id
+        email
+        name
+        phone
+        address
+        picture
+        description
+        Notifications {
+          nextToken
+        }
+        Courses {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+      }
+      course {
+        id
+        name
+        code
+        visibility
+        start_date
+        end_date
+        description
+        main_image
+        images
+        credit
+        departmentID
+        event
+        Users {
+          nextToken
+        }
+        Notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCourseUsers = /* GraphQL */ `
+  subscription OnUpdateCourseUsers(
+    $filter: ModelSubscriptionCourseUsersFilterInput
+  ) {
+    onUpdateCourseUsers(filter: $filter) {
+      id
+      userId
+      courseId
+      user {
+        id
+        email
+        name
+        phone
+        address
+        picture
+        description
+        Notifications {
+          nextToken
+        }
+        Courses {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+      }
+      course {
+        id
+        name
+        code
+        visibility
+        start_date
+        end_date
+        description
+        main_image
+        images
+        credit
+        departmentID
+        event
+        Users {
+          nextToken
+        }
+        Notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCourseUsers = /* GraphQL */ `
+  subscription OnDeleteCourseUsers(
+    $filter: ModelSubscriptionCourseUsersFilterInput
+  ) {
+    onDeleteCourseUsers(filter: $filter) {
+      id
+      userId
+      courseId
+      user {
+        id
+        email
+        name
+        phone
+        address
+        picture
+        description
+        Notifications {
+          nextToken
+        }
+        Courses {
+          nextToken
+        }
+        owner
+        createdAt
+        updatedAt
+      }
+      course {
+        id
+        name
+        code
+        visibility
+        start_date
+        end_date
+        description
+        main_image
+        images
+        credit
+        departmentID
+        event
+        Users {
+          nextToken
+        }
+        Notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }

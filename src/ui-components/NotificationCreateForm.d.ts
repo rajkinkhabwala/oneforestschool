@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
@@ -15,22 +15,16 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type NotificationCreateFormInputValues = {
     title?: string;
     message?: string;
-    context_id?: string;
-    context?: string;
 };
 export declare type NotificationCreateFormValidationValues = {
     title?: ValidationFunction<string>;
     message?: ValidationFunction<string>;
-    context_id?: ValidationFunction<string>;
-    context?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type NotificationCreateFormOverridesProps = {
     NotificationCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     title?: PrimitiveOverrideProps<TextFieldProps>;
     message?: PrimitiveOverrideProps<TextFieldProps>;
-    context_id?: PrimitiveOverrideProps<TextFieldProps>;
-    context?: PrimitiveOverrideProps<SelectFieldProps>;
 } & EscapeHatchProps;
 export declare type NotificationCreateFormProps = React.PropsWithChildren<{
     overrides?: NotificationCreateFormOverridesProps | undefined | null;

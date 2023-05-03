@@ -30,6 +30,7 @@ export default function UserUpdateForm(props) {
     address: "",
     picture: "",
     description: "",
+    owner: "",
   };
   const [email, setEmail] = React.useState(initialValues.email);
   const [name, setName] = React.useState(initialValues.name);
@@ -39,6 +40,7 @@ export default function UserUpdateForm(props) {
   const [description, setDescription] = React.useState(
     initialValues.description
   );
+  const [owner, setOwner] = React.useState(initialValues.owner);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = userRecord
@@ -50,6 +52,7 @@ export default function UserUpdateForm(props) {
     setAddress(cleanValues.address);
     setPicture(cleanValues.picture);
     setDescription(cleanValues.description);
+    setOwner(cleanValues.owner);
     setErrors({});
   };
   const [userRecord, setUserRecord] = React.useState(user);
@@ -68,6 +71,7 @@ export default function UserUpdateForm(props) {
     address: [],
     picture: [],
     description: [],
+    owner: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -101,6 +105,7 @@ export default function UserUpdateForm(props) {
           address,
           picture,
           description,
+          owner,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -162,6 +167,7 @@ export default function UserUpdateForm(props) {
               address,
               picture,
               description,
+              owner,
             };
             const result = onChange(modelFields);
             value = result?.email ?? value;
@@ -191,6 +197,7 @@ export default function UserUpdateForm(props) {
               address,
               picture,
               description,
+              owner,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -220,6 +227,7 @@ export default function UserUpdateForm(props) {
               address,
               picture,
               description,
+              owner,
             };
             const result = onChange(modelFields);
             value = result?.phone ?? value;
@@ -249,6 +257,7 @@ export default function UserUpdateForm(props) {
               address: value,
               picture,
               description,
+              owner,
             };
             const result = onChange(modelFields);
             value = result?.address ?? value;
@@ -278,6 +287,7 @@ export default function UserUpdateForm(props) {
               address,
               picture: value,
               description,
+              owner,
             };
             const result = onChange(modelFields);
             value = result?.picture ?? value;
@@ -307,6 +317,7 @@ export default function UserUpdateForm(props) {
               address,
               picture,
               description: value,
+              owner,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -320,6 +331,36 @@ export default function UserUpdateForm(props) {
         errorMessage={errors.description?.errorMessage}
         hasError={errors.description?.hasError}
         {...getOverrideProps(overrides, "description")}
+      ></TextField>
+      <TextField
+        label="Owner"
+        isRequired={false}
+        isReadOnly={false}
+        value={owner}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              email,
+              name,
+              phone,
+              address,
+              picture,
+              description,
+              owner: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.owner ?? value;
+          }
+          if (errors.owner?.hasError) {
+            runValidationTasks("owner", value);
+          }
+          setOwner(value);
+        }}
+        onBlur={() => runValidationTasks("owner", owner)}
+        errorMessage={errors.owner?.errorMessage}
+        hasError={errors.owner?.hasError}
+        {...getOverrideProps(overrides, "owner")}
       ></TextField>
       <Flex
         justifyContent="space-between"
