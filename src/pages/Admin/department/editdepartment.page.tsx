@@ -1,10 +1,10 @@
 import { Outlet, json, useLocation } from "react-router-dom";
 import { isAuthorized } from "../../../common/helpers/auth";
 import { apiError, notAuthorized } from "../../../common/constants/errors/errors";
-import { useListCourseQuery } from "../../../common/queries/course.queries";
+import { useListDepartmentQuery } from "../../../common/queries/department.queries";
 
 export function Component() {
-    const { data, isLoading, isError, error} = useListCourseQuery();
+    const { data, isLoading, isError, error} = useListDepartmentQuery();
     const location = useLocation();
 
     if(isError){
@@ -17,10 +17,9 @@ export function Component() {
 
     return(
          <>
-         Edit Course Component
+         Edit Department Component
          </>
     )
 }
 
-
-Component.displayName = "CourseEdit"
+Component.displayName = "DepartmentEdit"

@@ -1,6 +1,6 @@
 import { Outlet, json, useLocation } from "react-router-dom";
 import { isAuthorized } from "../../../common/helpers/auth";
-import { apiError, notAuthorized } from "../../../common/constants/errors/errors";
+import { notAuthorized } from "../../../common/constants/errors/errors";
 import { useListCourseQuery } from "../../../common/queries/course.queries";
 
 export function Component() {
@@ -10,17 +10,15 @@ export function Component() {
     if(isError){
       json(
         {message: error},
-        {status: 500,
-        statusText: apiError}
+        {status: 500}
       )
     }
 
     return(
          <>
-         Edit Course Component
+         Create Course Component
          </>
     )
 }
 
-
-Component.displayName = "CourseEdit"
+Component.displayName = "CreateCourse"
