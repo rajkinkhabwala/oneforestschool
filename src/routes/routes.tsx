@@ -61,10 +61,46 @@ const router = createBrowserRouter([
             lazy: () =>
               import("../pages/admin/department/singledepartment.page"),
           },
+          {
+            path: "create/",
+            lazy: () => import("../pages/admin/department/createdepartment.page"),
+          },
+          {
+            path: "edit/",
+            lazy: () => import("../pages/admin/department/editdepartment.page"),
+          }
         ],
-        errorElement: <>Error</>,
       },
+      {
+        path: "course/",
+        lazy: () => import('../pages/admin/course/course.page'),
+        
+        children: [
+          {
+            path: ":id/",
+            lazy: () =>
+              import("../pages/admin/course/singlecourse.page"),
+          },
+          {
+            path: "create/",
+            lazy: () => import("../pages/admin/course/createcourse.page"),
+          },
+          {
+            path: "edit/",
+            lazy: () => import("../pages/admin/course/editcourse.page"),
+          }
+        ],
+      },
+      {
+        path: "user/",
+        // Add Lazy to render element
+        
+        children: [
+          // add children as per needs
+        ],
+      }
     ],
+    errorElement: <>Error</>,
   },
 ]);
 
