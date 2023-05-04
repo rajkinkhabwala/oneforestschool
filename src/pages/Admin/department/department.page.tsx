@@ -1,24 +1,7 @@
-import { Outlet, json, useLocation } from "react-router-dom";
-import { isAuthorized } from "../../../common/helpers/auth";
-import { notAuthorized } from "../../../common/constants/errors/errors";
+import { Outlet,  useLocation } from "react-router-dom";
 
-export async function loader(){
 
-    const value = await isAuthorized(["Admins"])
-
-    if(value){
-        return value;
-    } 
-    console.log(value)
-    json({
-        message: notAuthorized
-    }, {
-        status: 401,
-        statusText: "UNAUTHORIZATION"
-    })
-}
-
-export function DepartmentPage(){
+export function Component(){
 
     const location = useLocation();
     
@@ -37,3 +20,5 @@ export function DepartmentPage(){
     )
 
 }
+
+Component.displayName = "DepartmentPage"
