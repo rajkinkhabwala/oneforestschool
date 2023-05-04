@@ -1,6 +1,19 @@
-import { Outlet, json, useLocation } from "react-router-dom";
+import { json } from "react-router-dom";
 import { isAuthorized } from "../../../common/helpers/auth";
 import { notAuthorized } from "../../../common/constants/errors/errors";
+import { useListCourseQuery } from "../../../common/queries/course.queries";
+
+export function Component() {
+    const { data, isLoading, isError, error} = useListCourseQuery();
+
+    if(isError){
+      json(
+        {message: error},
+        {status: 500}
+      )
+    }
+}
+
 
 export async function loader(){
 
@@ -9,7 +22,7 @@ export async function loader(){
     if(value){
         return value;
     } 
-    console.log(value)
+
     json({
         message: notAuthorized
     }, {
@@ -18,22 +31,4 @@ export async function loader(){
     })
 }
 
-export function DepartmentPage(){
-
-    const location = useLocation();
-    
-    console.log(location)
-    return(
-       <>
-       {
-        location.pathname === "/admin/department" ? 
-        <>
-        Department Component
-        </>
-        :
-        <Outlet />
-       }
-       </>
-    )
-
-}
+Component.displayName = "Course"

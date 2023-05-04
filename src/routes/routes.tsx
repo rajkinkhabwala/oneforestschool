@@ -1,7 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import { isAuthorized } from "../common/helpers/auth";
 import logo from '../logo.svg';
-import AdminMain from '../pages/admin/main';
+import AdminMain from '../pages/Admin/main';
+import path from "path";
+import { lazy } from "react";
+import { DepartmentPage, loader } from "../pages/Admin/department/department.page";
 
 const router = createBrowserRouter([
     {
@@ -35,10 +38,17 @@ const router = createBrowserRouter([
       element: <AdminMain />,
       children: [{
         path: "department/",
-        lazy: () => import('../pages/admin/department/department.page'),
+        element: <DepartmentPage />,
+        loader: () => loader,
         children: [
-          
-        ],
+          {
+            path: "single/",
+            lazy: ()=> import('../pages/Admin/department/singledepartment.page')
+          },
+          {
+            path: ":id/"
+          }
+         ],
         errorElement: <>Error</>
       }]
     }

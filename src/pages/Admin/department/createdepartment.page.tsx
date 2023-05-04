@@ -1,15 +1,16 @@
-import { Outlet, json, useLocation } from "react-router-dom";
+import { json } from "react-router-dom";
 import { isAuthorized } from "../../../common/helpers/auth";
 import { notAuthorized } from "../../../common/constants/errors/errors";
 
 export async function loader(){
 
     const value = await isAuthorized(["Admins"])
+    console.log(value)
 
     if(value){
         return value;
     } 
-    console.log(value)
+
     json({
         message: notAuthorized
     }, {
@@ -18,22 +19,12 @@ export async function loader(){
     })
 }
 
-export function DepartmentPage(){
+export function Component(){
 
-    const location = useLocation();
-    
-    console.log(location)
     return(
-       <>
-       {
-        location.pathname === "/admin/department" ? 
-        <>
-        Department Component
-        </>
-        :
-        <Outlet />
-       }
-       </>
+        <>Signle Component</>
     )
 
 }
+
+Component.displayName = "SingleDepartment"

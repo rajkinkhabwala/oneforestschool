@@ -249,6 +249,10 @@ export type ModelIntInput = {
 };
 
 export type UpdateCourseInput = {
+  course_end_date: null;
+  course_start_date: null;
+  course_image: string;
+  course_description: any;
   id: string,
   name?: string | null,
   code?: string | null,
@@ -284,6 +288,7 @@ export type ModelDepartmentConditionInput = {
 };
 
 export type Department = {
+  department_name: any;
   __typename: "Department",
   id: string,
   name: string,
