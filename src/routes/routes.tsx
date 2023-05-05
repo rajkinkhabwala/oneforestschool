@@ -36,6 +36,7 @@ const router = createBrowserRouter([
     element: <AdminMain />,
     loader: async () => {
       const value = await isAuthorized(["Admins"]);
+      console.log(value)
       if (value.status) {
         return value;
       }else {

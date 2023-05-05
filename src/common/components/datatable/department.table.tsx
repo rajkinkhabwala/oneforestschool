@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react';
 import { IconPlus } from '@tabler/icons-react';
 import { Button } from '@mantine/core';
 
-import { UserTableProps } from './table';
+import { DepartmentTableProps } from './table';
 
 const PAGE_SIZE = 8;
 
-export default function UserTable({data, isLoading, enableHeader, columns} : UserTableProps ){
+export default function DepartmentTable({data, isLoading, enableHeader, columns} : DepartmentTableProps ){
    
     const [page, setPage] = useState(1);
     const [records, setRecords] = useState(data?.items?.slice(0, PAGE_SIZE));
@@ -25,9 +25,8 @@ export default function UserTable({data, isLoading, enableHeader, columns} : Use
     return (
         <div>
             <div className={classes.header}>
-                <h2>Table Title</h2>
                 {enableHeader ?
-                    <Button className="add-user" leftIcon={<IconPlus />}>
+                    <Button className="add-department" leftIcon={<IconPlus />}>
                         Add Course
                     </Button>
                     :
@@ -44,8 +43,9 @@ export default function UserTable({data, isLoading, enableHeader, columns} : Use
                 onPageChange={(p) => setPage(p)}
                 totalRecords={data?.items?.length}
                 columns={columns ? columns : [
-                    { accessor: "email", title: "Email"},
-                    { accessor: "name", title: "Name" },
+                    { accessor: "id", title: "Department ID"},
+                    { accessor: "name", title: "Department Name" },
+                    { accessor: "code", title: "Department Code"}
                 ]}
             />
         </div>

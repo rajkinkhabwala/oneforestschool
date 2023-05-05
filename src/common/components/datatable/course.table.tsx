@@ -3,13 +3,13 @@ import { tableStyles } from "./table.styles"
 import { useEffect, useState } from 'react';
 import { IconPlus } from '@tabler/icons-react';
 import { Button } from '@mantine/core';
-
-import { UserTableProps } from './table';
+import { CourseTableProps } from './table';
 
 const PAGE_SIZE = 8;
+const enableHeader = true;
 
-export default function UserTable({data, isLoading, enableHeader, columns} : UserTableProps ){
-   
+export default function CourseTable({data, isLoading, enableHeader} : CourseTableProps) {
+  
     const [page, setPage] = useState(1);
     const [records, setRecords] = useState(data?.items?.slice(0, PAGE_SIZE));
 
@@ -19,15 +19,14 @@ export default function UserTable({data, isLoading, enableHeader, columns} : Use
         const from = (page - 1) * PAGE_SIZE;
         const to = from + PAGE_SIZE;
         setRecords(data?.items?.slice(from, to));
-    }, [data, page]);
+    }, [page]);
 
 
     return (
         <div>
             <div className={classes.header}>
-                <h2>Table Title</h2>
                 {enableHeader ?
-                    <Button className="add-user" leftIcon={<IconPlus />}>
+                    <Button className="add-course" leftIcon={<IconPlus />}>
                         Add Course
                     </Button>
                     :
@@ -43,9 +42,11 @@ export default function UserTable({data, isLoading, enableHeader, columns} : Use
                 recordsPerPage={PAGE_SIZE}
                 onPageChange={(p) => setPage(p)}
                 totalRecords={data?.items?.length}
-                columns={columns ? columns : [
-                    { accessor: "email", title: "Email"},
-                    { accessor: "name", title: "Name" },
+                columns={[
+                    { accessor: "id", title: "Course Code" },
+                    { accessor: "name", title: "Course Name" },
+                    { accessor: "code", title: "Course Code"},
+                    { accessor: "visibility", title: "Course Visibility"}
                 ]}
             />
         </div>

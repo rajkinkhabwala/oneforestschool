@@ -1,7 +1,6 @@
 import { Outlet, json, useLocation } from "react-router-dom";
-import { isAuthorized } from "../../../common/helpers/auth";
-import { notAuthorized } from "../../../common/constants/errors/errors";
 import { useListCourseQuery } from "../../../common/queries/course.queries";
+import CourseTable from "../../../common/components/datatable/course.table";
 
 export function Component() {
     const { data, isLoading, isError, error} = useListCourseQuery();
@@ -19,7 +18,7 @@ export function Component() {
         {
          location.pathname === "/admin/course" ? 
          <>
-         Course Component
+         <CourseTable data={data} isLoading={isLoading} enableHeader={false}></CourseTable>
          </>
          :
          <Outlet />
@@ -28,21 +27,4 @@ export function Component() {
     )
 }
 
-
-export async function loader(){
-
-    const value = await isAuthorized(["Admins"])
-
-    if(value){
-        return value;
-    } 
-
-    json({
-        message: notAuthorized
-    }, {
-        status: 401,
-        statusText: "UNAUTHORIZATION"
-    })
-}
-
-Component.displayName = "Course"
+Component.displayName = "CoursePage"
