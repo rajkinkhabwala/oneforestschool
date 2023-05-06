@@ -1,10 +1,10 @@
 import { DataTable } from 'mantine-datatable';
 import { tableStyles } from "./table.styles"
 import { useEffect, useState } from 'react';
-import { IconPlus } from '@tabler/icons-react';
-import { Button } from '@mantine/core';
-
+import { IconEdit, IconPlus } from '@tabler/icons-react';
 import { DepartmentTableProps } from './table';
+import { Department } from '../../../API';
+import { Link, useNavigate } from 'react-router-dom';
 
 const PAGE_SIZE = 8;
 
@@ -14,6 +14,7 @@ export default function DepartmentTable({data, isLoading, enableHeader, columns}
     const [records, setRecords] = useState(data?.items?.slice(0, PAGE_SIZE));
 
     const { classes, cx } = tableStyles()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const from = (page - 1) * PAGE_SIZE;
@@ -22,13 +23,12 @@ export default function DepartmentTable({data, isLoading, enableHeader, columns}
     }, [data, page]);
 
 
+
     return (
         <div>
             <div className={classes.header}>
                 {enableHeader ?
-                    <Button className="add-department" leftIcon={<IconPlus />}>
-                        Add Course
-                    </Button>
+                    <Link to={'create'} >Add New Department</Link>
                     :
                     <></>}
             </div>
@@ -45,10 +45,21 @@ export default function DepartmentTable({data, isLoading, enableHeader, columns}
                 columns={columns ? columns : [
                     { accessor: "id", title: "Department ID"},
                     { accessor: "name", title: "Department Name" },
-                    { accessor: "code", title: "Department Code"}
+                    { accessor: "code", title: "Department Code"},
+                    { accessor: "Modify", width:"20%",
+                      render: (rowData: Department) => {
+                        return(
+                            <div className="crud-btn-container">
+                              <span>
+                                <IconEdit strokeWidth={2} color={'blue'} onClick={() => navigate(`${rowData.id}`)}/></span>
+                            </div>
+                          )
+                      }
+                }
                 ]}
             />
         </div>
+
     )
 
 }

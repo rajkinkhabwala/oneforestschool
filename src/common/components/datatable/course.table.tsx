@@ -6,7 +6,6 @@ import { Button } from '@mantine/core';
 import { CourseTableProps } from './table';
 
 const PAGE_SIZE = 8;
-const enableHeader = true;
 
 export default function CourseTable({data, isLoading, enableHeader} : CourseTableProps) {
   
@@ -19,7 +18,7 @@ export default function CourseTable({data, isLoading, enableHeader} : CourseTabl
         const from = (page - 1) * PAGE_SIZE;
         const to = from + PAGE_SIZE;
         setRecords(data?.items?.slice(from, to));
-    }, [page]);
+    }, [data, page]);
 
 
     return (

@@ -7,7 +7,6 @@ export function Component(){
 
     const location = useLocation();
     const { data, isLoading, isError, error} = useListDepartmentQuery();
-    console.log(location)
 
     if(isError){
         json(
@@ -22,7 +21,7 @@ export function Component(){
        {
         location.pathname === "/admin/department" ? 
         <>
-        <DepartmentTable data={data} isLoading={isLoading} enableHeader={false} />
+        <DepartmentTable data={data} isLoading={isLoading} enableHeader={true} />
         </>
         :
         <Outlet />

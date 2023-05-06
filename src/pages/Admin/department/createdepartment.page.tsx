@@ -1,8 +1,8 @@
+import DepartmentForm from "../../../common/components/form/department.form"
+
 export function Component(){    
     return(
-         <>
-         Create Department Component
-         </>
+         <DepartmentForm formType="new"/>
     )
 }
 
