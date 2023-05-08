@@ -1,5 +1,5 @@
 import {useQuery} from "react-query";
-import { listDepartment } from "../api/department/department.api";
+import { getDepartment, listDepartment } from "../api/department/department.api";
 
 export function useListDepartmentQuery() {
     return useQuery(["departments"], () =>
@@ -9,3 +9,8 @@ export function useListDepartmentQuery() {
         }
       );
     }
+
+export function useDepartmentQuery(id: string) {
+      return useQuery(["departments",id], () => getDepartment(id));
+    }
+    
