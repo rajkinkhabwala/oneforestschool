@@ -11,9 +11,11 @@ import {
   updateDepartment,
 } from "../../api/department/department.api";
 import { useMutation, useQueryClient } from "react-query";
+import { ToggleButton } from "@aws-amplify/ui-react";
+import { useToggle } from "@mantine/hooks";
 
 
-function DepartmentForm({ formType, record}: FormModal<Department>) {
+function DepartmentForm({ formType, record, editState, setEditState}: DepartmentForm<Department>) {
 
   let form = useForm<any>({
     initialValues:
@@ -72,7 +74,19 @@ function DepartmentForm({ formType, record}: FormModal<Department>) {
     });
   }
 
+  
+    
+
   return (
+    <>
+    {
+      formType === "edit"?
+      <Button onClick={() => setEditState!()}>
+        {editState}
+      </Button>
+      :
+      <></>
+    }
     <form
       onSubmit={
         formType === "new"
@@ -80,11 +94,14 @@ function DepartmentForm({ formType, record}: FormModal<Department>) {
           : form.onSubmit(handleEdit)
       }
     >
+    
+      
       <TextInput
         withAsterisk
         label="Department Name"
         placeholder="Enter the department name..."
         required
+        disabled={formType === "edit" ?editState === "edit" ? false : true : false}
         {...form.getInputProps("name")}
       />
       <TextInput
@@ -92,18 +109,25 @@ function DepartmentForm({ formType, record}: FormModal<Department>) {
         label="Department Code"
         placeholder="Enter the department code..."
         required
+        disabled={formType === "edit" ?editState === "edit" ? false : true : false}
         {...form.getInputProps("code")}
       />
       <Textarea
         placeholder="Department Description"
         label="Enter the department description"
+        disabled={formType === "edit" ?editState === "edit" ? false : true : false}
         {...form.getInputProps("description")}
       />
-
+    {
+      editState === "edit" ?
       <Group position="right" mt="md">
-        <Button type="submit">Submit</Button>
-      </Group>
+        <Button type="submit">Edit Department</Button>
+      </Group>:
+      <></>
+    }
+      
     </form>
+    </>
   );
 }
 
