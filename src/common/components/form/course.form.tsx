@@ -49,7 +49,6 @@ export default function CourseForm({ formType, record }: FormModal<Course>) {
       end_date: dayjs(new Date()).add(1, "day").toDate() as any,
       main_image: "",
       images: null,
-      event: null,
       departmentID: "",
     },
   });
@@ -65,7 +64,6 @@ export default function CourseForm({ formType, record }: FormModal<Course>) {
       start_date: dayjs(record?.start_date).toDate().toISOString(),
       end_date: dayjs(record?.end_date).toDate().toISOString(),
       main_image: record?.main_image,
-      event: record?.event,
       departmentID: record?.departmentID,
     },
   });
@@ -120,22 +118,22 @@ export default function CourseForm({ formType, record }: FormModal<Course>) {
 
     createEvents("primary",params, event)
       .then((value) => {
-        let fdata: CreateCourseInput = {
-          ...values,
-          event: value.data
-        }
-        console.log(fdata)
-        window.setTimeout(() => {
-          createMutation.mutate(fdata, {
-        onSuccess(data, variables, context) {
-          notifications.show({
-            title: "Success",
-            message: `Course Created: ${data.data?.createCourse?.name}`,
-            color: "green",
-          });
-        },
-      })
-        }, 500)
+      //   let fdata: CreateCourseInput = {
+      //     ...values,
+      //     event: value.data
+      //   }
+      //   console.log(fdata)
+      //   window.setTimeout(() => {
+      //     createMutation.mutate(fdata, {
+      //   onSuccess(data, variables, context) {
+      //     notifications.show({
+      //       title: "Success",
+      //       message: `Course Created: ${data.data?.createCourse?.name}`,
+      //       color: "green",
+      //     });
+      //   },
+      // })
+      //   }, 500)
       })
       .catch((error) => {
         console.log(error)
