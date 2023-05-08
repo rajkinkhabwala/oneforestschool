@@ -16,7 +16,7 @@ export interface CourseGraphQLResult extends Omit<GraphQLResult, 'items'> {
 }
 
 export interface DepartmentGraphQLResult extends Omit<GraphQLResult, 'items'> {
-  items: Department[] | any | null | undefined
+  items: Department[] | null | undefined
 }
 
 export interface NotificationGraphQLResult extends Omit<GraphQLResult, 'items'> {
