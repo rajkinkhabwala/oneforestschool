@@ -185,7 +185,7 @@ function ArrayField({
 export default function CourseUpdateForm(props) {
   const {
     id: idProp,
-    course,
+    course: courseModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -240,14 +240,16 @@ export default function CourseUpdateForm(props) {
     );
     setErrors({});
   };
-  const [courseRecord, setCourseRecord] = React.useState(course);
+  const [courseRecord, setCourseRecord] = React.useState(courseModelProp);
   React.useEffect(() => {
     const queryData = async () => {
-      const record = idProp ? await DataStore.query(Course, idProp) : course;
+      const record = idProp
+        ? await DataStore.query(Course, idProp)
+        : courseModelProp;
       setCourseRecord(record);
     };
     queryData();
-  }, [idProp, course]);
+  }, [idProp, courseModelProp]);
   React.useEffect(resetStateValues, [courseRecord]);
   const [currentImagesValue, setCurrentImagesValue] = React.useState("");
   const imagesRef = React.createRef();
@@ -729,7 +731,7 @@ export default function CourseUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || course)}
+          isDisabled={!(idProp || courseModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -741,7 +743,7 @@ export default function CourseUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || course) ||
+              !(idProp || courseModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}
