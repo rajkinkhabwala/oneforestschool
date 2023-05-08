@@ -6,7 +6,8 @@ import Auth from './common/auth/auth.component';
 import {ColorScheme, MantineProvider, ColorSchemeProvider ,} from '@mantine/core';
 import { useState } from 'react';
 import {useColorScheme} from "@mantine/hooks"
-import {Notifications} from "@mantine/notifications"
+import { Notifications } from '@mantine/notifications';
+import { ModalsProvider } from '@mantine/modals';
 function App() {
 
   const preferredColorScheme = useColorScheme();
@@ -22,9 +23,10 @@ function App() {
     return(
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
       <MantineProvider theme={{ colorScheme: colorScheme }}  withGlobalStyles withNormalizeCSS>
+      <ModalsProvider>
         <Notifications />
       <RouterProvider router={router} fallbackElement/>
-      
+      </ModalsProvider>
       </MantineProvider>
       </ColorSchemeProvider>
     )
