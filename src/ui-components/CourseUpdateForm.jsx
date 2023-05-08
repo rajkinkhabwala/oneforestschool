@@ -16,7 +16,6 @@ import {
   ScrollView,
   SwitchField,
   Text,
-  TextAreaField,
   TextField,
   useTheme,
 } from "@aws-amplify/ui-react";
@@ -204,7 +203,6 @@ export default function CourseUpdateForm(props) {
     main_image: "",
     images: [],
     credit: "",
-    event: "",
   };
   const [name, setName] = React.useState(initialValues.name);
   const [code, setCode] = React.useState(initialValues.code);
@@ -217,7 +215,6 @@ export default function CourseUpdateForm(props) {
   const [main_image, setMain_image] = React.useState(initialValues.main_image);
   const [images, setImages] = React.useState(initialValues.images);
   const [credit, setCredit] = React.useState(initialValues.credit);
-  const [event, setEvent] = React.useState(initialValues.event);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = courseRecord
@@ -233,11 +230,6 @@ export default function CourseUpdateForm(props) {
     setImages(cleanValues.images ?? []);
     setCurrentImagesValue("");
     setCredit(cleanValues.credit);
-    setEvent(
-      typeof cleanValues.event === "string"
-        ? cleanValues.event
-        : JSON.stringify(cleanValues.event)
-    );
     setErrors({});
   };
   const [courseRecord, setCourseRecord] = React.useState(courseModelProp);
@@ -263,7 +255,6 @@ export default function CourseUpdateForm(props) {
     main_image: [],
     images: [],
     credit: [],
-    event: [{ type: "JSON" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -317,7 +308,6 @@ export default function CourseUpdateForm(props) {
           main_image,
           images,
           credit,
-          event,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -382,7 +372,6 @@ export default function CourseUpdateForm(props) {
               main_image,
               images,
               credit,
-              event,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -415,7 +404,6 @@ export default function CourseUpdateForm(props) {
               main_image,
               images,
               credit,
-              event,
             };
             const result = onChange(modelFields);
             value = result?.code ?? value;
@@ -448,7 +436,6 @@ export default function CourseUpdateForm(props) {
               main_image,
               images,
               credit,
-              event,
             };
             const result = onChange(modelFields);
             value = result?.visibility ?? value;
@@ -483,7 +470,6 @@ export default function CourseUpdateForm(props) {
               main_image,
               images,
               credit,
-              event,
             };
             const result = onChange(modelFields);
             value = result?.start_date ?? value;
@@ -518,7 +504,6 @@ export default function CourseUpdateForm(props) {
               main_image,
               images,
               credit,
-              event,
             };
             const result = onChange(modelFields);
             value = result?.end_date ?? value;
@@ -551,7 +536,6 @@ export default function CourseUpdateForm(props) {
               main_image,
               images,
               credit,
-              event,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -584,7 +568,6 @@ export default function CourseUpdateForm(props) {
               main_image: value,
               images,
               credit,
-              event,
             };
             const result = onChange(modelFields);
             value = result?.main_image ?? value;
@@ -613,7 +596,6 @@ export default function CourseUpdateForm(props) {
               main_image,
               images: values,
               credit,
-              event,
             };
             const result = onChange(modelFields);
             values = result?.images ?? values;
@@ -672,7 +654,6 @@ export default function CourseUpdateForm(props) {
               main_image,
               images,
               credit: value,
-              event,
             };
             const result = onChange(modelFields);
             value = result?.credit ?? value;
@@ -687,39 +668,6 @@ export default function CourseUpdateForm(props) {
         hasError={errors.credit?.hasError}
         {...getOverrideProps(overrides, "credit")}
       ></TextField>
-      <TextAreaField
-        label="Event"
-        isRequired={false}
-        isReadOnly={false}
-        value={event}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              name,
-              code,
-              visibility,
-              start_date,
-              end_date,
-              description,
-              main_image,
-              images,
-              credit,
-              event: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.event ?? value;
-          }
-          if (errors.event?.hasError) {
-            runValidationTasks("event", value);
-          }
-          setEvent(value);
-        }}
-        onBlur={() => runValidationTasks("event", event)}
-        errorMessage={errors.event?.errorMessage}
-        hasError={errors.event?.hasError}
-        {...getOverrideProps(overrides, "event")}
-      ></TextAreaField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

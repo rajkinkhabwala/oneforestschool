@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, SwitchFieldProps, TextAreaFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
@@ -22,7 +22,6 @@ export declare type CourseCreateFormInputValues = {
     main_image?: string;
     images?: string[];
     credit?: number;
-    event?: string;
 };
 export declare type CourseCreateFormValidationValues = {
     name?: ValidationFunction<string>;
@@ -34,7 +33,6 @@ export declare type CourseCreateFormValidationValues = {
     main_image?: ValidationFunction<string>;
     images?: ValidationFunction<string>;
     credit?: ValidationFunction<number>;
-    event?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type CourseCreateFormOverridesProps = {
@@ -48,7 +46,6 @@ export declare type CourseCreateFormOverridesProps = {
     main_image?: PrimitiveOverrideProps<TextFieldProps>;
     images?: PrimitiveOverrideProps<TextFieldProps>;
     credit?: PrimitiveOverrideProps<TextFieldProps>;
-    event?: PrimitiveOverrideProps<TextAreaFieldProps>;
 } & EscapeHatchProps;
 export declare type CourseCreateFormProps = React.PropsWithChildren<{
     overrides?: CourseCreateFormOverridesProps | undefined | null;

@@ -13,3 +13,5 @@ export { default as CourseCreateForm } from "./CourseCreateForm";
 export { default as CourseUpdateForm } from "./CourseUpdateForm";
 export { default as DepartmentCreateForm } from "./DepartmentCreateForm";
 export { default as DepartmentUpdateForm } from "./DepartmentUpdateForm";
+export { default as EventCreateForm } from "./EventCreateForm";
+export { default as EventUpdateForm } from "./EventUpdateForm";

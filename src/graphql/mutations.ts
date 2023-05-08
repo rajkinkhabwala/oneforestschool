@@ -190,7 +190,29 @@ export const createCourse = /* GraphQL */ `
       images
       credit
       departmentID
-      event
+      Event {
+        id
+        event
+        Course {
+          id
+          name
+          code
+          visibility
+          start_date
+          end_date
+          description
+          main_image
+          images
+          credit
+          departmentID
+          createdAt
+          updatedAt
+          courseEventId
+        }
+        createdAt
+        updatedAt
+        eventCourseId
+      }
       Users {
         items {
           id
@@ -215,6 +237,7 @@ export const createCourse = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      courseEventId
     }
   }
 `;
@@ -235,7 +258,29 @@ export const updateCourse = /* GraphQL */ `
       images
       credit
       departmentID
-      event
+      Event {
+        id
+        event
+        Course {
+          id
+          name
+          code
+          visibility
+          start_date
+          end_date
+          description
+          main_image
+          images
+          credit
+          departmentID
+          createdAt
+          updatedAt
+          courseEventId
+        }
+        createdAt
+        updatedAt
+        eventCourseId
+      }
       Users {
         items {
           id
@@ -260,6 +305,7 @@ export const updateCourse = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      courseEventId
     }
   }
 `;
@@ -280,7 +326,29 @@ export const deleteCourse = /* GraphQL */ `
       images
       credit
       departmentID
-      event
+      Event {
+        id
+        event
+        Course {
+          id
+          name
+          code
+          visibility
+          start_date
+          end_date
+          description
+          main_image
+          images
+          credit
+          departmentID
+          createdAt
+          updatedAt
+          courseEventId
+        }
+        createdAt
+        updatedAt
+        eventCourseId
+      }
       Users {
         items {
           id
@@ -305,6 +373,7 @@ export const deleteCourse = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      courseEventId
     }
   }
 `;
@@ -331,9 +400,9 @@ export const createDepartment = /* GraphQL */ `
           images
           credit
           departmentID
-          event
           createdAt
           updatedAt
+          courseEventId
         }
         nextToken
       }
@@ -365,9 +434,9 @@ export const updateDepartment = /* GraphQL */ `
           images
           credit
           departmentID
-          event
           createdAt
           updatedAt
+          courseEventId
         }
         nextToken
       }
@@ -399,14 +468,143 @@ export const deleteDepartment = /* GraphQL */ `
           images
           credit
           departmentID
-          event
           createdAt
           updatedAt
+          courseEventId
         }
         nextToken
       }
       createdAt
       updatedAt
+    }
+  }
+`;
+export const createEvent = /* GraphQL */ `
+  mutation CreateEvent(
+    $input: CreateEventInput!
+    $condition: ModelEventConditionInput
+  ) {
+    createEvent(input: $input, condition: $condition) {
+      id
+      event
+      Course {
+        id
+        name
+        code
+        visibility
+        start_date
+        end_date
+        description
+        main_image
+        images
+        credit
+        departmentID
+        Event {
+          id
+          event
+          createdAt
+          updatedAt
+          eventCourseId
+        }
+        Users {
+          nextToken
+        }
+        Notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        courseEventId
+      }
+      createdAt
+      updatedAt
+      eventCourseId
+    }
+  }
+`;
+export const updateEvent = /* GraphQL */ `
+  mutation UpdateEvent(
+    $input: UpdateEventInput!
+    $condition: ModelEventConditionInput
+  ) {
+    updateEvent(input: $input, condition: $condition) {
+      id
+      event
+      Course {
+        id
+        name
+        code
+        visibility
+        start_date
+        end_date
+        description
+        main_image
+        images
+        credit
+        departmentID
+        Event {
+          id
+          event
+          createdAt
+          updatedAt
+          eventCourseId
+        }
+        Users {
+          nextToken
+        }
+        Notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        courseEventId
+      }
+      createdAt
+      updatedAt
+      eventCourseId
+    }
+  }
+`;
+export const deleteEvent = /* GraphQL */ `
+  mutation DeleteEvent(
+    $input: DeleteEventInput!
+    $condition: ModelEventConditionInput
+  ) {
+    deleteEvent(input: $input, condition: $condition) {
+      id
+      event
+      Course {
+        id
+        name
+        code
+        visibility
+        start_date
+        end_date
+        description
+        main_image
+        images
+        credit
+        departmentID
+        Event {
+          id
+          event
+          createdAt
+          updatedAt
+          eventCourseId
+        }
+        Users {
+          nextToken
+        }
+        Notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        courseEventId
+      }
+      createdAt
+      updatedAt
+      eventCourseId
     }
   }
 `;
@@ -449,7 +647,13 @@ export const createCourseUsers = /* GraphQL */ `
         images
         credit
         departmentID
-        event
+        Event {
+          id
+          event
+          createdAt
+          updatedAt
+          eventCourseId
+        }
         Users {
           nextToken
         }
@@ -458,6 +662,7 @@ export const createCourseUsers = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        courseEventId
       }
       createdAt
       updatedAt
@@ -503,7 +708,13 @@ export const updateCourseUsers = /* GraphQL */ `
         images
         credit
         departmentID
-        event
+        Event {
+          id
+          event
+          createdAt
+          updatedAt
+          eventCourseId
+        }
         Users {
           nextToken
         }
@@ -512,6 +723,7 @@ export const updateCourseUsers = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        courseEventId
       }
       createdAt
       updatedAt
@@ -557,7 +769,13 @@ export const deleteCourseUsers = /* GraphQL */ `
         images
         credit
         departmentID
-        event
+        Event {
+          id
+          event
+          createdAt
+          updatedAt
+          eventCourseId
+        }
         Users {
           nextToken
         }
@@ -566,6 +784,7 @@ export const deleteCourseUsers = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        courseEventId
       }
       createdAt
       updatedAt
