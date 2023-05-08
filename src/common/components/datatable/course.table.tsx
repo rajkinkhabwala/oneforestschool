@@ -37,6 +37,7 @@ export default function CourseTable({data, isLoading, enableHeader} : CourseTabl
                 withBorder
                 withColumnBorders
                 height={300}
+                fetching={isLoading}
                 page={page}
                 recordsPerPage={PAGE_SIZE}
                 onPageChange={(p) => setPage(p)}

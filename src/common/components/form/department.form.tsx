@@ -28,7 +28,7 @@ function DepartmentForm({ formType, record, editState, setEditState}: Department
         : {
             name: record?.name,
             code: record?.code,
-            description: record?.description,
+            description: record?.description ? record?.description : "",
           },
   });
 

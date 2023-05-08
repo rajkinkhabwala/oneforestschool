@@ -8,6 +8,7 @@ import { Loader } from "@mantine/core";
 import { Tabs } from "@mantine/core";
 import { IconMessageCircle, IconSettings } from "@tabler/icons-react";
 import DepartmentTable from "../../../common/components/datatable/department.table";
+import CourseTable from "../../../common/components/datatable/course.table";
 
 export function Component() {
     const [value, toggle] = useToggle(['edit', 'view']);
@@ -31,8 +32,8 @@ export function Component() {
         <Tabs.Panel value="details" pt="xl">
                 <DepartmentForm record={data?.data?.getDepartment!} formType={"edit"} editState={value} setEditState={toggle!} />
         </Tabs.Panel>
-        <Tabs.Panel value="courses" pt="xl">
-            <DepartmentTable data={data?.data?.getDepartment?.Courses as any} isLoading={isLoading} enableHeader={false} />
+        <Tabs.Panel value="department" pt="xl">
+            <CourseTable data={data?.data?.getDepartment?.Courses as any} isLoading={isLoading} enableHeader={false} />
         </Tabs.Panel>
             </Tabs>
 
