@@ -10,9 +10,7 @@ export function listEvents(calendar_id = "primary", params?: any){
 
 export function createEvents(calendar_id = "primary", params?: any, body?:any){
 
-    return calendarClient.post(`/${calendar_id}/events`,
-    {
-        params: params,
-        body: body
+    return calendarClient.post(`/${calendar_id}/events`, JSON.stringify(body), {
+        params: params
     })
 }
