@@ -19,7 +19,7 @@ export function Component(){
     return(
        <>
        {
-        location.pathname === "/admin/department" ? 
+        location.pathname === "/admin/department" || location.pathname === "/admin/department/" ? 
         <>
         <DepartmentTable data={data} isLoading={isLoading} enableHeader={true} />
         </>
