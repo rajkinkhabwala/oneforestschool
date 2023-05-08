@@ -42,6 +42,9 @@
           "appId": "d1j7hkee561c4y",
           "type": "cicd"
         }
+      },
+      "storage": {
+        "ofsbackendstatics": {}
       }
     }
   }

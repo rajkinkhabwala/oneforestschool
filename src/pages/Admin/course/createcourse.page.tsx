@@ -1,8 +1,8 @@
+import CourseForm from "../../../common/components/form/course.form"
+
 export function Component() {
     return(
-         <>
-         Create Course Component
-         </>
+         <CourseForm formType={"new"} />
     )
 }
 

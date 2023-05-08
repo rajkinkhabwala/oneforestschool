@@ -8,15 +8,15 @@ export interface GraphQLResult {
 }
 
 export interface UserGraphQLResult extends Omit<GraphQLResult, 'items'> {
-  items: User[] | null | undefined
+  items: User[]| any | null | undefined
 }
 
 export interface CourseGraphQLResult extends Omit<GraphQLResult, 'items'> {
-  items: Course[] | null | undefined
+  items: Course[]| any | null | undefined
 }
 
 export interface DepartmentGraphQLResult extends Omit<GraphQLResult, 'items'> {
-  items: Department[] | null | undefined
+  items: Department[] | any | null | undefined
 }
 
 export interface NotificationGraphQLResult extends Omit<GraphQLResult, 'items'> {

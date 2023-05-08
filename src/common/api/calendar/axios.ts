@@ -10,6 +10,8 @@ export const calendarClient = axios.create({
 calendarClient.interceptors.request.use(async function(value) {
     
     value.headers.Authorization = `Bearer ` + (await Auth.currentSession()).getIdToken().payload["custom:provider_token"]
+    value.headers["Content-Type"] = 'application/json'
+    value.headers.Accept = 'application/json'
     value.maxBodyLength = Infinity
     return value
 })

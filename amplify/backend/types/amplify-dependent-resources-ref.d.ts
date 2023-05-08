@@ -45,5 +45,11 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     }
+  },
+  "storage": {
+    "ofsbackendstatics": {
+      "BucketName": "string",
+      "Region": "string"
+    }
   }
 }
