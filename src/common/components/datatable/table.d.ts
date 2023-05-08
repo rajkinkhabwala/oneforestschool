@@ -1,4 +1,4 @@
-import { UserGraphQLResult, CourseGraphQLResult, DepartmentGraphQLResult } from "../../api/types/api"
+import { UserGraphQLResult, CourseGraphQLResult, DepartmentGraphQLResult, NotificationGraphQLResult, CourseUserGraphQLResult } from "../../api/types/api"
 import {DataTableColumn} from "mantine-datatable"
 
 export type TableProps = {
@@ -18,4 +18,8 @@ export interface CourseTableProps extends Omit<TableProps, "data"> {
 
 export interface DepartmentTableProps extends Omit<TableProps, "data"> {
     data: DepartmentGraphQLResult | undefined | null
+}
+
+export interface NotificationTableProps extends Omit<TableProps, "data"> {
+    data: NotificationGraphQLResult | undefined | null
 }

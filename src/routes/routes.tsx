@@ -2,6 +2,7 @@ import { createBrowserRouter, json } from "react-router-dom";
 import { isAuthorized } from "../common/helpers/auth";
 import logo from "../logo.svg";
 import AdminMain from "../pages/admin/main";
+// import mainMain from "../pages/main/main"
 import { notAuthorized } from "../common/constants/errors/errors";
 
 const router = createBrowserRouter([
@@ -93,16 +94,28 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: "notification/",
+        lazy: () => import('../pages/admin/notification/notification.page'),
+
+        children: [
+          {
+            path: "create/",
+            lazy: () => import("../pages/admin/notification/createnotofication.page")
+          }
+        ]
+      },
+      {
         path: "user/",
         // Add Lazy to render element
         
         children: [
           // add children as per needs
         ],
-      }
+      },
     ],
     errorElement: <>Error</>,
   },
+
 ]);
 
 export default router;

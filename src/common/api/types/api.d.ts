@@ -1,5 +1,5 @@
 import { GraphQLError } from "graphql";
-import { User } from "../API";
+import { User, Notification } from "../../../API";
 export interface GraphQLResult {
   items: Array< {} | null> | null | undefined;
   nextToken: string | null | undefined;
@@ -17,4 +17,8 @@ export interface CourseGraphQLResult extends Omit<GraphQLResult, 'items'> {
 
 export interface DepartmentGraphQLResult extends Omit<GraphQLResult, 'items'> {
   items: Department[] | null | undefined
+}
+
+export interface NotificationGraphQLResult extends Omit<GraphQLResult, 'items'> {
+  items: Notification[] | null | undefined
 }
