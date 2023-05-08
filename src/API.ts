@@ -129,11 +129,22 @@ export type Course = {
   images?: Array< string | null > | null,
   credit?: number | null,
   departmentID?: string | null,
-  event?: string | null,
+  Event?: Event | null,
   Users?: ModelCourseUsersConnection | null,
   Notifications?: ModelNotificationConnection | null,
   createdAt: string,
   updatedAt: string,
+  courseEventId?: string | null,
+};
+
+export type Event = {
+  __typename: "Event",
+  id: string,
+  event?: string | null,
+  Course?: Course | null,
+  createdAt: string,
+  updatedAt: string,
+  eventCourseId?: string | null,
 };
 
 export type UpdateUserInput = {
@@ -209,7 +220,7 @@ export type CreateCourseInput = {
   images?: Array< string | null > | null,
   credit?: number | null,
   departmentID?: string | null,
-  event?: string | null,
+  courseEventId?: string | null,
 };
 
 export type ModelCourseConditionInput = {
@@ -223,10 +234,10 @@ export type ModelCourseConditionInput = {
   images?: ModelStringInput | null,
   credit?: ModelIntInput | null,
   departmentID?: ModelIDInput | null,
-  event?: ModelStringInput | null,
   and?: Array< ModelCourseConditionInput | null > | null,
   or?: Array< ModelCourseConditionInput | null > | null,
   not?: ModelCourseConditionInput | null,
+  courseEventId?: ModelIDInput | null,
 };
 
 export type ModelBooleanInput = {
@@ -260,7 +271,7 @@ export type UpdateCourseInput = {
   images?: Array< string | null > | null,
   credit?: number | null,
   departmentID?: string | null,
-  event?: string | null,
+  courseEventId?: string | null,
 };
 
 export type DeleteCourseInput = {
@@ -308,6 +319,30 @@ export type UpdateDepartmentInput = {
 };
 
 export type DeleteDepartmentInput = {
+  id: string,
+};
+
+export type CreateEventInput = {
+  id?: string | null,
+  event?: string | null,
+  eventCourseId?: string | null,
+};
+
+export type ModelEventConditionInput = {
+  event?: ModelStringInput | null,
+  and?: Array< ModelEventConditionInput | null > | null,
+  or?: Array< ModelEventConditionInput | null > | null,
+  not?: ModelEventConditionInput | null,
+  eventCourseId?: ModelIDInput | null,
+};
+
+export type UpdateEventInput = {
+  id: string,
+  event?: string | null,
+  eventCourseId?: string | null,
+};
+
+export type DeleteEventInput = {
   id: string,
 };
 
@@ -378,10 +413,10 @@ export type ModelCourseFilterInput = {
   images?: ModelStringInput | null,
   credit?: ModelIntInput | null,
   departmentID?: ModelIDInput | null,
-  event?: ModelStringInput | null,
   and?: Array< ModelCourseFilterInput | null > | null,
   or?: Array< ModelCourseFilterInput | null > | null,
   not?: ModelCourseFilterInput | null,
+  courseEventId?: ModelIDInput | null,
 };
 
 export type ModelDepartmentFilterInput = {
@@ -397,6 +432,21 @@ export type ModelDepartmentFilterInput = {
 export type ModelDepartmentConnection = {
   __typename: "ModelDepartmentConnection",
   items:  Array<Department | null >,
+  nextToken?: string | null,
+};
+
+export type ModelEventFilterInput = {
+  id?: ModelIDInput | null,
+  event?: ModelStringInput | null,
+  and?: Array< ModelEventFilterInput | null > | null,
+  or?: Array< ModelEventFilterInput | null > | null,
+  not?: ModelEventFilterInput | null,
+  eventCourseId?: ModelIDInput | null,
+};
+
+export type ModelEventConnection = {
+  __typename: "ModelEventConnection",
+  items:  Array<Event | null >,
   nextToken?: string | null,
 };
 
@@ -479,7 +529,6 @@ export type ModelSubscriptionCourseFilterInput = {
   images?: ModelSubscriptionStringInput | null,
   credit?: ModelSubscriptionIntInput | null,
   departmentID?: ModelSubscriptionIDInput | null,
-  event?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCourseFilterInput | null > | null,
   or?: Array< ModelSubscriptionCourseFilterInput | null > | null,
 };
@@ -508,6 +557,13 @@ export type ModelSubscriptionDepartmentFilterInput = {
   description?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionDepartmentFilterInput | null > | null,
   or?: Array< ModelSubscriptionDepartmentFilterInput | null > | null,
+};
+
+export type ModelSubscriptionEventFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  event?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionEventFilterInput | null > | null,
+  or?: Array< ModelSubscriptionEventFilterInput | null > | null,
 };
 
 export type ModelSubscriptionCourseUsersFilterInput = {
@@ -732,7 +788,31 @@ export type CreateCourseMutation = {
     images?: Array< string | null > | null,
     credit?: number | null,
     departmentID?: string | null,
-    event?: string | null,
+    Event?:  {
+      __typename: "Event",
+      id: string,
+      event?: string | null,
+      Course?:  {
+        __typename: "Course",
+        id: string,
+        name: string,
+        code: string,
+        visibility: boolean,
+        start_date?: string | null,
+        end_date?: string | null,
+        description?: string | null,
+        main_image?: string | null,
+        images?: Array< string | null > | null,
+        credit?: number | null,
+        departmentID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        courseEventId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      eventCourseId?: string | null,
+    } | null,
     Users?:  {
       __typename: "ModelCourseUsersConnection",
       items:  Array< {
@@ -761,6 +841,7 @@ export type CreateCourseMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    courseEventId?: string | null,
   } | null,
 };
 
@@ -783,7 +864,31 @@ export type UpdateCourseMutation = {
     images?: Array< string | null > | null,
     credit?: number | null,
     departmentID?: string | null,
-    event?: string | null,
+    Event?:  {
+      __typename: "Event",
+      id: string,
+      event?: string | null,
+      Course?:  {
+        __typename: "Course",
+        id: string,
+        name: string,
+        code: string,
+        visibility: boolean,
+        start_date?: string | null,
+        end_date?: string | null,
+        description?: string | null,
+        main_image?: string | null,
+        images?: Array< string | null > | null,
+        credit?: number | null,
+        departmentID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        courseEventId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      eventCourseId?: string | null,
+    } | null,
     Users?:  {
       __typename: "ModelCourseUsersConnection",
       items:  Array< {
@@ -812,6 +917,7 @@ export type UpdateCourseMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    courseEventId?: string | null,
   } | null,
 };
 
@@ -834,7 +940,31 @@ export type DeleteCourseMutation = {
     images?: Array< string | null > | null,
     credit?: number | null,
     departmentID?: string | null,
-    event?: string | null,
+    Event?:  {
+      __typename: "Event",
+      id: string,
+      event?: string | null,
+      Course?:  {
+        __typename: "Course",
+        id: string,
+        name: string,
+        code: string,
+        visibility: boolean,
+        start_date?: string | null,
+        end_date?: string | null,
+        description?: string | null,
+        main_image?: string | null,
+        images?: Array< string | null > | null,
+        credit?: number | null,
+        departmentID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        courseEventId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      eventCourseId?: string | null,
+    } | null,
     Users?:  {
       __typename: "ModelCourseUsersConnection",
       items:  Array< {
@@ -863,6 +993,7 @@ export type DeleteCourseMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    courseEventId?: string | null,
   } | null,
 };
 
@@ -893,9 +1024,9 @@ export type CreateDepartmentMutation = {
         images?: Array< string | null > | null,
         credit?: number | null,
         departmentID?: string | null,
-        event?: string | null,
         createdAt: string,
         updatedAt: string,
+        courseEventId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -931,9 +1062,9 @@ export type UpdateDepartmentMutation = {
         images?: Array< string | null > | null,
         credit?: number | null,
         departmentID?: string | null,
-        event?: string | null,
         createdAt: string,
         updatedAt: string,
+        courseEventId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -969,14 +1100,161 @@ export type DeleteDepartmentMutation = {
         images?: Array< string | null > | null,
         credit?: number | null,
         departmentID?: string | null,
-        event?: string | null,
         createdAt: string,
         updatedAt: string,
+        courseEventId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+  } | null,
+};
+
+export type CreateEventMutationVariables = {
+  input: CreateEventInput,
+  condition?: ModelEventConditionInput | null,
+};
+
+export type CreateEventMutation = {
+  createEvent?:  {
+    __typename: "Event",
+    id: string,
+    event?: string | null,
+    Course?:  {
+      __typename: "Course",
+      id: string,
+      name: string,
+      code: string,
+      visibility: boolean,
+      start_date?: string | null,
+      end_date?: string | null,
+      description?: string | null,
+      main_image?: string | null,
+      images?: Array< string | null > | null,
+      credit?: number | null,
+      departmentID?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
+      Users?:  {
+        __typename: "ModelCourseUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      Notifications?:  {
+        __typename: "ModelNotificationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      courseEventId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    eventCourseId?: string | null,
+  } | null,
+};
+
+export type UpdateEventMutationVariables = {
+  input: UpdateEventInput,
+  condition?: ModelEventConditionInput | null,
+};
+
+export type UpdateEventMutation = {
+  updateEvent?:  {
+    __typename: "Event",
+    id: string,
+    event?: string | null,
+    Course?:  {
+      __typename: "Course",
+      id: string,
+      name: string,
+      code: string,
+      visibility: boolean,
+      start_date?: string | null,
+      end_date?: string | null,
+      description?: string | null,
+      main_image?: string | null,
+      images?: Array< string | null > | null,
+      credit?: number | null,
+      departmentID?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
+      Users?:  {
+        __typename: "ModelCourseUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      Notifications?:  {
+        __typename: "ModelNotificationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      courseEventId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    eventCourseId?: string | null,
+  } | null,
+};
+
+export type DeleteEventMutationVariables = {
+  input: DeleteEventInput,
+  condition?: ModelEventConditionInput | null,
+};
+
+export type DeleteEventMutation = {
+  deleteEvent?:  {
+    __typename: "Event",
+    id: string,
+    event?: string | null,
+    Course?:  {
+      __typename: "Course",
+      id: string,
+      name: string,
+      code: string,
+      visibility: boolean,
+      start_date?: string | null,
+      end_date?: string | null,
+      description?: string | null,
+      main_image?: string | null,
+      images?: Array< string | null > | null,
+      credit?: number | null,
+      departmentID?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
+      Users?:  {
+        __typename: "ModelCourseUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      Notifications?:  {
+        __typename: "ModelNotificationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      courseEventId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    eventCourseId?: string | null,
   } | null,
 };
 
@@ -1025,7 +1303,14 @@ export type CreateCourseUsersMutation = {
       images?: Array< string | null > | null,
       credit?: number | null,
       departmentID?: string | null,
-      event?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
       Users?:  {
         __typename: "ModelCourseUsersConnection",
         nextToken?: string | null,
@@ -1036,6 +1321,7 @@ export type CreateCourseUsersMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      courseEventId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -1087,7 +1373,14 @@ export type UpdateCourseUsersMutation = {
       images?: Array< string | null > | null,
       credit?: number | null,
       departmentID?: string | null,
-      event?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
       Users?:  {
         __typename: "ModelCourseUsersConnection",
         nextToken?: string | null,
@@ -1098,6 +1391,7 @@ export type UpdateCourseUsersMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      courseEventId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -1149,7 +1443,14 @@ export type DeleteCourseUsersMutation = {
       images?: Array< string | null > | null,
       credit?: number | null,
       departmentID?: string | null,
-      event?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
       Users?:  {
         __typename: "ModelCourseUsersConnection",
         nextToken?: string | null,
@@ -1160,6 +1461,7 @@ export type DeleteCourseUsersMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      courseEventId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -1304,7 +1606,31 @@ export type GetCourseQuery = {
     images?: Array< string | null > | null,
     credit?: number | null,
     departmentID?: string | null,
-    event?: string | null,
+    Event?:  {
+      __typename: "Event",
+      id: string,
+      event?: string | null,
+      Course?:  {
+        __typename: "Course",
+        id: string,
+        name: string,
+        code: string,
+        visibility: boolean,
+        start_date?: string | null,
+        end_date?: string | null,
+        description?: string | null,
+        main_image?: string | null,
+        images?: Array< string | null > | null,
+        credit?: number | null,
+        departmentID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        courseEventId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      eventCourseId?: string | null,
+    } | null,
     Users?:  {
       __typename: "ModelCourseUsersConnection",
       items:  Array< {
@@ -1333,6 +1659,7 @@ export type GetCourseQuery = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    courseEventId?: string | null,
   } | null,
 };
 
@@ -1358,7 +1685,14 @@ export type ListCoursesQuery = {
       images?: Array< string | null > | null,
       credit?: number | null,
       departmentID?: string | null,
-      event?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
       Users?:  {
         __typename: "ModelCourseUsersConnection",
         nextToken?: string | null,
@@ -1369,6 +1703,7 @@ export type ListCoursesQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      courseEventId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1400,9 +1735,9 @@ export type GetDepartmentQuery = {
         images?: Array< string | null > | null,
         credit?: number | null,
         departmentID?: string | null,
-        event?: string | null,
         createdAt: string,
         updatedAt: string,
+        courseEventId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1432,6 +1767,92 @@ export type ListDepartmentsQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetEventQueryVariables = {
+  id: string,
+};
+
+export type GetEventQuery = {
+  getEvent?:  {
+    __typename: "Event",
+    id: string,
+    event?: string | null,
+    Course?:  {
+      __typename: "Course",
+      id: string,
+      name: string,
+      code: string,
+      visibility: boolean,
+      start_date?: string | null,
+      end_date?: string | null,
+      description?: string | null,
+      main_image?: string | null,
+      images?: Array< string | null > | null,
+      credit?: number | null,
+      departmentID?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
+      Users?:  {
+        __typename: "ModelCourseUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      Notifications?:  {
+        __typename: "ModelNotificationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      courseEventId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    eventCourseId?: string | null,
+  } | null,
+};
+
+export type ListEventsQueryVariables = {
+  filter?: ModelEventFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListEventsQuery = {
+  listEvents?:  {
+    __typename: "ModelEventConnection",
+    items:  Array< {
+      __typename: "Event",
+      id: string,
+      event?: string | null,
+      Course?:  {
+        __typename: "Course",
+        id: string,
+        name: string,
+        code: string,
+        visibility: boolean,
+        start_date?: string | null,
+        end_date?: string | null,
+        description?: string | null,
+        main_image?: string | null,
+        images?: Array< string | null > | null,
+        credit?: number | null,
+        departmentID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        courseEventId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      eventCourseId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1481,7 +1902,14 @@ export type GetCourseUsersQuery = {
       images?: Array< string | null > | null,
       credit?: number | null,
       departmentID?: string | null,
-      event?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
       Users?:  {
         __typename: "ModelCourseUsersConnection",
         nextToken?: string | null,
@@ -1492,6 +1920,7 @@ export type GetCourseUsersQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      courseEventId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -1538,9 +1967,9 @@ export type ListCourseUsersQuery = {
         images?: Array< string | null > | null,
         credit?: number | null,
         departmentID?: string | null,
-        event?: string | null,
         createdAt: string,
         updatedAt: string,
+        courseEventId?: string | null,
       },
       createdAt: string,
       updatedAt: string,
@@ -1623,7 +2052,14 @@ export type CoursesByDepartmentIDQuery = {
       images?: Array< string | null > | null,
       credit?: number | null,
       departmentID?: string | null,
-      event?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
       Users?:  {
         __typename: "ModelCourseUsersConnection",
         nextToken?: string | null,
@@ -1634,6 +2070,7 @@ export type CoursesByDepartmentIDQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      courseEventId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1681,9 +2118,9 @@ export type CourseUsersByUserIdQuery = {
         images?: Array< string | null > | null,
         credit?: number | null,
         departmentID?: string | null,
-        event?: string | null,
         createdAt: string,
         updatedAt: string,
+        courseEventId?: string | null,
       },
       createdAt: string,
       updatedAt: string,
@@ -1734,9 +2171,9 @@ export type CourseUsersByCourseIdQuery = {
         images?: Array< string | null > | null,
         credit?: number | null,
         departmentID?: string | null,
-        event?: string | null,
         createdAt: string,
         updatedAt: string,
+        courseEventId?: string | null,
       },
       createdAt: string,
       updatedAt: string,
@@ -1955,7 +2392,31 @@ export type OnCreateCourseSubscription = {
     images?: Array< string | null > | null,
     credit?: number | null,
     departmentID?: string | null,
-    event?: string | null,
+    Event?:  {
+      __typename: "Event",
+      id: string,
+      event?: string | null,
+      Course?:  {
+        __typename: "Course",
+        id: string,
+        name: string,
+        code: string,
+        visibility: boolean,
+        start_date?: string | null,
+        end_date?: string | null,
+        description?: string | null,
+        main_image?: string | null,
+        images?: Array< string | null > | null,
+        credit?: number | null,
+        departmentID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        courseEventId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      eventCourseId?: string | null,
+    } | null,
     Users?:  {
       __typename: "ModelCourseUsersConnection",
       items:  Array< {
@@ -1984,6 +2445,7 @@ export type OnCreateCourseSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    courseEventId?: string | null,
   } | null,
 };
 
@@ -2005,7 +2467,31 @@ export type OnUpdateCourseSubscription = {
     images?: Array< string | null > | null,
     credit?: number | null,
     departmentID?: string | null,
-    event?: string | null,
+    Event?:  {
+      __typename: "Event",
+      id: string,
+      event?: string | null,
+      Course?:  {
+        __typename: "Course",
+        id: string,
+        name: string,
+        code: string,
+        visibility: boolean,
+        start_date?: string | null,
+        end_date?: string | null,
+        description?: string | null,
+        main_image?: string | null,
+        images?: Array< string | null > | null,
+        credit?: number | null,
+        departmentID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        courseEventId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      eventCourseId?: string | null,
+    } | null,
     Users?:  {
       __typename: "ModelCourseUsersConnection",
       items:  Array< {
@@ -2034,6 +2520,7 @@ export type OnUpdateCourseSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    courseEventId?: string | null,
   } | null,
 };
 
@@ -2055,7 +2542,31 @@ export type OnDeleteCourseSubscription = {
     images?: Array< string | null > | null,
     credit?: number | null,
     departmentID?: string | null,
-    event?: string | null,
+    Event?:  {
+      __typename: "Event",
+      id: string,
+      event?: string | null,
+      Course?:  {
+        __typename: "Course",
+        id: string,
+        name: string,
+        code: string,
+        visibility: boolean,
+        start_date?: string | null,
+        end_date?: string | null,
+        description?: string | null,
+        main_image?: string | null,
+        images?: Array< string | null > | null,
+        credit?: number | null,
+        departmentID?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        courseEventId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      eventCourseId?: string | null,
+    } | null,
     Users?:  {
       __typename: "ModelCourseUsersConnection",
       items:  Array< {
@@ -2084,6 +2595,7 @@ export type OnDeleteCourseSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
+    courseEventId?: string | null,
   } | null,
 };
 
@@ -2113,9 +2625,9 @@ export type OnCreateDepartmentSubscription = {
         images?: Array< string | null > | null,
         credit?: number | null,
         departmentID?: string | null,
-        event?: string | null,
         createdAt: string,
         updatedAt: string,
+        courseEventId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2150,9 +2662,9 @@ export type OnUpdateDepartmentSubscription = {
         images?: Array< string | null > | null,
         credit?: number | null,
         departmentID?: string | null,
-        event?: string | null,
         createdAt: string,
         updatedAt: string,
+        courseEventId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -2187,14 +2699,158 @@ export type OnDeleteDepartmentSubscription = {
         images?: Array< string | null > | null,
         credit?: number | null,
         departmentID?: string | null,
-        event?: string | null,
         createdAt: string,
         updatedAt: string,
+        courseEventId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+  } | null,
+};
+
+export type OnCreateEventSubscriptionVariables = {
+  filter?: ModelSubscriptionEventFilterInput | null,
+};
+
+export type OnCreateEventSubscription = {
+  onCreateEvent?:  {
+    __typename: "Event",
+    id: string,
+    event?: string | null,
+    Course?:  {
+      __typename: "Course",
+      id: string,
+      name: string,
+      code: string,
+      visibility: boolean,
+      start_date?: string | null,
+      end_date?: string | null,
+      description?: string | null,
+      main_image?: string | null,
+      images?: Array< string | null > | null,
+      credit?: number | null,
+      departmentID?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
+      Users?:  {
+        __typename: "ModelCourseUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      Notifications?:  {
+        __typename: "ModelNotificationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      courseEventId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    eventCourseId?: string | null,
+  } | null,
+};
+
+export type OnUpdateEventSubscriptionVariables = {
+  filter?: ModelSubscriptionEventFilterInput | null,
+};
+
+export type OnUpdateEventSubscription = {
+  onUpdateEvent?:  {
+    __typename: "Event",
+    id: string,
+    event?: string | null,
+    Course?:  {
+      __typename: "Course",
+      id: string,
+      name: string,
+      code: string,
+      visibility: boolean,
+      start_date?: string | null,
+      end_date?: string | null,
+      description?: string | null,
+      main_image?: string | null,
+      images?: Array< string | null > | null,
+      credit?: number | null,
+      departmentID?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
+      Users?:  {
+        __typename: "ModelCourseUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      Notifications?:  {
+        __typename: "ModelNotificationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      courseEventId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    eventCourseId?: string | null,
+  } | null,
+};
+
+export type OnDeleteEventSubscriptionVariables = {
+  filter?: ModelSubscriptionEventFilterInput | null,
+};
+
+export type OnDeleteEventSubscription = {
+  onDeleteEvent?:  {
+    __typename: "Event",
+    id: string,
+    event?: string | null,
+    Course?:  {
+      __typename: "Course",
+      id: string,
+      name: string,
+      code: string,
+      visibility: boolean,
+      start_date?: string | null,
+      end_date?: string | null,
+      description?: string | null,
+      main_image?: string | null,
+      images?: Array< string | null > | null,
+      credit?: number | null,
+      departmentID?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
+      Users?:  {
+        __typename: "ModelCourseUsersConnection",
+        nextToken?: string | null,
+      } | null,
+      Notifications?:  {
+        __typename: "ModelNotificationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      courseEventId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    eventCourseId?: string | null,
   } | null,
 };
 
@@ -2242,7 +2898,14 @@ export type OnCreateCourseUsersSubscription = {
       images?: Array< string | null > | null,
       credit?: number | null,
       departmentID?: string | null,
-      event?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
       Users?:  {
         __typename: "ModelCourseUsersConnection",
         nextToken?: string | null,
@@ -2253,6 +2916,7 @@ export type OnCreateCourseUsersSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      courseEventId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -2303,7 +2967,14 @@ export type OnUpdateCourseUsersSubscription = {
       images?: Array< string | null > | null,
       credit?: number | null,
       departmentID?: string | null,
-      event?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
       Users?:  {
         __typename: "ModelCourseUsersConnection",
         nextToken?: string | null,
@@ -2314,6 +2985,7 @@ export type OnUpdateCourseUsersSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      courseEventId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
@@ -2364,7 +3036,14 @@ export type OnDeleteCourseUsersSubscription = {
       images?: Array< string | null > | null,
       credit?: number | null,
       departmentID?: string | null,
-      event?: string | null,
+      Event?:  {
+        __typename: "Event",
+        id: string,
+        event?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        eventCourseId?: string | null,
+      } | null,
       Users?:  {
         __typename: "ModelCourseUsersConnection",
         nextToken?: string | null,
@@ -2375,6 +3054,7 @@ export type OnDeleteCourseUsersSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
+      courseEventId?: string | null,
     },
     createdAt: string,
     updatedAt: string,
