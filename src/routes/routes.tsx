@@ -67,7 +67,7 @@ const router = createBrowserRouter([
             lazy: () => import("../pages/admin/department/createdepartment.page"),
           },
           {
-            path: "edit/",
+            path: "edit/:id/",
             lazy: () => import("../pages/admin/department/editdepartment.page"),
           }
         ],
