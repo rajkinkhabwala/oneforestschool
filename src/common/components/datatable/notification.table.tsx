@@ -84,7 +84,7 @@ export default function NotificationTable({data, isLoading, enableHeader, column
                           
                         return(
                             <div className={classes.modify}>
-                              <span><IconEyeFilled cursor={"pointer"} strokeWidth={2} color={'gray'} onClick={() => navigate(`${rowData}`)}/></span>
+                              <span><IconEyeFilled cursor={"pointer"} strokeWidth={2} color={'gray'} onClick={() => navigate(`${rowData.id}`)}/></span>
                               <span onClick={() => removeNotification(rowData)}><IconTrash cursor={"pointer"} strokeWidth={2} color={'red'}/></span>
                             </div>
                           )

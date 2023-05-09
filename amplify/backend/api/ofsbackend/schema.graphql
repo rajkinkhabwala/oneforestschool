@@ -31,7 +31,7 @@ type Course @model @auth(rules: [{allow: private, operations: [read]}, {allow: g
   images: [String]
   credit: Int
   departmentID: ID @index(name: "byDepartments")
-  Event: Event @hasOne
+  Event: Event @belongsTo
   Users: [User] @manyToMany(relationName: "CourseUsers")
   Notifications: [Notification] @hasMany(indexName: "byCourses", fields: ["id"])
 }
@@ -47,5 +47,5 @@ type Department @model @auth(rules: [{allow: groups, groups: ["Admins"], operati
 type Event @model @auth(rules: [{allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: private, operations: [read]}]) {
   id: ID!
   event: AWSJSON
-  Course: Course @belongsTo
+  Course: Course @hasOne
 }

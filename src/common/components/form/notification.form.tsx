@@ -11,6 +11,7 @@ import {
   updateNotification,
 } from "../../api/notification/notification.api";
 import { useMutation, useQueryClient } from "react-query";
+import { NotificationFormType } from "./form";
 
 
 function NotificationForm({ formType, record, editState, setEditState}: NotificationFormType<Notification>) {
