@@ -32,12 +32,10 @@ export function Component() {
         <Tabs.Panel value="details" pt="xl">
                 <DepartmentForm record={data?.data?.getDepartment!} formType={"edit"} editState={value} setEditState={toggle!} />
         </Tabs.Panel>
-        <Tabs.Panel value="department" pt="xl">
+        <Tabs.Panel value="courses" pt="xl">
             <CourseTable data={data?.data?.getDepartment?.Courses as any} isLoading={isLoading} enableHeader={false} />
         </Tabs.Panel>
             </Tabs>
-
-
 
     )
 

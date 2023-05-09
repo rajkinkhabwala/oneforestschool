@@ -1,8 +1,7 @@
-import { Button, Group, Loader, Select, Switch, Textarea, TextInput } from "@mantine/core";
+import { Button, Group, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import {
-  Course,
   CreateNotificationInput,
   Notification,
   UpdateNotificationInput,
@@ -12,13 +11,9 @@ import {
   updateNotification,
 } from "../../api/notification/notification.api";
 import { useMutation, useQueryClient } from "react-query";
-import { listUser } from "../../api/user/user.api";
-import { listCourse } from "../../api/course/course.api";
-import { MultiSelect } from "@mantine/core";
-import { useState, useEffect, SetStateAction } from "react";
-import {useListCourseQuery} from "../../queries/course.queries";
 
-function NotificationForm({ formType, record}: FormModal<Notification>) {
+
+function NotificationForm({ formType, record, editState, setEditState}: NotificationFormType<Notification>) {
 
   interface Option {
     value: string;
@@ -41,24 +36,6 @@ function NotificationForm({ formType, record}: FormModal<Notification>) {
             userID: record?.userID
           },
   });  
-
-  // const listUsers = listUser();
-  // const listCourses = listCourse();
-
-  // const { data, isError, isLoading} = useListCourseQuery(); 
-
-  // function SelectValues() {
-  //   const [selectedValues, setSelectedValues] = useState<Option[]>([]);
-  
-  //   const handleSelectChange = (values: Option[]) => {
-  //     setSelectedValues(values);
-  //   };
-
-  //   const options: Option[] = [
-  //     { value: "User", label: "User" },
-  //     { value: "Course", label: "Course" },
-  //   ];
-  const {data, isError, isLoading} = useListCourseQuery();
 
   const queryClient = useQueryClient();
   const createMutation = useMutation({
@@ -103,6 +80,15 @@ function NotificationForm({ formType, record}: FormModal<Notification>) {
   }
 
   return (
+    <>
+    {
+      formType === "edit"?
+      <Button onClick={() => setEditState!()}>
+        {editState}
+      </Button>
+      :
+      <></>
+    }
     <form
       onSubmit={
         formType === "new"
@@ -114,6 +100,7 @@ function NotificationForm({ formType, record}: FormModal<Notification>) {
         withAsterisk
         label="Notification Title"
         placeholder="Enter the notification title..."
+        disabled={formType === "edit" ?editState === "edit" ? false : true : false}
         required
         {...form.getInputProps("title")}
       />
@@ -121,48 +108,20 @@ function NotificationForm({ formType, record}: FormModal<Notification>) {
         withAsterisk
         label="Notification Message"
         placeholder="Enter the notification message..."
+        disabled={formType === "edit" ?editState === "edit" ? false : true : false}
         required
         {...form.getInputProps("message")}
       />
-{/* 
-      <Select
-        {...form.getInputProps("courseID")}
-        label="Select Course"
-        rightSection={isLoading ? <Loader /> : null}
-        error={isError ?? "Data is not fetched!"}
-        placeholder="Pick one course"
-        data={
-          isLoading
-            ? []
-            : data?.items?.map((el: Notification) => ({
-                value: el.courseID,
-                label: el.courseID,
-                selected: record ? record : null,
-              })) ?? []
-        }
-      />
 
-      <Select
-        {...form.getInputProps("userID")}
-        label="Select Users"
-        rightSection={isLoading ? <Loader /> : null}
-        error={isError ?? "Data is not fetched!"}
-        placeholder="Pick one user"
-        data={
-          isLoading
-            ? []
-            : data?.items?.map((el: Notification) => ({
-                value: el.userID,
-                label: el.userID,
-                selected: record ? record : null,
-              })) ?? []
-        }
-      /> */}
-      
-      <Group position="right" mt="md">
-        <Button type="submit">Submit</Button>
-      </Group>
+      {
+          editState === "edit" ?
+          <Group position="right" mt="md">
+            <Button type="submit">Edit Notofication</Button>
+          </Group>:
+          <></>
+      }
     </form>
+    </>
   );
 }
 export default NotificationForm;
