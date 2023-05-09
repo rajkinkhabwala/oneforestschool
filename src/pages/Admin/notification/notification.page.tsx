@@ -21,7 +21,7 @@ export function Component(){
        {
         location.pathname === "/admin/notification" ? 
         <>
-        <NotificationTable data={data} isLoading={isLoading} enableHeader={false} />
+        <NotificationTable data={data} isLoading={isLoading} enableHeader={true} />
         </>
         :
         <Outlet />

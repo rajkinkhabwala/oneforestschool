@@ -1,7 +1,7 @@
 import { API } from "aws-amplify";
 import * as mutations from "../../../graphql/mutations";
 import * as queries from "../../../graphql/queries";
-import { CreateNotificationInput, UpdateNotificationInput, DeleteNotificationInput, ListNotificationsQuery, CreateNotificationMutation, UpdateNotificationMutation, DeleteNotificationMutation, ModelNotificationFilterInput, OnCreateNotificationSubscription, ListNotificationsQueryVariables, GetNotificationQuery } from "../../../API";
+import { CreateNotificationInput, UpdateNotificationInput, DeleteNotificationInput, ListNotificationsQuery, CreateNotificationMutation, UpdateNotificationMutation, DeleteNotificationMutation, OnCreateNotificationSubscription, ListNotificationsQueryVariables, GetNotificationQuery } from "../../../API";
 import { GraphQLQuery, graphqlOperation, GRAPHQL_AUTH_MODE, GraphQLSubscription } from '@aws-amplify/api';
 import { onCreateNotification } from "../../../graphql/subscriptions";
 import {NotificationGraphQLResult } from "../types/api";
@@ -46,6 +46,10 @@ export function getNotificationByCourse(){
 
 export function getNotificationByUser(){
     return API.graphql<GraphQLQuery<GetNotificationQuery>>(graphqlOperation(queries.getNotification), { id : queries.notificationsByUserID})
+}
+
+export async function getNotification(notification: string) {
+    return await API.graphql<GraphQLQuery<GetNotificationQuery>>(graphqlOperation(queries.getNotification, { id: notification }))
 }
 
 // function value(value: GraphQLResult<GraphQLQuery<ListNotificationsQueryVariables>>): GraphQLResult<GraphQLQuery<ListNotificationsQueryVariables>> | PromiseLike<GraphQLResult<GraphQLQuery<ListNotificationsQueryVariables>>> {

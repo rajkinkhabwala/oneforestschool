@@ -4,5 +4,8 @@ type FormModal<T> = {
 }
 
 type DepartmentForm<T> = {editState?: string, setEditState?: (value?: React.SetStateAction<Z>) => void} & FormModal<T>
+
+type NotificationFormType<T> = {editState?: string, setEditState?: (value?: React.SetStateAction<Z>) => void} & FormModal<T>
+
     
 
