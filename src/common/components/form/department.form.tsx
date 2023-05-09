@@ -117,11 +117,21 @@ function DepartmentForm({ formType, record, editState, setEditState}: Department
         disabled={formType === "edit" ?editState === "edit" ? false : true : false}
         {...form.getInputProps("description")}
       />
+
+    {
+      formType === "new" ?
+      <Group position="right" mt="md">
+        <Button type="submit">Create Department</Button>
+      </Group>
+      :
+      <></>
+    }
     {
       editState === "edit" ?
       <Group position="right" mt="md">
         <Button type="submit">Edit Department</Button>
-      </Group>:
+      </Group>
+      : 
       <></>
     }
       
