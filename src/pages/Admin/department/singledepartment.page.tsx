@@ -22,7 +22,7 @@ export function Component() {
             <Loader />
         )
     }
-    console.log(data)
+    
     return (
         <Tabs defaultValue="details">
             <Tabs.List>

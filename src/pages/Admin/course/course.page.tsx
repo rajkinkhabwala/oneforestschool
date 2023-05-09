@@ -16,9 +16,9 @@ export function Component() {
     return(
         <>
         {
-         location.pathname === "/admin/course" ? 
+         location.pathname === "/admin/course" || location.pathname === "/admin/course/" ? 
          <>
-         <CourseTable data={data} isLoading={isLoading} enableHeader={false}></CourseTable>
+         <CourseTable data={data} isLoading={isLoading} enableHeader={true} />
          </>
          :
          <Outlet />

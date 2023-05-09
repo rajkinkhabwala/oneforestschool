@@ -11,11 +11,10 @@ import {
   updateDepartment,
 } from "../../api/department/department.api";
 import { useMutation, useQueryClient } from "react-query";
-import { ToggleButton } from "@aws-amplify/ui-react";
-import { useToggle } from "@mantine/hooks";
+import { DepartmentFormType } from "./form";
 
 
-function DepartmentForm({ formType, record, editState, setEditState}: DepartmentForm<Department>) {
+function DepartmentForm({ formType, record, editState, setEditState}: DepartmentFormType<Department>) {
 
   let form = useForm<any>({
     initialValues:
