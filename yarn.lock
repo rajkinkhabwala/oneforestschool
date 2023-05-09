@@ -11690,6 +11690,11 @@ react-generate-context@1.0.1:
   resolved "https://registry.yarnpkg.com/react-generate-context/-/react-generate-context-1.0.1.tgz#4454cfecb0b3f27502185dfa5c63d5f5ec14b936"
   integrity sha512-rOFGh3KgC2Ot66DmVCcT1p8lVJCmmCjzGE5WK/KsyDFi43wpIbW1PYcr04cQ3mbF4LaIkY6SpK7k1DOgwtpUXA==
 
+react-google-calendar-api@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/react-google-calendar-api/-/react-google-calendar-api-2.2.2.tgz#c639ba356d653dbfd8352f3c68bfecd6fa5729f3"
+  integrity sha512-JpDbAUaPUklAkotxvs4FbEUomweu5tMG206wfJh80HmzegVxCylZjzpIEng2eh3phqJjPzznwneNA0ep1vbefQ==
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"

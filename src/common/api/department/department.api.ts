@@ -2,7 +2,7 @@ import { API } from "aws-amplify";
 import * as mutations from '../../../graphql/mutations';
 import * as queries from '../../../graphql/queries';
 import { GraphQLQuery, graphqlOperation, GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
-import { CreateDepartmentInput, CreateDepartmentMutation, DeleteDepartmentMutation, Department, GetDepartmentQuery, ListNotificationsQueryVariables , ListDepartmentsQuery, UpdateDepartmentInput, UpdateDepartmentMutation } from "../../../API";
+import { CreateDepartmentInput, CreateDepartmentMutation, DeleteDepartmentMutation, Department, GetDepartmentQuery, ListNotificationsQueryVariables , ListDepartmentsQuery, UpdateDepartmentInput, UpdateDepartmentMutation, ListDepartmentsQueryVariables } from "../../../API";
 import { DepartmentGraphQLResult } from "../types/api";
 
 
@@ -22,7 +22,7 @@ export async function deleteDepartment(id: string) {
 }
 
 export async function listDepartment(
-    input?: ListNotificationsQueryVariables
+    input?: ListDepartmentsQueryVariables
 ): Promise<DepartmentGraphQLResult> {
     return await new Promise((resolve, reject) =>{
         API.graphql<GraphQLQuery<ListDepartmentsQuery>>({ ...graphqlOperation(queries.listDepartments, {input}),

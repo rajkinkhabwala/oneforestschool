@@ -2,7 +2,6 @@ import { DataTable } from 'mantine-datatable';
 import { tableStyles } from "./table.styles"
 import { useEffect, useState } from 'react';
 import { IconEyeCheck, IconEyeFilled, IconPlus, IconTrash } from '@tabler/icons-react';
-import { Button, Text } from '@mantine/core';
 import { CourseTableProps } from './table';
 import { Course } from '../../../API';
 import { modals } from '@mantine/modals';
@@ -11,6 +10,10 @@ import { useMutation, useQueryClient } from 'react-query';
 import { notifications } from '@mantine/notifications';
 import { useNavigate } from 'react-router-dom';
 import { IconEyeOff } from '@tabler/icons-react';
+import { Button, Title, Text } from '@mantine/core';
+
+
+
 
 const PAGE_SIZE = 8;
 
@@ -18,12 +21,11 @@ export default function CourseTable({data, isLoading, enableHeader} : CourseTabl
   
     const [page, setPage] = useState(1);
     const [records, setRecords] = useState(data?.items?.slice(0, PAGE_SIZE));
-    const deleteMutation = useMutation(deleteCourse);
-    
-    const queryClient = useQueryClient();
     const navigate = useNavigate();
-    
-    const { classes, cx } = tableStyles()
+    const deleteMutation = useMutation(deleteCourse);
+    const queryClient = useQueryClient()
+
+    const { classes } = tableStyles()
 
     useEffect(() => {
         const from = (page - 1) * PAGE_SIZE;
@@ -33,15 +35,15 @@ export default function CourseTable({data, isLoading, enableHeader} : CourseTabl
 
     function removeCourse(rowData: Course): void {
         modals.openConfirmModal({
-            title: 'Delete your profile',
+            title: 'Delete the course',
             centered: true,
             children: (
-              <Text size={'sm'}>
+              <Text size="sm">
                 Are you sure you want to delete course {rowData.name}? This action is destructive and you will have
                 to contact support to restore your data.
               </Text>
             ),
-            labels: { confirm: 'Delete Department', cancel: "No don't delete it" },
+            labels: { confirm: 'Delete Course', cancel: "No don't delete it" },
             confirmProps: { color: 'red' },
             onConfirm: () => {
               deleteMutation.mutate(rowData.id, {
@@ -51,7 +53,8 @@ export default function CourseTable({data, isLoading, enableHeader} : CourseTabl
                     message: `Successfully deleted ${data.data?.deleteCourse?.name}!`,
                     color: 'red'
                   });
-                  queryClient.invalidateQueries({queryKey: ["courses"]})   
+                  queryClient.invalidateQueries({queryKey: ["courses"]}) 
+                    
                 },
               })
             },  
@@ -61,10 +64,11 @@ export default function CourseTable({data, isLoading, enableHeader} : CourseTabl
     console.log(data);
     return (
         <div>
+            <Title size={"h2"}>Course</Title>
             <div className={classes.header}>
                 {enableHeader ?
-                    <Button className="add-course" leftIcon={<IconPlus />}>
-                        Add Course
+                    <Button onClick={() => navigate('create')} leftIcon={<IconPlus />}>
+                        Create Course
                     </Button>
                     :
                     <></>}

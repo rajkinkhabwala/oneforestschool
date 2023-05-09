@@ -16,19 +16,4 @@ calendarClient.interceptors.request.use(async function(value) {
     return value
 })
 
-calendarClient.interceptors.response.use(function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    return response
-},
-function(error) {
-    
-    if(error.status === "UNAUTHENTICATED"){
-        Auth.federatedSignIn({
-            provider: CognitoHostedUIIdentityProvider.Google
-        })
-    }
-    return error
-}
-)
 
