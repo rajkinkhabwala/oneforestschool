@@ -100,7 +100,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "create/",
-            lazy: () => import("../pages/admin/notification/createnotofication.page")
+            lazy: () => import("../pages/admin/notification/createnotification.page")
           }
         ]
       },
