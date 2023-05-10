@@ -1,4 +1,4 @@
-import { Button, Group, TextInput } from "@mantine/core";
+import { Button, Group, TextInput, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import {
@@ -105,7 +105,7 @@ function NotificationForm({ formType, record, editState, setEditState}: Notifica
         required
         {...form.getInputProps("title")}
       />
-      <TextInput
+      <Textarea
         withAsterisk
         label="Notification Message"
         placeholder="Enter the notification message..."
