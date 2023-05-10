@@ -34,7 +34,6 @@ export default function DashboardLayout({children, navbar, header, footer} : Pro
       navbar={
         navbar ?
         <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
-
           {navbar}
         </Navbar>
         : undefined

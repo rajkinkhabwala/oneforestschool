@@ -8,7 +8,7 @@ import { useEffect } from "react";
 export default function Main() {
   const navigation = useNavigation();
 useEffect(() => {
-  console.log(navigation.state)
+  
   if (navigation.state !== "idle") {
     nprogress.start();
   } else {
