@@ -25,12 +25,8 @@
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [
-      "email"
-    ],
-    "userpoolClientReadAttributes": [
-      "email"
-    ],
+    "userpoolClientWriteAttributes": [],
+    "userpoolClientReadAttributes": [],
     "userpoolClientLambdaRole": "ofsbac4bbfe64b_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
     "sharedId": "4bbfe64b",
@@ -51,12 +47,7 @@
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "userPoolGroupList": [
-      "Admins",
-      "Teachers",
-      "Students",
-      "Parents"
-    ],
+    "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true,
@@ -89,13 +80,11 @@
     },
     "permissions": [],
     "adminQueryGroup": "Admins",
-    "thirdPartyAuth": true,
-    "authProviders": [
-      "accounts.google.com"
-    ],
-    "userPoolGroups": true,
-    "adminQueries": true,
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://main.d1j7hkee561c4y.amplifyapp.com/\",\"http://localhost:3000/\"],\"LogoutURLs\":[\"https://main.d1j7hkee561c4y.amplifyapp.com/\",\"http://localhost:3000/\"]}",
+    "thirdPartyAuth": false,
+    "authProviders": [],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://d37mirqivjjfw8.cloudfront.net/\",\"http://localhost:3000/\"],\"LogoutURLs\":[\"https://d37mirqivjjfw8.cloudfront.net/\",\"http://localhost:3000/\"]}",
     "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"ofsbackend4bbfe64bPostConfirmation\"\n  }\n]"
   }
 }
