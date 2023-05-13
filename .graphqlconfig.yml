@@ -1,6 +1,6 @@
 projects:
   ofsbackend:
-    schemaPath: amplify/backend/api/ofsbackend/build/schema.graphql
+    schemaPath: amplify/backend/api/ofsapplication/build/schema.graphql
     includes:
       - src/graphql/**/*.ts
     excludes:
@@ -13,6 +13,17 @@ projects:
         region: us-west-2
         apiId: null
         maxDepth: 3
+  ofsapplication:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.ts
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: src/API.ts
+        docsFilePath: src/graphql
 extensions:
   amplify:
     version: 3

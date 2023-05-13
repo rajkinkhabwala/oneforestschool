@@ -1,0 +1,51 @@
+type User @model {
+  id: ID! @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, delete]}, {allow: groups, groups: ["Teachers"], operations: [read]}, {allow: owner, operations: [read]}, {allow: owner, operations: [delete, read]}])
+  email: AWSEmail! @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, delete]}, {allow: groups, groups: ["Teachers"], operations: [read]}, {allow: owner, operations: [read]}, {allow: owner, operations: [delete, read]}])
+  name: String @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update]}, {allow: owner}])
+  phone: String @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update]}, {allow: owner}])
+  address: String @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update]}, {allow: owner}])
+  picture: String @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update]}, {allow: owner}])
+  description: String @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update]}, {allow: owner}])
+  Notifications: [Notification] @hasMany(indexName: "byUsers", fields: ["id"])
+  Courses: [Course] @manyToMany(relationName: "CourseUsers")
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
+}
+
+type Notification @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}]) {
+  id: ID!
+  title: String
+  message: String
+  courseID: ID @index(name: "byCourses")
+  userID: ID @index(name: "byUsers") 
+}
+
+type Course @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups , groups: ["Students"], operations: [read]}, {allow: groups , groups: ["Parents"], operations: [read]}]) {
+  id: ID!
+  name: String!
+  code: String!
+  visibility: Boolean!
+  start_date: AWSDateTime
+  end_date: AWSDateTime
+  description: String
+  main_image: String
+  images: [String]
+  credit: Int
+  departmentID: ID @index(name: "byDepartments")
+  Event: Event @belongsTo
+  Users: [User] @manyToMany(relationName: "CourseUsers")
+  Notifications: [Notification] @hasMany(indexName: "byCourses", fields: ["id"])
+}
+
+type Department @model @auth(rules: [{allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: private, operations: [read]}]) {
+  id: ID!
+  name: String!
+  code: String!
+  description: String
+  Courses: [Course] @hasMany(indexName: "byDepartments", fields: ["id"])
+}
+
+type Event @model @auth(rules: [{allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: private, operations: [read]}]) {
+  id: ID!
+  event: AWSJSON
+  Course: Course @hasOne
+}

@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "ofsapplication",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authofsapplication4beb4f4b",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
