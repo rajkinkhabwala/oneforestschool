@@ -2,6 +2,7 @@
   "name": "ofs-frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://815uttnpq3.execute-api.us-west-2.amazonaws.com",
   "dependencies": {
     "@aws-amplify/ui-react": "^4.6.0",
     "@aws-amplify/ui-react-storage": "^1.2.0",

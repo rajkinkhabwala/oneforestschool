@@ -5,8 +5,7 @@ export default function Auth() {
     <>
       <Authenticator
       loginMechanisms={["email"]}
-      socialProviders={["google"]}
-      hideSignUp
+      
       className="authentication" /></>
   );
 }

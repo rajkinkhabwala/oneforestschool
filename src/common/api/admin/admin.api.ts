@@ -127,7 +127,7 @@ export async function getUser(username: string){
     })
 }
 
-export async function listUsers(token: string, limit: number){
+export async function listUsers(token?: string, limit?: number){
     let apiName = 'AdminQueries';
     let path = '/listUsers';
     let myInit = {
