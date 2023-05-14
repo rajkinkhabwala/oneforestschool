@@ -21,8 +21,12 @@ export const getUser = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Courses {
         items {
@@ -31,12 +35,18 @@ export const getUser = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
-      owner
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -57,15 +67,60 @@ export const listUsers = /* GraphQL */ `
         description
         Notifications {
           nextToken
+          startedAt
         }
         Courses {
           nextToken
+          startedAt
         }
-        owner
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncUsers = /* GraphQL */ `
+  query SyncUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncUsers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        email
+        name
+        phone
+        address
+        picture
+        description
+        Notifications {
+          nextToken
+          startedAt
+        }
+        Courses {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -79,6 +134,9 @@ export const getNotification = /* GraphQL */ `
       userID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -97,8 +155,42 @@ export const listNotifications = /* GraphQL */ `
         userID
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncNotifications = /* GraphQL */ `
+  query SyncNotifications(
+    $filter: ModelNotificationFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncNotifications(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        title
+        message
+        courseID
+        userID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -133,10 +225,16 @@ export const getCourse = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         eventCourseId
       }
       Users {
@@ -146,8 +244,12 @@ export const getCourse = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Notifications {
         items {
@@ -158,11 +260,18 @@ export const getCourse = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       courseEventId
     }
   }
@@ -191,19 +300,83 @@ export const listCourses = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncCourses = /* GraphQL */ `
+  query SyncCourses(
+    $filter: ModelCourseFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCourses(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        code
+        visibility
+        start_date
+        end_date
+        description
+        main_image
+        images
+        credit
+        departmentID
+        Event {
+          id
+          event
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          eventCourseId
+        }
+        Users {
+          nextToken
+          startedAt
+        }
+        Notifications {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        courseEventId
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -229,12 +402,19 @@ export const getDepartment = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -252,11 +432,49 @@ export const listDepartments = /* GraphQL */ `
         description
         Courses {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncDepartments = /* GraphQL */ `
+  query SyncDepartments(
+    $filter: ModelDepartmentFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncDepartments(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        code
+        description
+        Courses {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -282,20 +500,31 @@ export const getEvent = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       eventCourseId
     }
   }
@@ -324,13 +553,67 @@ export const listEvents = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         eventCourseId
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncEvents = /* GraphQL */ `
+  query SyncEvents(
+    $filter: ModelEventFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncEvents(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        event
+        Course {
+          id
+          name
+          code
+          visibility
+          start_date
+          end_date
+          description
+          main_image
+          images
+          credit
+          departmentID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          courseEventId
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        eventCourseId
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -350,13 +633,17 @@ export const getCourseUsers = /* GraphQL */ `
         description
         Notifications {
           nextToken
+          startedAt
         }
         Courses {
           nextToken
+          startedAt
         }
-        owner
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       course {
         id
@@ -375,20 +662,31 @@ export const getCourseUsers = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -411,9 +709,11 @@ export const listCourseUsers = /* GraphQL */ `
           address
           picture
           description
-          owner
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         course {
           id
@@ -429,12 +729,80 @@ export const listCourseUsers = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
+    }
+  }
+`;
+export const syncCourseUsers = /* GraphQL */ `
+  query SyncCourseUsers(
+    $filter: ModelCourseUsersFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncCourseUsers(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        userId
+        courseId
+        user {
+          id
+          email
+          name
+          phone
+          address
+          picture
+          description
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        course {
+          id
+          name
+          code
+          visibility
+          start_date
+          end_date
+          description
+          main_image
+          images
+          credit
+          departmentID
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          courseEventId
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
   }
 `;
@@ -461,8 +829,12 @@ export const notificationsByCourseID = /* GraphQL */ `
         userID
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
   }
 `;
@@ -489,8 +861,12 @@ export const notificationsByUserID = /* GraphQL */ `
         userID
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
   }
 `;
@@ -526,19 +902,28 @@ export const coursesByDepartmentID = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       nextToken
+      startedAt
     }
   }
 `;
@@ -569,9 +954,11 @@ export const courseUsersByUserId = /* GraphQL */ `
           address
           picture
           description
-          owner
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         course {
           id
@@ -587,12 +974,19 @@ export const courseUsersByUserId = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
   }
 `;
@@ -623,9 +1017,11 @@ export const courseUsersByCourseId = /* GraphQL */ `
           address
           picture
           description
-          owner
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         course {
           id
@@ -641,12 +1037,19 @@ export const courseUsersByCourseId = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
   }
 `;

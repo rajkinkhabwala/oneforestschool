@@ -7,180 +7,18 @@
 /* eslint-disable */
 import * as React from "react";
 import {
-  Badge,
   Button,
-  Divider,
   Flex,
   Grid,
-  Icon,
-  ScrollView,
   SwitchField,
-  Text,
+  TextAreaField,
   TextField,
-  useTheme,
 } from "@aws-amplify/ui-react";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import { Field, getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Course } from "../models";
-import { fetchByPath, validateField } from "./utils";
+import { fetchByPath, processFile, validateField } from "./utils";
+import { StorageManager } from "@aws-amplify/ui-react-storage";
 import { DataStore } from "aws-amplify";
-function ArrayField({
-  items = [],
-  onChange,
-  label,
-  inputFieldRef,
-  children,
-  hasError,
-  setFieldValue,
-  currentFieldValue,
-  defaultFieldValue,
-  lengthLimit,
-  getBadgeText,
-  errorMessage,
-}) {
-  const labelElement = <Text>{label}</Text>;
-  const {
-    tokens: {
-      components: {
-        fieldmessages: { error: errorStyles },
-      },
-    },
-  } = useTheme();
-  const [selectedBadgeIndex, setSelectedBadgeIndex] = React.useState();
-  const [isEditing, setIsEditing] = React.useState();
-  React.useEffect(() => {
-    if (isEditing) {
-      inputFieldRef?.current?.focus();
-    }
-  }, [isEditing]);
-  const removeItem = async (removeIndex) => {
-    const newItems = items.filter((value, index) => index !== removeIndex);
-    await onChange(newItems);
-    setSelectedBadgeIndex(undefined);
-  };
-  const addItem = async () => {
-    if (
-      currentFieldValue !== undefined &&
-      currentFieldValue !== null &&
-      currentFieldValue !== "" &&
-      !hasError
-    ) {
-      const newItems = [...items];
-      if (selectedBadgeIndex !== undefined) {
-        newItems[selectedBadgeIndex] = currentFieldValue;
-        setSelectedBadgeIndex(undefined);
-      } else {
-        newItems.push(currentFieldValue);
-      }
-      await onChange(newItems);
-      setIsEditing(false);
-    }
-  };
-  const arraySection = (
-    <React.Fragment>
-      {!!items?.length && (
-        <ScrollView height="inherit" width="inherit" maxHeight={"7rem"}>
-          {items.map((value, index) => {
-            return (
-              <Badge
-                key={index}
-                style={{
-                  cursor: "pointer",
-                  alignItems: "center",
-                  marginRight: 3,
-                  marginTop: 3,
-                  backgroundColor:
-                    index === selectedBadgeIndex ? "#B8CEF9" : "",
-                }}
-                onClick={() => {
-                  setSelectedBadgeIndex(index);
-                  setFieldValue(items[index]);
-                  setIsEditing(true);
-                }}
-              >
-                {getBadgeText ? getBadgeText(value) : value.toString()}
-                <Icon
-                  style={{
-                    cursor: "pointer",
-                    paddingLeft: 3,
-                    width: 20,
-                    height: 20,
-                  }}
-                  viewBox={{ width: 20, height: 20 }}
-                  paths={[
-                    {
-                      d: "M10 10l5.09-5.09L10 10l5.09 5.09L10 10zm0 0L4.91 4.91 10 10l-5.09 5.09L10 10z",
-                      stroke: "black",
-                    },
-                  ]}
-                  ariaLabel="button"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    removeItem(index);
-                  }}
-                />
-              </Badge>
-            );
-          })}
-        </ScrollView>
-      )}
-      <Divider orientation="horizontal" marginTop={5} />
-    </React.Fragment>
-  );
-  if (lengthLimit !== undefined && items.length >= lengthLimit && !isEditing) {
-    return (
-      <React.Fragment>
-        {labelElement}
-        {arraySection}
-      </React.Fragment>
-    );
-  }
-  return (
-    <React.Fragment>
-      {labelElement}
-      {isEditing && children}
-      {!isEditing ? (
-        <>
-          <Button
-            onClick={() => {
-              setIsEditing(true);
-            }}
-          >
-            Add item
-          </Button>
-          {errorMessage && hasError && (
-            <Text color={errorStyles.color} fontSize={errorStyles.fontSize}>
-              {errorMessage}
-            </Text>
-          )}
-        </>
-      ) : (
-        <Flex justifyContent="flex-end">
-          {(currentFieldValue || isEditing) && (
-            <Button
-              children="Cancel"
-              type="button"
-              size="small"
-              onClick={() => {
-                setFieldValue(defaultFieldValue);
-                setIsEditing(false);
-                setSelectedBadgeIndex(undefined);
-              }}
-            ></Button>
-          )}
-          <Button
-            size="small"
-            variation="link"
-            isDisabled={hasError}
-            onClick={addItem}
-          >
-            {selectedBadgeIndex !== undefined ? "Save" : "Add"}
-          </Button>
-        </Flex>
-      )}
-      {arraySection}
-    </React.Fragment>
-  );
-}
 export default function CourseCreateForm(props) {
   const {
     clearOnSuccess = true,
@@ -199,8 +37,7 @@ export default function CourseCreateForm(props) {
     start_date: "",
     end_date: "",
     description: "",
-    main_image: "",
-    images: [],
+    main_image: undefined,
     credit: "",
   };
   const [name, setName] = React.useState(initialValues.name);
@@ -212,7 +49,6 @@ export default function CourseCreateForm(props) {
     initialValues.description
   );
   const [main_image, setMain_image] = React.useState(initialValues.main_image);
-  const [images, setImages] = React.useState(initialValues.images);
   const [credit, setCredit] = React.useState(initialValues.credit);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
@@ -223,13 +59,9 @@ export default function CourseCreateForm(props) {
     setEnd_date(initialValues.end_date);
     setDescription(initialValues.description);
     setMain_image(initialValues.main_image);
-    setImages(initialValues.images);
-    setCurrentImagesValue("");
     setCredit(initialValues.credit);
     setErrors({});
   };
-  const [currentImagesValue, setCurrentImagesValue] = React.useState("");
-  const imagesRef = React.createRef();
   const validations = {
     name: [{ type: "Required" }],
     code: [{ type: "Required" }],
@@ -238,7 +70,6 @@ export default function CourseCreateForm(props) {
     end_date: [],
     description: [],
     main_image: [],
-    images: [],
     credit: [],
   };
   const runValidationTasks = async (
@@ -291,7 +122,6 @@ export default function CourseCreateForm(props) {
           end_date,
           description,
           main_image,
-          images,
           credit,
         };
         const validationResponses = await Promise.all(
@@ -354,7 +184,6 @@ export default function CourseCreateForm(props) {
               end_date,
               description,
               main_image,
-              images,
               credit,
             };
             const result = onChange(modelFields);
@@ -386,7 +215,6 @@ export default function CourseCreateForm(props) {
               end_date,
               description,
               main_image,
-              images,
               credit,
             };
             const result = onChange(modelFields);
@@ -418,7 +246,6 @@ export default function CourseCreateForm(props) {
               end_date,
               description,
               main_image,
-              images,
               credit,
             };
             const result = onChange(modelFields);
@@ -452,7 +279,6 @@ export default function CourseCreateForm(props) {
               end_date,
               description,
               main_image,
-              images,
               credit,
             };
             const result = onChange(modelFields);
@@ -486,7 +312,6 @@ export default function CourseCreateForm(props) {
               end_date: value,
               description,
               main_image,
-              images,
               credit,
             };
             const result = onChange(modelFields);
@@ -502,11 +327,12 @@ export default function CourseCreateForm(props) {
         hasError={errors.end_date?.hasError}
         {...getOverrideProps(overrides, "end_date")}
       ></TextField>
-      <TextField
+      <TextAreaField
         label="Description"
+        descriptiveText="Course Description"
         isRequired={false}
         isReadOnly={false}
-        value={description}
+        placeholder="Enter Course Description over here."
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -518,7 +344,6 @@ export default function CourseCreateForm(props) {
               end_date,
               description: value,
               main_image,
-              images,
               credit,
             };
             const result = onChange(modelFields);
@@ -533,89 +358,62 @@ export default function CourseCreateForm(props) {
         errorMessage={errors.description?.errorMessage}
         hasError={errors.description?.hasError}
         {...getOverrideProps(overrides, "description")}
-      ></TextField>
-      <TextField
-        label="Main image"
-        isRequired={false}
-        isReadOnly={false}
-        value={main_image}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              name,
-              code,
-              visibility,
-              start_date,
-              end_date,
-              description,
-              main_image: value,
-              images,
-              credit,
-            };
-            const result = onChange(modelFields);
-            value = result?.main_image ?? value;
-          }
-          if (errors.main_image?.hasError) {
-            runValidationTasks("main_image", value);
-          }
-          setMain_image(value);
-        }}
-        onBlur={() => runValidationTasks("main_image", main_image)}
+      ></TextAreaField>
+      <Field
         errorMessage={errors.main_image?.errorMessage}
         hasError={errors.main_image?.hasError}
-        {...getOverrideProps(overrides, "main_image")}
-      ></TextField>
-      <ArrayField
-        onChange={async (items) => {
-          let values = items;
-          if (onChange) {
-            const modelFields = {
-              name,
-              code,
-              visibility,
-              start_date,
-              end_date,
-              description,
-              main_image,
-              images: values,
-              credit,
-            };
-            const result = onChange(modelFields);
-            values = result?.images ?? values;
-          }
-          setImages(values);
-          setCurrentImagesValue("");
-        }}
-        currentFieldValue={currentImagesValue}
-        label={"Images"}
-        items={images}
-        hasError={errors?.images?.hasError}
-        errorMessage={errors?.images?.errorMessage}
-        setFieldValue={setCurrentImagesValue}
-        inputFieldRef={imagesRef}
-        defaultFieldValue={""}
+        label={"Main image"}
+        isRequired={false}
+        isReadOnly={false}
       >
-        <TextField
-          label="Images"
-          isRequired={false}
-          isReadOnly={false}
-          value={currentImagesValue}
-          onChange={(e) => {
-            let { value } = e.target;
-            if (errors.images?.hasError) {
-              runValidationTasks("images", value);
-            }
-            setCurrentImagesValue(value);
+        <StorageManager
+          onUploadSuccess={({ key }) => {
+            setMain_image((prev) => {
+              let value = key;
+              if (onChange) {
+                const modelFields = {
+                  name,
+                  code,
+                  visibility,
+                  start_date,
+                  end_date,
+                  description,
+                  main_image: value,
+                  credit,
+                };
+                const result = onChange(modelFields);
+                value = result?.main_image ?? value;
+              }
+              return value;
+            });
           }}
-          onBlur={() => runValidationTasks("images", currentImagesValue)}
-          errorMessage={errors.images?.errorMessage}
-          hasError={errors.images?.hasError}
-          ref={imagesRef}
-          labelHidden={true}
-          {...getOverrideProps(overrides, "images")}
-        ></TextField>
-      </ArrayField>
+          onFileRemove={({ key }) => {
+            setMain_image((prev) => {
+              let value = initialValues?.main_image;
+              if (onChange) {
+                const modelFields = {
+                  name,
+                  code,
+                  visibility,
+                  start_date,
+                  end_date,
+                  description,
+                  main_image: value,
+                  credit,
+                };
+                const result = onChange(modelFields);
+                value = result?.main_image ?? value;
+              }
+              return value;
+            });
+          }}
+          processFile={processFile}
+          accessLevel={"protected"}
+          acceptedFileTypes={["image/*"]}
+          isResumable={false}
+          showThumbnails={true}
+        ></StorageManager>
+      </Field>
       <TextField
         label="Credit"
         isRequired={false}
@@ -636,7 +434,6 @@ export default function CourseCreateForm(props) {
               end_date,
               description,
               main_image,
-              images,
               credit: value,
             };
             const result = onChange(modelFields);

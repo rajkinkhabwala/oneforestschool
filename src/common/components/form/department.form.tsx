@@ -11,26 +11,32 @@ import {
   updateDepartment,
 } from "../../api/department/department.api";
 import { useMutation, useQueryClient } from "react-query";
-import { DepartmentFormType } from "./form";
+import { FormModal } from "./form";
+import { LazyDepartment } from "../../../models";
 
 
-function DepartmentForm({ formType, record, editState, setEditState}: DepartmentFormType<Department>) {
 
-  let form = useForm<any>({
-    initialValues:
-      formType === "new"
-        ? {
-            name: "",
-            code: "",
-            description: "",
-          }
-        : {
-            name: record?.name,
-            code: record?.code,
-            description: record?.description ? record?.description : "",
-          },
-  });
 
+function DepartmentForm({ formType, record }: FormModal<LazyDepartment>) {
+
+  let submitForm = useForm<CreateDepartmentInput>({
+    initialValues: {
+      name: "",
+      code: "",
+      description: "",
+    },
+  })
+
+  let updateForm = useForm<UpdateDepartmentInput>({
+    initialValues: {
+      id: record?.id!,
+      name: record?.name,
+      code: record?.code,
+      description: record?.description
+    }
+  })
+
+  
   const queryClient = useQueryClient();
   const createMutation = useMutation({
     mutationFn: createDepartment,
@@ -42,16 +48,16 @@ function DepartmentForm({ formType, record, editState, setEditState}: Department
 
   function handleSubmit(values: CreateDepartmentInput) {
     createMutation.mutate(values, {
-      onSuccess(data, context) {
+      onSuccess(data) {
         
         notifications.show({
           title: "Successful",
-          message: `Successfully added ${data.data?.createDepartment?.name}`,
+          message: `Successfully added ${data?.name}`,
           color: "green",
         }); 
 
       queryClient.invalidateQueries({ queryKey: ['departments'] })
-      form.reset();
+      submitForm.reset();
       },
     });
     
@@ -59,16 +65,16 @@ function DepartmentForm({ formType, record, editState, setEditState}: Department
 
   function handleEdit(values: UpdateDepartmentInput) {
     updateMutation.mutate(values, {
-      onSuccess(data, variables, context) {
+      onSuccess(data) {
         
         notifications.show({
           title: "Successful",
-          message: `Successfully edited ${data.data?.updateDepartment?.name}`,
+          message: `Successfully edited ${data?.name}`,
           color: "green",
         }); 
 
-      queryClient.invalidateQueries({ queryKey: ['department'] })
-      form.reset();
+      queryClient.invalidateQueries({ queryKey: ['departments'] })
+      
       },
     });
   }
@@ -77,66 +83,38 @@ function DepartmentForm({ formType, record, editState, setEditState}: Department
     
 
   return (
-    <>
-    {
-      formType === "edit"?
-      <Button onClick={() => setEditState!()}>
-        {editState}
-      </Button>
-      :
-      <></>
-    }
     <form
       onSubmit={
         formType === "new"
-          ? form.onSubmit(handleSubmit)
-          : form.onSubmit(handleEdit)
+          ? submitForm.onSubmit(handleSubmit)
+          : updateForm.onSubmit(handleEdit)
       }
     >
-    
-      
       <TextInput
         withAsterisk
         label="Department Name"
         placeholder="Enter the department name..."
         required
-        disabled={formType === "edit" ?editState === "edit" ? false : true : false}
-        {...form.getInputProps("name")}
+        {...formType === "edit" ? updateForm.getInputProps("name") : submitForm.getInputProps("name")}
       />
       <TextInput
         withAsterisk
         label="Department Code"
         placeholder="Enter the department code..."
         required
-        disabled={formType === "edit" ?editState === "edit" ? false : true : false}
-        {...form.getInputProps("code")}
+        {...formType === "edit" ? updateForm.getInputProps("code") : submitForm.getInputProps("code")}
       />
       <Textarea
         placeholder="Department Description"
         label="Enter the department description"
-        disabled={formType === "edit" ?editState === "edit" ? false : true : false}
-        {...form.getInputProps("description")}
+        {...formType === "edit" ? updateForm.getInputProps("description") : submitForm.getInputProps("description")}
       />
 
-    {
-      formType === "new" ?
+    
       <Group position="right" mt="md">
-        <Button type="submit">Create Department</Button>
+        <Button type="submit">{formType === "new" ? "Create Department" : "Edit Department"}</Button>
       </Group>
-      :
-      <></>
-    }
-    {
-      editState === "edit" ?
-      <Group position="right" mt="md">
-        <Button type="submit">Edit Department</Button>
-      </Group>
-      : 
-      <></>
-    }
-      
     </form>
-    </>
   );
 }
 

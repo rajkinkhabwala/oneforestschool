@@ -22,6 +22,55 @@
       "providerPlugin": "awscloudformation",
       "service": "API Gateway"
     },
+    "CalendarApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "CalendarFunction"
+        },
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "ofsapplication4beb4f4b"
+        },
+        {
+          "attributes": [
+            "AdminsGroupRole"
+          ],
+          "category": "auth",
+          "resourceName": "userPoolGroups"
+        },
+        {
+          "attributes": [
+            "TeachersGroupRole"
+          ],
+          "category": "auth",
+          "resourceName": "userPoolGroups"
+        },
+        {
+          "attributes": [
+            "StudentsGroupRole"
+          ],
+          "category": "auth",
+          "resourceName": "userPoolGroups"
+        },
+        {
+          "attributes": [
+            "ParentsGroupRole"
+          ],
+          "category": "auth",
+          "resourceName": "userPoolGroups"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "ofsapplication": {
       "dependsOn": [
         {
@@ -34,7 +83,11 @@
       ],
       "output": {
         "authConfig": {
-          "additionalAuthenticationProviders": [],
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
@@ -105,6 +158,21 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "CalendarFunction": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "ofsapplication"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -121,6 +189,38 @@
         {
           "category": "function",
           "resourceName": "AdminQueriesc4330c3a"
+        }
+      ]
+    },
+    "AMPLIFY_function_CalendarFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "CalendarFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_CalendarFunction_googleClientId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "CalendarFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_CalendarFunction_googleSecret": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "CalendarFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_CalendarFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "CalendarFunction"
         }
       ]
     }

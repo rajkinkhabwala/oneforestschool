@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, StorageFieldProps, SwitchFieldProps, TextAreaFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
@@ -20,7 +20,6 @@ export declare type CourseCreateFormInputValues = {
     end_date?: string;
     description?: string;
     main_image?: string;
-    images?: string[];
     credit?: number;
 };
 export declare type CourseCreateFormValidationValues = {
@@ -31,7 +30,6 @@ export declare type CourseCreateFormValidationValues = {
     end_date?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
     main_image?: ValidationFunction<string>;
-    images?: ValidationFunction<string>;
     credit?: ValidationFunction<number>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
@@ -42,9 +40,8 @@ export declare type CourseCreateFormOverridesProps = {
     visibility?: PrimitiveOverrideProps<SwitchFieldProps>;
     start_date?: PrimitiveOverrideProps<TextFieldProps>;
     end_date?: PrimitiveOverrideProps<TextFieldProps>;
-    description?: PrimitiveOverrideProps<TextFieldProps>;
-    main_image?: PrimitiveOverrideProps<TextFieldProps>;
-    images?: PrimitiveOverrideProps<TextFieldProps>;
+    description?: PrimitiveOverrideProps<TextAreaFieldProps>;
+    main_image?: PrimitiveOverrideProps<StorageFieldProps>;
     credit?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type CourseCreateFormProps = React.PropsWithChildren<{

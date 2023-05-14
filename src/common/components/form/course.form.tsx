@@ -23,6 +23,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { createCourse, updateCourse } from "../../api/course/course.api";
 import { FormModal } from "./form";
 import { notifications } from "@mantine/notifications";
+import { LazyDepartment } from "../../../models";
 
 export default function CourseForm({ formType, record }: FormModal<Course>) {
   const queryClient = useQueryClient()
@@ -217,7 +218,7 @@ export default function CourseForm({ formType, record }: FormModal<Course>) {
         )}
       </SimpleGrid>
       <SimpleGrid cols={1} mt="xl" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
-        {formType === "new" ? (
+        {/* {formType === "new" ? (
           <Select
             {...submitForm.getInputProps("departmentID")}
             label="Select department"
@@ -227,7 +228,7 @@ export default function CourseForm({ formType, record }: FormModal<Course>) {
             data={
               isLoading
                 ? [{ value: "", label: "" }]
-                : data?.items.map((el: Department) => ({
+                : data?.map((el: any) => ({
                     value: el.id,
                     label: el.name,
                   }))
@@ -250,7 +251,7 @@ export default function CourseForm({ formType, record }: FormModal<Course>) {
                   }))
             }
           />
-        )}
+        )} */}
       </SimpleGrid>
       <SimpleGrid cols={1} mt="xl" breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
         {formType === "new" ? (

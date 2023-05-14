@@ -1,43 +1,110 @@
-import { API } from "aws-amplify";
-import * as mutations from '../../../graphql/mutations';
-import * as queries from '../../../graphql/queries';
-import { GraphQLQuery, graphqlOperation, GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
-import { CreateDepartmentInput, CreateDepartmentMutation, DeleteDepartmentMutation, Department, GetDepartmentQuery, ListNotificationsQueryVariables , ListDepartmentsQuery, UpdateDepartmentInput, UpdateDepartmentMutation, ListDepartmentsQueryVariables } from "../../../API";
-import { DepartmentGraphQLResult } from "../types/api";
+import { DataStore } from "aws-amplify";
+import {MutableModel} from "@aws-amplify/datastore";
+import { CreateDepartmentInput, UpdateDepartmentInput } from "../../../API";
+import {  Department} from "../../../models";
+import { json } from "react-router-dom";
 
 
 export async function createDepartment(department: CreateDepartmentInput) {
-    return await API.graphql<GraphQLQuery<CreateDepartmentMutation>>({...graphqlOperation(mutations.createDepartment, { input: department }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
+    // return await API.graphql<GraphQLQuery<CreateDepartmentMutation>>({...graphqlOperation(mutations.createDepartment, { input: department }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
+    try {
+        const newDepartment = await DataStore.save(
+            new Department(department)
+        )
+        return newDepartment
+    } catch (error) {
+        console.log("Error While Creating Department: ",error)
+        throw json({
+            message: error
+        }, {
+            status: 500,
+            statusText: "Error While Creating Department."
+        })
+    }
 }
 
 export async function updateDepartment(department: UpdateDepartmentInput) {
-    return await API.graphql<GraphQLQuery<UpdateDepartmentMutation>>({...graphqlOperation(mutations.updateDepartment, { input: department }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
+    
+    try {
+        const original = await DataStore.query(Department, department.id)
+        if(original){
+            return DataStore.save(
+                Department.copyOf(original, (updated) => {
+                    updated.name = department.name!
+                    updated.code = department.code!
+                    updated.description = department.description!
+                })
+            )
+        }
+    } catch (error) {
+        console.log("Error While Updating Department: ",error)
+
+        throw json({
+            message: error
+        }, {
+            status: 500,
+            statusText: "Error While Updating Department."
+        })
+        
+    }
 }
 
 export async function deleteDepartment(id: string) {
-    return await API.graphql<GraphQLQuery<DeleteDepartmentMutation>>({...graphqlOperation(mutations.deleteDepartment, { input: {
-        id: id
-    } }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
+    try {
+        const department = await DataStore.query(Department, id)
+
+        if(department){
+            return DataStore.delete(department)
+        }else {
+            throw json({
+                message: "Data not found"
+            }, {
+                status: 404,
+                statusText: "Error While Deleting Department."
+            })
+        }
+
+    } catch (error) {
+        console.log("Error While Deleting Department: ",error)
+
+        throw json({
+            message: error
+        }, {
+            status: 500,
+            statusText: "Error While Deleting Department."
+        })
+    }
     
 }
 
-export async function listDepartment(
-    input?: ListDepartmentsQueryVariables
-): Promise<DepartmentGraphQLResult> {
-    return await new Promise((resolve, reject) =>{
-        API.graphql<GraphQLQuery<ListDepartmentsQuery>>({ ...graphqlOperation(queries.listDepartments, {input}),
-        authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS
-    }).then((value) => {
-    resolve({
-        items: value.data?.listDepartments?.items as Department[],
-        nextToken: value.data?.listDepartments?.nextToken,
-        errors: value.errors,
-        extenstions: value.extensions,
-    })
-    }).catch((err) => reject(err))
-    })
+export async function listDepartment()
+{
+
+    try {
+        const department = DataStore.query(Department)
+        return department
+    } catch (error) {
+        console.log("Error While Listing Department: ",error)
+        throw json({
+            message: error
+        }, {
+            status: 500,
+            statusText: "Error While Listing Department."
+        })
+    }
 }
 
-export async function getDepartment(department: string) {
-    return await API.graphql<GraphQLQuery<GetDepartmentQuery>>(graphqlOperation(queries.getDepartment, { id: department }))
+export async function getDepartment(id: string) {
+    try {
+        const department = DataStore.query(Department, id)
+        return department
+    } catch (error) {
+        console.log("Error While Getting Single Department: ",error)
+        throw json({
+            message: error
+        }, {
+            status: 500,
+            statusText: "Error While Getting Single Department."
+        })
+    }
 }

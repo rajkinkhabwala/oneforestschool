@@ -20,11 +20,18 @@
         "AdminQueriesc4330c3a": {
           "deploymentBucketName": "amplify-ofsapplication-dev-02345-deployment",
           "s3Key": "amplify-builds/AdminQueriesc4330c3a-69797355544c54797544-build.zip"
+        },
+        "CalendarFunction": {
+          "deploymentBucketName": "amplify-ofsapplication-dev-02345-deployment",
+          "s3Key": "amplify-builds/CalendarFunction-4c6757534a4e526f6659-build.zip",
+          "googleClientId": "396573244367-cjr3e2it26rf8cb8v9s6dg1iv0cjf7jn.apps.googleusercontent.com",
+          "googleSecret": "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"
         }
       },
       "api": {
         "AdminQueries": {},
-        "ofsapplication": {}
+        "ofsapplication": {},
+        "CalendarApi": {}
       }
     }
   }

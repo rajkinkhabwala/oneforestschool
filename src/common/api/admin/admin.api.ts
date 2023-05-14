@@ -127,27 +127,22 @@ export async function getUser(username: string){
     })
 }
 
-export async function listUsers(token?: string, limit?: number){
+export async function listUsers(): Promise<any> { 
     let apiName = 'AdminQueries';
     let path = '/listUsers';
-    let myInit = {
-        body: {
-            "token" : token,
-            "limit" : limit
-        },
-        header: {
-            'content-type' : 'application/json',
-            Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
-        }
-
+    let myInit = { 
+        headers: {
+          'Content-Type' : 'application/json',
+          Authorization: `${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+        } 
     }
 
-    return new Promise((resolve, reject) => {
-        API.post(apiName, path, myInit).then((value) => {
-            resolve(value);
+    return await new Promise((resolve, reject) => {
+        API.get(apiName, path, myInit).then((value) => {
+          resolve(value);
         }).catch((err) => reject(err));
-    })
-}
+    }) 
+  }
 
 export async function listGroups(token: string, limit: number){
     let apiName = 'AdminQueries';

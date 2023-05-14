@@ -5,11 +5,11 @@
  **************************************************************************/
 
 export { default as studioTheme } from "./studioTheme";
+export { default as CourseCreateForm } from "./CourseCreateForm";
 export { default as UserCreateForm } from "./UserCreateForm";
 export { default as UserUpdateForm } from "./UserUpdateForm";
 export { default as NotificationCreateForm } from "./NotificationCreateForm";
 export { default as NotificationUpdateForm } from "./NotificationUpdateForm";
-export { default as CourseCreateForm } from "./CourseCreateForm";
 export { default as CourseUpdateForm } from "./CourseUpdateForm";
 export { default as DepartmentCreateForm } from "./DepartmentCreateForm";
 export { default as DepartmentUpdateForm } from "./DepartmentUpdateForm";

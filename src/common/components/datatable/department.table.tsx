@@ -10,13 +10,14 @@ import { useMutation, useQueryClient } from 'react-query';
 import { deleteDepartment } from '../../api/department/department.api';
 import { modals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
+import { LazyDepartment } from '../../../models';
 
 const PAGE_SIZE = 8;
 
 export default function DepartmentTable({data, isLoading, enableHeader, columns} : DepartmentTableProps ){
    
     const [page, setPage] = useState(1);
-    const [records, setRecords] = useState(data?.items?.slice(0, PAGE_SIZE));
+    const [records, setRecords] = useState(data?.slice(0, PAGE_SIZE));
     const deleteMutation = useMutation(deleteDepartment);
 
     const { classes, cx } = tableStyles()
@@ -26,10 +27,10 @@ export default function DepartmentTable({data, isLoading, enableHeader, columns}
     useEffect(() => {
         const from = (page - 1) * PAGE_SIZE;
         const to = from + PAGE_SIZE;
-        setRecords(data?.items?.slice(from, to));
+        setRecords(data?.slice(from, to));
     }, [data, page]);
 
-    function removeDepartment(rowData: Department): void {
+    function removeDepartment(rowData: LazyDepartment): void {
         modals.openConfirmModal({
             title: 'Delete your profile',
             centered: true,
@@ -46,7 +47,7 @@ export default function DepartmentTable({data, isLoading, enableHeader, columns}
                 onSuccess(data, variables, context) {
                   notifications.show({
                     title: 'Successful',
-                    message: `Successfully deleted ${data.data?.deleteDepartment?.name}!`,
+                    message: `Successfully deleted ${data.name}!`,
                     color: 'red'
                   });
                   queryClient.invalidateQueries({queryKey: ["departments"]})   
@@ -70,16 +71,17 @@ export default function DepartmentTable({data, isLoading, enableHeader, columns}
                 records={records}
                 withBorder
                 withColumnBorders
-                height={300}
+                height={450}
                 page={page}
                 recordsPerPage={PAGE_SIZE}
                 onPageChange={(p) => setPage(p)}
-                totalRecords={data?.items?.length}
+                fetching={isLoading}
+                totalRecords={data?.length}
                 columns={columns ? columns : [
                     { accessor: "name", title: "Department Name" },
                     { accessor: "code", title: "Department Code"},
                     { accessor: "Modify", width:"20%",
-                      render: (rowData: Department) => {
+                      render: (rowData: LazyDepartment) => {
                           
                         return(
                             <div className={classes.modify}>

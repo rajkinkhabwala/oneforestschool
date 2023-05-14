@@ -3,11 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser(
-    $filter: ModelSubscriptionUserFilterInput
-    $owner: String
-  ) {
-    onCreateUser(filter: $filter, owner: $owner) {
+  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+    onCreateUser(filter: $filter) {
       id
       email
       name
@@ -24,8 +21,12 @@ export const onCreateUser = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Courses {
         items {
@@ -34,21 +35,24 @@ export const onCreateUser = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
-      owner
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser(
-    $filter: ModelSubscriptionUserFilterInput
-    $owner: String
-  ) {
-    onUpdateUser(filter: $filter, owner: $owner) {
+  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+    onUpdateUser(filter: $filter) {
       id
       email
       name
@@ -65,8 +69,12 @@ export const onUpdateUser = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Courses {
         items {
@@ -75,21 +83,24 @@ export const onUpdateUser = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
-      owner
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser(
-    $filter: ModelSubscriptionUserFilterInput
-    $owner: String
-  ) {
-    onDeleteUser(filter: $filter, owner: $owner) {
+  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+    onDeleteUser(filter: $filter) {
       id
       email
       name
@@ -106,8 +117,12 @@ export const onDeleteUser = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Courses {
         items {
@@ -116,12 +131,18 @@ export const onDeleteUser = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
-      owner
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -137,6 +158,9 @@ export const onCreateNotification = /* GraphQL */ `
       userID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -152,6 +176,9 @@ export const onUpdateNotification = /* GraphQL */ `
       userID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -167,6 +194,9 @@ export const onDeleteNotification = /* GraphQL */ `
       userID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -201,10 +231,16 @@ export const onCreateCourse = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         eventCourseId
       }
       Users {
@@ -214,8 +250,12 @@ export const onCreateCourse = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Notifications {
         items {
@@ -226,11 +266,18 @@ export const onCreateCourse = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       courseEventId
     }
   }
@@ -266,10 +313,16 @@ export const onUpdateCourse = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         eventCourseId
       }
       Users {
@@ -279,8 +332,12 @@ export const onUpdateCourse = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Notifications {
         items {
@@ -291,11 +348,18 @@ export const onUpdateCourse = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       courseEventId
     }
   }
@@ -331,10 +395,16 @@ export const onDeleteCourse = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         eventCourseId
       }
       Users {
@@ -344,8 +414,12 @@ export const onDeleteCourse = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Notifications {
         items {
@@ -356,11 +430,18 @@ export const onDeleteCourse = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       courseEventId
     }
   }
@@ -389,12 +470,19 @@ export const onCreateDepartment = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -422,12 +510,19 @@ export const onUpdateDepartment = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -455,12 +550,19 @@ export const onDeleteDepartment = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -486,20 +588,31 @@ export const onCreateEvent = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       eventCourseId
     }
   }
@@ -526,20 +639,31 @@ export const onUpdateEvent = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       eventCourseId
     }
   }
@@ -566,20 +690,31 @@ export const onDeleteEvent = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       eventCourseId
     }
   }
@@ -602,13 +737,17 @@ export const onCreateCourseUsers = /* GraphQL */ `
         description
         Notifications {
           nextToken
+          startedAt
         }
         Courses {
           nextToken
+          startedAt
         }
-        owner
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       course {
         id
@@ -627,20 +766,31 @@ export const onCreateCourseUsers = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -662,13 +812,17 @@ export const onUpdateCourseUsers = /* GraphQL */ `
         description
         Notifications {
           nextToken
+          startedAt
         }
         Courses {
           nextToken
+          startedAt
         }
-        owner
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       course {
         id
@@ -687,20 +841,31 @@ export const onUpdateCourseUsers = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -722,13 +887,17 @@ export const onDeleteCourseUsers = /* GraphQL */ `
         description
         Notifications {
           nextToken
+          startedAt
         }
         Courses {
           nextToken
+          startedAt
         }
-        owner
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       course {
         id
@@ -747,20 +916,31 @@ export const onDeleteCourseUsers = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;

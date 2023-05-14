@@ -24,8 +24,12 @@ export const createUser = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Courses {
         items {
@@ -34,12 +38,18 @@ export const createUser = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
-      owner
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -65,8 +75,12 @@ export const updateUser = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Courses {
         items {
@@ -75,12 +89,18 @@ export const updateUser = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
-      owner
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -106,8 +126,12 @@ export const deleteUser = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Courses {
         items {
@@ -116,12 +140,18 @@ export const deleteUser = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
-      owner
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -138,6 +168,9 @@ export const createNotification = /* GraphQL */ `
       userID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -154,6 +187,9 @@ export const updateNotification = /* GraphQL */ `
       userID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -170,6 +206,9 @@ export const deleteNotification = /* GraphQL */ `
       userID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -207,10 +246,16 @@ export const createCourse = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         eventCourseId
       }
       Users {
@@ -220,8 +265,12 @@ export const createCourse = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Notifications {
         items {
@@ -232,11 +281,18 @@ export const createCourse = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       courseEventId
     }
   }
@@ -275,10 +331,16 @@ export const updateCourse = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         eventCourseId
       }
       Users {
@@ -288,8 +350,12 @@ export const updateCourse = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Notifications {
         items {
@@ -300,11 +366,18 @@ export const updateCourse = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       courseEventId
     }
   }
@@ -343,10 +416,16 @@ export const deleteCourse = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         eventCourseId
       }
       Users {
@@ -356,8 +435,12 @@ export const deleteCourse = /* GraphQL */ `
           courseId
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       Notifications {
         items {
@@ -368,11 +451,18 @@ export const deleteCourse = /* GraphQL */ `
           userID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       courseEventId
     }
   }
@@ -402,12 +492,19 @@ export const createDepartment = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -436,12 +533,19 @@ export const updateDepartment = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -470,12 +574,19 @@ export const deleteDepartment = /* GraphQL */ `
           departmentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           courseEventId
         }
         nextToken
+        startedAt
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -504,20 +615,31 @@ export const createEvent = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       eventCourseId
     }
   }
@@ -547,20 +669,31 @@ export const updateEvent = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       eventCourseId
     }
   }
@@ -590,20 +723,31 @@ export const deleteEvent = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       eventCourseId
     }
   }
@@ -627,13 +771,17 @@ export const createCourseUsers = /* GraphQL */ `
         description
         Notifications {
           nextToken
+          startedAt
         }
         Courses {
           nextToken
+          startedAt
         }
-        owner
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       course {
         id
@@ -652,20 +800,31 @@ export const createCourseUsers = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -688,13 +847,17 @@ export const updateCourseUsers = /* GraphQL */ `
         description
         Notifications {
           nextToken
+          startedAt
         }
         Courses {
           nextToken
+          startedAt
         }
-        owner
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       course {
         id
@@ -713,20 +876,31 @@ export const updateCourseUsers = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -749,13 +923,17 @@ export const deleteCourseUsers = /* GraphQL */ `
         description
         Notifications {
           nextToken
+          startedAt
         }
         Courses {
           nextToken
+          startedAt
         }
-        owner
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
       }
       course {
         id
@@ -774,20 +952,31 @@ export const deleteCourseUsers = /* GraphQL */ `
           event
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           eventCourseId
         }
         Users {
           nextToken
+          startedAt
         }
         Notifications {
           nextToken
+          startedAt
         }
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         courseEventId
       }
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
     }
   }
 `;

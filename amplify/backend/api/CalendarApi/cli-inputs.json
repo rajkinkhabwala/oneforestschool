@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "paths": {
+    "/calendar": {
+      "name": "/calendar",
+      "lambdaFunction": "CalendarFunction",
+      "permissions": {
+        "groups": {
+          "Admins": [
+            "create",
+            "read",
+            "update",
+            "delete"
+          ],
+          "Teachers": [
+            "create",
+            "read",
+            "update",
+            "delete"
+          ],
+          "Students": [
+            "create",
+            "read",
+            "update"
+          ],
+          "Parents": [
+            "create",
+            "read",
+            "update"
+          ]
+        },
+        "setting": "private"
+      }
+    }
+  }
+}
