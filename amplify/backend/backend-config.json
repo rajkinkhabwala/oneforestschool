@@ -103,7 +103,17 @@
   "auth": {
     "ofsapplication4beb4f4b": {
       "customAuth": false,
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "ofsapplication4beb4f4bPostConfirmation",
+          "triggerProvider": "Cognito"
+        }
+      ],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -173,6 +183,11 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "ofsapplication4beb4f4bPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -221,6 +236,22 @@
         {
           "category": "function",
           "resourceName": "CalendarFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_ofsapplication4beb4f4bPostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ofsapplication4beb4f4bPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_ofsapplication4beb4f4bPostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ofsapplication4beb4f4bPostConfirmation"
         }
       ]
     }

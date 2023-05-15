@@ -84,6 +84,13 @@ export const schema = {
                         ]
                     }
                 },
+                "google_refresh_token": {
+                    "name": "google_refresh_token",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -185,7 +192,7 @@ export const schema = {
                     "name": "userID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "createdAt": {
@@ -224,7 +231,7 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byUsers",
+                        "name": "byUser",
                         "fields": [
                             "userID"
                         ]
@@ -802,6 +809,6 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "codegenVersion": "3.4.3",
-    "version": "b4eb72fd65f0c29dd821ca1ca63b9f66"
+    "codegenVersion": "3.4.2",
+    "version": "c9e31facc831d66c901fc8cc77e7766d"
 };
