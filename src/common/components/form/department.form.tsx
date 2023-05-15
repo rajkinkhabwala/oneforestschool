@@ -3,7 +3,6 @@ import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 import {
   CreateDepartmentInput,
-  Department,
   UpdateDepartmentInput,
 } from "../../../API";
 import {

@@ -6,8 +6,9 @@ type User @model @auth(rules: [{allow: private, operations: [read]}, {allow: gro
   address: String
   picture: String
   description: String
-  Notifications: [Notification] @hasMany(indexName: "byUsers", fields: ["id"])
+  Notifications: [Notification] @hasMany(indexName: "byUser", fields: ["id"])
   Courses: [Course] @manyToMany(relationName: "CourseUsers")
+  google_refresh_token: String
 }
 
 type Notification @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}]) {
@@ -15,7 +16,7 @@ type Notification @model @auth(rules: [{allow: private, operations: [read]}, {al
   title: String
   message: String
   courseID: ID @index(name: "byCourses")
-  userID: ID @index(name: "byUsers")
+  userID: ID! @index(name: "byUser")
 }
 
 type Course @model @auth(rules: [{allow: private, operations: [read]}, {allow: groups, groups: ["Teachers"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Admins"], operations: [read, create, update, delete]}, {allow: groups, groups: ["Students"], operations: [read]}, {allow: groups, groups: ["Parents"], operations: [read]}]) {
@@ -47,4 +48,5 @@ type Event @model @auth(rules: [{allow: groups, groups: ["Admins"], operations: 
   id: ID!
   event: AWSJSON
   Course: Course @hasOne
-} 
+}
+ 

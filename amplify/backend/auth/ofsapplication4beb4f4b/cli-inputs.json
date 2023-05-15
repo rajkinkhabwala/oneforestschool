@@ -36,7 +36,7 @@
     "sharedId": "4beb4f4b",
     "resourceName": "ofsapplication4beb4f4b",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "useDefault": "manual",
     "usernameAttributes": [
       "email"
     ],
@@ -62,7 +62,32 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": [],
-    "adminQueryGroup": "Admins"
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "ofsapplication4beb4f4bPostConfirmation",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
+    "adminQueryGroup": "Admins",
+    "thirdPartyAuth": true,
+    "authProviders": [],
+    "userPoolGroups": true,
+    "adminQueries": true,
+    "triggers": {
+      "PostConfirmation": [
+        "custom"
+      ]
+    },
+    "hostedUI": false,
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"ofsapplication4beb4f4bPostConfirmation\"\n  }\n]",
+    "permissions": []
   }
 }

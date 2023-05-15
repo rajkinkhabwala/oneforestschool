@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-ofsapplication-dev-02345-unauthRole",
       "StackName": "amplify-ofsapplication-dev-02345",
       "StackId": "arn:aws:cloudformation:us-west-2:223681902151:stack/amplify-ofsapplication-dev-02345/1aa21390-f15f-11ed-bc82-0227979e3edb",
-      "AmplifyAppId": "doeyq2sqnlbph"
+      "AmplifyAppId": "doeyq2sqnlbph",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-ofsapplication-dev-02345-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
@@ -23,9 +24,14 @@
         },
         "CalendarFunction": {
           "deploymentBucketName": "amplify-ofsapplication-dev-02345-deployment",
-          "s3Key": "amplify-builds/CalendarFunction-4c6757534a4e526f6659-build.zip",
+          "s3Key": "amplify-builds/CalendarFunction-574b38554131564d6865-build.zip",
           "googleClientId": "396573244367-cjr3e2it26rf8cb8v9s6dg1iv0cjf7jn.apps.googleusercontent.com",
-          "googleSecret": "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"
+          "googleSecret": "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",
+          "redirectUri": "http://localhost:3000"
+        },
+        "ofsapplication4beb4f4bPostConfirmation": {
+          "deploymentBucketName": "amplify-ofsapplication-dev-02345-deployment",
+          "s3Key": "amplify-builds/ofsapplication4beb4f4bPostConfirmation-626474506f7131385748-build.zip"
         }
       },
       "api": {

@@ -20,6 +20,7 @@ type EagerUser = {
   readonly description?: string | null;
   readonly Notifications?: (Notification | null)[] | null;
   readonly Courses?: (CourseUsers | null)[] | null;
+  readonly google_refresh_token?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -38,6 +39,7 @@ type LazyUser = {
   readonly description?: string | null;
   readonly Notifications: AsyncCollection<Notification>;
   readonly Courses: AsyncCollection<CourseUsers>;
+  readonly google_refresh_token?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -57,7 +59,7 @@ type EagerNotification = {
   readonly title?: string | null;
   readonly message?: string | null;
   readonly courseID?: string | null;
-  readonly userID?: string | null;
+  readonly userID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -71,7 +73,7 @@ type LazyNotification = {
   readonly title?: string | null;
   readonly message?: string | null;
   readonly courseID?: string | null;
-  readonly userID?: string | null;
+  readonly userID: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

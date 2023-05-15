@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useColorScheme } from "@mantine/hooks";
 import { Notifications } from "@mantine/notifications";
 import { ModalsProvider } from "@mantine/modals";
-import { DataStore } from "aws-amplify";
+
 function App() {
   const preferredColorScheme = useColorScheme();
   const [colorScheme, setColorScheme] =
@@ -22,7 +22,7 @@ function App() {
   const { route } = useAuthenticator((context) => [context.route]);
 
   if (route === "authenticated") {
-    
+
     return (
       <ColorSchemeProvider
         colorScheme={colorScheme}

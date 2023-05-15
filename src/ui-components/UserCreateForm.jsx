@@ -29,6 +29,7 @@ export default function UserCreateForm(props) {
     address: "",
     picture: "",
     description: "",
+    google_refresh_token: "",
   };
   const [email, setEmail] = React.useState(initialValues.email);
   const [name, setName] = React.useState(initialValues.name);
@@ -38,6 +39,9 @@ export default function UserCreateForm(props) {
   const [description, setDescription] = React.useState(
     initialValues.description
   );
+  const [google_refresh_token, setGoogle_refresh_token] = React.useState(
+    initialValues.google_refresh_token
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setEmail(initialValues.email);
@@ -46,6 +50,7 @@ export default function UserCreateForm(props) {
     setAddress(initialValues.address);
     setPicture(initialValues.picture);
     setDescription(initialValues.description);
+    setGoogle_refresh_token(initialValues.google_refresh_token);
     setErrors({});
   };
   const validations = {
@@ -55,6 +60,7 @@ export default function UserCreateForm(props) {
     address: [],
     picture: [],
     description: [],
+    google_refresh_token: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -88,6 +94,7 @@ export default function UserCreateForm(props) {
           address,
           picture,
           description,
+          google_refresh_token,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -148,6 +155,7 @@ export default function UserCreateForm(props) {
               address,
               picture,
               description,
+              google_refresh_token,
             };
             const result = onChange(modelFields);
             value = result?.email ?? value;
@@ -177,6 +185,7 @@ export default function UserCreateForm(props) {
               address,
               picture,
               description,
+              google_refresh_token,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -206,6 +215,7 @@ export default function UserCreateForm(props) {
               address,
               picture,
               description,
+              google_refresh_token,
             };
             const result = onChange(modelFields);
             value = result?.phone ?? value;
@@ -235,6 +245,7 @@ export default function UserCreateForm(props) {
               address: value,
               picture,
               description,
+              google_refresh_token,
             };
             const result = onChange(modelFields);
             value = result?.address ?? value;
@@ -264,6 +275,7 @@ export default function UserCreateForm(props) {
               address,
               picture: value,
               description,
+              google_refresh_token,
             };
             const result = onChange(modelFields);
             value = result?.picture ?? value;
@@ -293,6 +305,7 @@ export default function UserCreateForm(props) {
               address,
               picture,
               description: value,
+              google_refresh_token,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -306,6 +319,38 @@ export default function UserCreateForm(props) {
         errorMessage={errors.description?.errorMessage}
         hasError={errors.description?.hasError}
         {...getOverrideProps(overrides, "description")}
+      ></TextField>
+      <TextField
+        label="Google refresh token"
+        isRequired={false}
+        isReadOnly={false}
+        value={google_refresh_token}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              email,
+              name,
+              phone,
+              address,
+              picture,
+              description,
+              google_refresh_token: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.google_refresh_token ?? value;
+          }
+          if (errors.google_refresh_token?.hasError) {
+            runValidationTasks("google_refresh_token", value);
+          }
+          setGoogle_refresh_token(value);
+        }}
+        onBlur={() =>
+          runValidationTasks("google_refresh_token", google_refresh_token)
+        }
+        errorMessage={errors.google_refresh_token?.errorMessage}
+        hasError={errors.google_refresh_token?.hasError}
+        {...getOverrideProps(overrides, "google_refresh_token")}
       ></TextField>
       <Flex
         justifyContent="space-between"

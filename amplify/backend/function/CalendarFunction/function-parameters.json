@@ -16,6 +16,10 @@
     {
       "cloudFormationParameterName": "googleSecret",
       "environmentVariableName": "GOOGLE_SECRET"
+    },
+    {
+      "cloudFormationParameterName": "redirectUri",
+      "environmentVariableName": "REDIRECT_URI"
     }
   ]
 }
