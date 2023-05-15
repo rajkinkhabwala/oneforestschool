@@ -3,7 +3,6 @@ import { tableStyles } from "./table.styles"
 import { useEffect, useState } from 'react';
 import {  IconEyeFilled, IconTrash } from '@tabler/icons-react';
 import { DepartmentTableProps } from './table';
-import { Department } from '../../../API';
 import { useNavigate } from 'react-router-dom';
 import { Button, Title, Text } from '@mantine/core';
 import { useMutation, useQueryClient } from 'react-query';
@@ -20,7 +19,7 @@ export default function DepartmentTable({data, isLoading, enableHeader, columns}
     const [records, setRecords] = useState(data?.slice(0, PAGE_SIZE));
     const deleteMutation = useMutation(deleteDepartment);
 
-    const { classes, cx } = tableStyles()
+    const { classes } = tableStyles()
     const navigate = useNavigate()
     const queryClient = useQueryClient()
 

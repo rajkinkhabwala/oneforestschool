@@ -1,12 +1,12 @@
 import { DataStore } from "aws-amplify";
-import {MutableModel} from "@aws-amplify/datastore";
+
 import { CreateDepartmentInput, UpdateDepartmentInput } from "../../../API";
 import {  Department} from "../../../models";
 import { json } from "react-router-dom";
 
 
 export async function createDepartment(department: CreateDepartmentInput) {
-    // return await API.graphql<GraphQLQuery<CreateDepartmentMutation>>({...graphqlOperation(mutations.createDepartment, { input: department }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
+    
     try {
         const newDepartment = await DataStore.save(
             new Department(department)

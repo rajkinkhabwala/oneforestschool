@@ -17,6 +17,7 @@ const awsServerlessExpressMiddleware = require('aws-serverless-express/middlewar
 const gclient = require('@googleapis/calendar')
 const { default: fetch, Request } = require("node-fetch");
 const {updateUser: updateUserQuery} = require('./graphql/mutations')
+const {getUser: getUserQuery} = require('./graphql/queries')
 
 // declare a new express app
 const app = express()
@@ -165,6 +166,56 @@ async function updateUser(refreshToken){
     };
 }
 
+<<<<<<< HEAD
+=======
+async function getUser(refreshToken){
+
+  const variables = {
+    input: {
+      google_refresh_token: refreshToken
+    }
+  }
+
+    /** @type {import('node-fetch').RequestInit} */
+    const options = {
+      method: 'POST',
+      headers: {
+        'x-api-key': GRAPHQL_API_KEY,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ updateUserQuery, variables })
+    };
+  
+    const request = new Request(GRAPHQL_ENDPOINT, options);
+  
+    let statusCode = 200;
+    let body;
+    let response;
+  
+    try {
+      response = await fetch(request);
+      body = await response.json();
+      if (body.errors) statusCode = 400;
+    } catch (error) {
+      statusCode = 400;
+      body = {
+        errors: [
+          {
+            status: response.status,
+            message: error.message,
+            stack: error.stack
+          }
+        ]
+      };
+    }
+  
+    return {
+      statusCode,
+      body: JSON.stringify(body)
+    };
+}
+
+>>>>>>> fe67443bbf5c12eb57177994eb0884d96a2cd960
 // Export the app object. When executing the application local this does nothing. However,
 // to port it to AWS Lambda we will create a wrapper around that will load the app from
 // this file

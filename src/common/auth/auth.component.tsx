@@ -4,6 +4,7 @@ export default function Auth() {
   return (
     <>
       <Authenticator
+      signUpAttributes={["name"]}
       loginMechanisms={["email"]}
       
       className="authentication" /></>
