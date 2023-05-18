@@ -1,7 +1,7 @@
 import { Outlet, useNavigation } from "react-router-dom";
 import DashboardLayout from "../../layouts/dashboard/dashboard.layout";
 import { NavbarLayout } from "../../layouts/navbar/navbar.layout";
-import { adminlinks } from "../../common/constants/navbars/navbar";
+import { mainlinks } from "../../common/constants/navbars/navbar";
 import { NavigationProgress, nprogress } from "@mantine/nprogress";
 import { useEffect } from "react";
 
@@ -21,7 +21,7 @@ useEffect(() => {
     <>
       <NavigationProgress  />
       <DashboardLayout
-        navbar={<NavbarLayout data={adminlinks} />}
+        navbar={<NavbarLayout data={mainlinks} />}
         header={<></>}
       >
         <Outlet />

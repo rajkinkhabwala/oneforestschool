@@ -7,7 +7,7 @@ import { notAuthorized } from "../common/constants/errors/errors";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "main/",
     element: <StudentMain />,
     loader: async() => {
       const value = await isAuthorized(["Students"]);
@@ -28,7 +28,14 @@ const router = createBrowserRouter([
     },
     children: [
       {
-        path: 'course/'
+        path: 'courses/',
+        lazy: () =>
+              import("../pages/main-dashboard/course/viewallcourse.page"),
+      },
+      {
+        path: 'mycourses/',
+        lazy: () =>
+              import("../pages/main-dashboard/course/mycourse.page")
       }
     ]
   },
