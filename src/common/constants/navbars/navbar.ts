@@ -1,4 +1,4 @@
-import { Icon123, IconAbc, IconBuilding, IconNotification, IconUser } from "@tabler/icons-react";
+import { Icon123, IconAbc, IconBuilding, IconNotification, IconSubscript, IconUser } from "@tabler/icons-react";
 
 export const logout_link = "Logout"
 
@@ -12,5 +12,6 @@ export const adminlinks = [
 ];
 
 export const mainlinks = [
-    { link: '/main/course', label: 'Courses', icon: IconAbc}
+    { link: '/main/courses', label: 'All Courses', icon: IconAbc },
+    { link: '/main/mycourses', label: 'My Courses', icon: IconSubscript }
 ]
