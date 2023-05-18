@@ -24,10 +24,11 @@
         },
         "CalendarFunction": {
           "deploymentBucketName": "amplify-ofsapplication-dev-02345-deployment",
-          "s3Key": "amplify-builds/CalendarFunction-574b38554131564d6865-build.zip",
+          "s3Key": "amplify-builds/CalendarFunction-434e6b782b6b4d734a68-build.zip",
+          "secretsPathAmplifyAppId": "doeyq2sqnlbph",
           "googleClientId": "396573244367-cjr3e2it26rf8cb8v9s6dg1iv0cjf7jn.apps.googleusercontent.com",
-          "googleSecret": "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",
-          "redirectUri": "http://localhost:3000"
+          "redirectUri": "http://localhost:3000",
+          "tableName": "User-rl5vefbxtngpvauuoyy4byixrm-dev"
         },
         "ofsapplication4beb4f4bPostConfirmation": {
           "deploymentBucketName": "amplify-ofsapplication-dev-02345-deployment",

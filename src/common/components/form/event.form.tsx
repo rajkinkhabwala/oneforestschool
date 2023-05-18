@@ -2,17 +2,21 @@ import { Event } from "../../../API";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import {
+  ActionIcon,
   Box,
   Button,
+  Grid,
   Group,
   MultiSelect,
   NumberInput,
   Select,
   SimpleGrid,
+  TextInput,
+  Textarea,
   Title,
 } from "@mantine/core";
 import { RRule, Options, Frequency } from "rrule";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { createCalendarEvents } from "../../api/calendar/events/events";
 import { useId } from "@mantine/hooks";
 import { useMutation } from "react-query";
@@ -21,14 +25,25 @@ import { createEvent } from "../../api/event/event.api";
 import { EventFormType } from "./form";
 import { notifications } from "@mantine/notifications";
 import { updateCourse } from "../../api/course/course.api";
+import { useGoogleLogin } from "@react-oauth/google";
+import { DatePickerInput, DateTimePicker, TimeInput } from "@mantine/dates";
+import { IconClock } from "@tabler/icons-react";
+import { useForm } from "@mantine/form";
 
-
-export default function EventForm({ formType, record, course }: EventFormType<Event>) {
-  
+export default function EventForm({
+  formType,
+  record,
+  course,
+}: EventFormType<Event>) {
   dayjs.extend(timezone);
   const id = useId().split("-");
-
-  
+  const login = useGoogleLogin({
+    onSuccess(tokenResponse) {
+      console.log(tokenResponse);
+    },
+    flow: "auth-code",
+    scope: "https://www.googleapis.com/auth/calendar",
+  });
 
   const [ruleOptions, setRuleOptions] = useState<Partial<Options>>({
     freq: 2,
@@ -38,111 +53,134 @@ export default function EventForm({ formType, record, course }: EventFormType<Ev
   const rule = new RRule(ruleOptions);
 
   const createCalendarMutation = useMutation({
-    mutationFn: createCalendarEvents
-  })
+    mutationFn: createCalendarEvents,
+  });
 
   const createEventMutation = useMutation({
-    mutationFn: createEvent
-  })
+    mutationFn: createEvent,
+  });
 
   const updateCourseMutation = useMutation({
-    mutationFn: updateCourse
+    mutationFn: updateCourse,
+  });
+
+  // async function handleSubmit() {
+  //   const rstring = rule.toString();
+  //   const event = {
+  //     summary:
+  //       course?.getCourse!.name + "-" + course?.getCourse!.code + " Class",
+  //     description: course?.getCourse!.description,
+  //     end: {
+  //       dateTime: course?.getCourse!.end_date,
+  //       timeZone: dayjs.tz.guess(),
+  //     },
+  //     start: {
+  //       dateTime: course?.getCourse!.start_date,
+  //       timeZone: dayjs.tz.guess(),
+  //     },
+  //     recurrence: [rstring],
+  //     reminders: {
+  //       useDefault: false,
+  //       overrides: [
+  //         { method: "email", minutes: 24 * 60 },
+  //         { method: "popup", minutes: 10 },
+  //       ],
+  //     },
+  //     conferenceData: {
+  //       createRequest: {
+  //         conferenceSolutionKey: {
+  //           type: "hangoutsMeet",
+  //         },
+  //         requestId: id[1],
+  //       },
+  //     },
+  //   };
+  //   const params = {
+  //     conferenceDataVersion: 1,
+  //   };
+
+  //   createCalendarMutation.mutate(
+  //     { calendar_id: "primary", params: params, body: event },
+  //     {
+  //       onError(error: any, variables, context) {
+  //         console.log("From OnError: ", error);
+
+  //         if (error?.response.data.error.status === "UNAUTHENTICATED") {
+  //           Auth.signOut();
+  //         }
+
+  //         notifications.show({
+  //           title: "Error",
+  //           message: "Error While making google calendar",
+  //         });
+  //       },
+
+  //       onSuccess(data, variables, context) {
+  //         console.log(data);
+  //         const value = {
+  //           event: JSON.stringify(data.data),
+  //           eventCourseId: course?.getCourse!.id,
+  //         };
+
+  //         createEventMutation.mutate(value, {
+  //           onSuccess(data, variables, context) {
+  //             updateCourseMutation.mutate(
+  //               { id: course?.getCourse?.id!, courseEventId: data.data?.id! },
+  //               {
+  //                 onSuccess(data, variables, context) {
+  //                   notifications.show({
+  //                     title: "Success",
+  //                     message: "Success While making google calendar",
+  //                   });
+  //                 },
+  //                 onError(error, variables, context) {
+  //                   notifications.show({
+  //                     title: "Error",
+  //                     message: "Error While making google calendar",
+  //                   });
+  //                 },
+  //               }
+  //             );
+  //           },
+  //         });
+  //       },
+  //     }
+  //   );
+  // }
+
+  const [startTime, setStartTime] = useState("")
+  const [endTime, setEndTime] = useState("")
+
+  const submitEventForm = useForm({
+    initialValues: {
+      summary: "",
+      description: "",
+      startDateTime: "",
+      startTimeZone: "America/Los_Angeles",
+      endDateTime: "",
+      isRecurrence: false
+    }
   })
 
-  async function handleSubmit() {
-    const rstring = rule.toString();
-    const event = {
-      "summary": course?.getCourse!.name + "-" + course?.getCourse!.code + " Class",
-      "description": course?.getCourse!.description,
-      "end": {
-        "dateTime": course?.getCourse!.end_date,
-        "timeZone": dayjs.tz.guess(),
+  function handleEvent(value: {
+      summary: string,
+      description: string,
+      startDateTime: string,
+      startTimeZone: string,
+      endDateTime: string,
+      isRecurrence: boolean
+  }) {
+    createCalendarMutation.mutate(value,{
+      onSuccess(data, variables, context) {
+          console.log(data)
       },
-      "start": {
-        "dateTime": course?.getCourse!.start_date,
-        "timeZone": dayjs.tz.guess(),
-      },
-      "recurrence": [rstring],
-      "reminders": {
-        "useDefault": false,
-        "overrides": [
-          { "method": "email", "minutes": 24 * 60 },
-          { "method": "popup", "minutes": 10 },
-        ],
-      },
-      "conferenceData": {
-        "createRequest": {
-          "conferenceSolutionKey": {
-            "type": "hangoutsMeet",
-          },
-          "requestId": id[1],
-        },
-      },
-    };
-    const params = {
-      "conferenceDataVersion": 1
-    }
-
-    createCalendarMutation.mutate({calendar_id: "primary", params: params, body: event}, {
-        onError(error: any, variables, context) {
-            console.log("From OnError: ",error)
-
-            if(error?.response.data.error.status === "UNAUTHENTICATED"){
-
-               Auth.signOut()
-            }
-
-            notifications.show({
-                title: "Error",
-                message: "Error While making google calendar",
-            })
-        },
-
-        onSuccess(data, variables, context) {
-            console.log(data)
-            const value = {
-                event: JSON.stringify(data.data),
-                eventCourseId: course?.getCourse!.id
-            }
-            
-            createEventMutation.mutate(value, {
-
-                onSuccess(data, variables, context) {
-                  updateCourseMutation.mutate({id: course?.getCourse?.id!,courseEventId :data.data?.id!}, {
-                    onSuccess(data, variables, context) {
-                      notifications.show({
-                        title: "Success",
-                        message: "Success While making google calendar",
-                    })
-                    },
-                    onError(error, variables, context) {
-                      notifications.show({
-                        title: "Error",
-                        message: "Error While making google calendar",
-                    })
-                    },
-                  })
-                    
-                },
-            })
-        },
+      
     })
   }
-
-
-  function removeEvent(){
-    // Delete Logic needed to be done.
-  }
-  
-  if(course?.getCourse?.Event?.id){
-    return(
-      <Button>Delete Event to Update Event</Button>
-    )
-  }
-
   
   return (
-    <>
+    <form onSubmit={submitEventForm.onSubmit((value) => handleEvent(value))}>
+      <Button onClick={() => login()}>Login with google</Button>
       {formType === "edit" ? (
         <Title order={2} size="h2" weight={600}>
           Edit Event
@@ -152,101 +190,163 @@ export default function EventForm({ formType, record, course }: EventFormType<Ev
           Create Event
         </Title>
       )}
-        <Box>
-          <SimpleGrid
-            cols={2}
-            mt="xl"
-            breakpoints={[{ maxWidth: "sm", cols: 1 }]}
-          >
-            <Select
-              label="Pick your Frequency"
-              placeholder="Pick one frequency"
-              value={ruleOptions.freq?.toString()}
-              required
-              onChange={(value) => {
-                window.setTimeout(() => {
-                  setRuleOptions({
-                    ...ruleOptions,
-                    freq: value as any as Frequency,
-                  });
-                });
-              }}
-              data={[
-                { label: "Yearly", value: RRule.YEARLY.toString() },
-                { label: "Monthly", value: RRule.MONTHLY.toString() },
-                { label: "Weekly", value: RRule.WEEKLY.toString() },
-                { label: "Daily", value: RRule.DAILY.toString() },
-              ]}
-            />
+      <Box>
+        <TextInput
+          placeholder="Enter event title"
+          label="Event Title"
+          withAsterisk
+          {...submitEventForm.getInputProps("summary")}
+        />
+        <Select
+          label="Event Type"
+          placeholder="Which type of event you want?"
+          required
+          withAsterisk
+          data={[
+            { label: "Classes", value: "class" },
+            { label: "Assignment", value: "assignment" },
+            { label: "Event", value: "event" },
+          ]}
+        />
 
-            <NumberInput
-              label="Count"
-              placeholder="Number of occurence will be generated"
-              name="count"
-              required
-              value={ruleOptions.count ? ruleOptions.count : ""}
-              onChange={(value) => {
-                window.setTimeout(() => {
-                  setRuleOptions({
-                    ...ruleOptions,
-                    count: Number(value),
-                  });
-                }, 500);
-              }}
-            />
-          </SimpleGrid>
-          <SimpleGrid
-            cols={2}
-            mt="xl"
-            breakpoints={[{ maxWidth: "sm", cols: 1 }]}
-          >
-            <NumberInput
-              label="Internal"
-              placeholder="Interval you want"
-              name="count"
-              required
-              value={ruleOptions.interval ? ruleOptions.interval : ""}
-              onChange={(value) => {
-                window.setTimeout(() => {
-                  setRuleOptions({
-                    ...ruleOptions,
-                    interval: Number(value),
-                  });
-                });
-              }}
-            />
-
-            <MultiSelect
-              label="Days you want"
-              placeholder="Days you want event to be"
-              required
-              onChange={(value: any) => {
-                window.setTimeout(() => {
-                  setRuleOptions({
-                    ...ruleOptions,
-                    byweekday: value,
-                  });
-                });
-              }}
-              data={[
-                { value: RRule.MO.weekday.toString(), label: "Monday" },
-                { value: RRule.TU.weekday.toString(), label: "Tuesday" },
-                { value: RRule.WE.weekday.toString(), label: "Wednesday" },
-                { value: RRule.TH.weekday.toString(), label: "Thursday" },
-                { value: RRule.FR.weekday.toString(), label: "Friday" },
-                { value: RRule.SA.weekday.toString(), label: "Saturday" },
-                { value: RRule.SU.weekday.toString(), label: "Sunday" },
-              ]}
-            />
-          </SimpleGrid>
+        <Grid
+        mt="md"
+        >
+        <Grid.Col span={6}>
+          {/* <DatePickerInput 
+          label="Pick date" 
+          placeholder="Pick date" 
+          minDate={dayjs(course?.getCourse?.start_date).toDate()} 
+          maxDate={dayjs(course?.getCourse?.end_date).toDate()}
+          {...submitEventForm.getInputProps("startDateTime")}
+          /> */}
+          <DateTimePicker
           
-        </Box>
-      
+      label="Pick date and time"
+      placeholder="Pick date and time"
+      minDate={dayjs(course?.getCourse?.start_date).toDate()} 
+      maxDate={dayjs(course?.getCourse?.end_date).toDate()}
+      {...submitEventForm.getInputProps('startDateTime')}
+    />
+        </Grid.Col>
+        <Grid.Col span={"auto"}>
+        <DateTimePicker
+      label="Pick date and time"
+      placeholder="Pick date and time"
+      minDate={dayjs(course?.getCourse?.start_date).toDate()} 
+      maxDate={dayjs(course?.getCourse?.end_date).toDate()}
+      {...submitEventForm.getInputProps('endDateTime')}
+    />
+        </Grid.Col>
+          
+        </Grid>
+
+        <SimpleGrid
+        cols={1}
+        mt="xl"
+        breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+        >
+          <Textarea 
+          withAsterisk
+          required
+          label="Event Description"
+          {...submitEventForm.getInputProps("description")}
+          />
+        </SimpleGrid>
+
+        {/* <SimpleGrid
+          cols={2}
+          mt="xl"
+          breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+        >
+          <Select
+            label="Choose when will your event repeat"
+            placeholder="Pick one frequency"
+            value={ruleOptions.freq?.toString()}
+            required
+            onChange={(value) => {
+              window.setTimeout(() => {
+                setRuleOptions({
+                  ...ruleOptions,
+                  freq: value as any as Frequency,
+                });
+              });
+            }}
+            data={[
+              { label: "Yearly", value: RRule.YEARLY.toString() },
+              { label: "Monthly", value: RRule.MONTHLY.toString() },
+              { label: "Weekly", value: RRule.WEEKLY.toString() },
+              { label: "Daily", value: RRule.DAILY.toString() },
+            ]}
+          />
+
+          <NumberInput
+            label="Number of Events you want"
+            placeholder="Number of Events you want"
+            name="count"
+            required
+            value={ruleOptions.count ? ruleOptions.count : ""}
+            onChange={(value) => {
+              window.setTimeout(() => {
+                setRuleOptions({
+                  ...ruleOptions,
+                  count: Number(value),
+                });
+              }, 500);
+            }}
+          />
+        </SimpleGrid>
+        <SimpleGrid
+          cols={2}
+          mt="xl"
+          breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+        >
+          <NumberInput
+            label="Internal"
+            placeholder="Interval you want"
+            name="count"
+            required
+            value={ruleOptions.interval ? ruleOptions.interval : ""}
+            onChange={(value) => {
+              window.setTimeout(() => {
+                setRuleOptions({
+                  ...ruleOptions,
+                  interval: Number(value),
+                });
+              });
+            }}
+          />
+
+          <MultiSelect
+            label="Days you want"
+            placeholder="Days you want event to be"
+            required
+            onChange={(value: any) => {
+              window.setTimeout(() => {
+                setRuleOptions({
+                  ...ruleOptions,
+                  byweekday: value,
+                });
+              });
+            }}
+            data={[
+              { value: RRule.MO.weekday.toString(), label: "Monday" },
+              { value: RRule.TU.weekday.toString(), label: "Tuesday" },
+              { value: RRule.WE.weekday.toString(), label: "Wednesday" },
+              { value: RRule.TH.weekday.toString(), label: "Thursday" },
+              { value: RRule.FR.weekday.toString(), label: "Friday" },
+              { value: RRule.SA.weekday.toString(), label: "Saturday" },
+              { value: RRule.SU.weekday.toString(), label: "Sunday" },
+            ]}
+          />
+        </SimpleGrid> */}
+      </Box>
+
       <Group position="center" mt="xl">
-        <Button size="md" onClick={() => handleSubmit()}>
+        <Button size="md" type="submit">
           Send message
         </Button>
       </Group>
-    </>
+    </form>
   );
 }

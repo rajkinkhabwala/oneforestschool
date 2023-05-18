@@ -171,16 +171,7 @@
     },
     "CalendarFunction": {
       "build": true,
-      "dependsOn": [
-        {
-          "attributes": [
-            "GraphQLAPIIdOutput",
-            "GraphQLAPIEndpointOutput"
-          ],
-          "category": "api",
-          "resourceName": "ofsapplication"
-        }
-      ],
+      "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -223,14 +214,6 @@
         }
       ]
     },
-    "AMPLIFY_function_CalendarFunction_googleSecret": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "CalendarFunction"
-        }
-      ]
-    },
     "AMPLIFY_function_CalendarFunction_redirectUri": {
       "usedBy": [
         {
@@ -240,6 +223,22 @@
       ]
     },
     "AMPLIFY_function_CalendarFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "CalendarFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_CalendarFunction_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "CalendarFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_CalendarFunction_tableName": {
       "usedBy": [
         {
           "category": "function",

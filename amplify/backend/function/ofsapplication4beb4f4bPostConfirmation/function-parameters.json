@@ -12,5 +12,6 @@
   "triggerTemplate": "PostConfirmation.json.ejs",
   "triggerEventPath": "PostConfirmation.event.json",
   "roleName": "ofsapplication4beb4f4bPostConfirmation",
-  "skipEdit": true
+  "skipEdit": true,
+  "secretNames": []
 }

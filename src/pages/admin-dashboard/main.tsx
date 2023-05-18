@@ -1,4 +1,4 @@
-import { Outlet, useNavigation } from "react-router-dom";
+import { Outlet, useNavigation, useRouteError } from "react-router-dom";
 import DashboardLayout from "../../layouts/dashboard/dashboard.layout";
 import { NavbarLayout } from "../../layouts/navbar/navbar.layout";
 import { adminlinks } from "../../common/constants/navbars/navbar";
@@ -15,7 +15,7 @@ useEffect(() => {
     nprogress.complete();
   }
 }, [navigation.state])
-  
+
 
   return (
     <>

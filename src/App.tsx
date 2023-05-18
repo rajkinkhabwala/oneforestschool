@@ -12,6 +12,7 @@ import { useColorScheme } from "@mantine/hooks";
 import { Notifications } from "@mantine/notifications";
 import { ModalsProvider } from "@mantine/modals";
 
+
 function App() {
   const preferredColorScheme = useColorScheme();
   const [colorScheme, setColorScheme] =
@@ -35,6 +36,7 @@ function App() {
         >
           <ModalsProvider>
             <Notifications />
+            
             <RouterProvider router={router} fallbackElement />
           </ModalsProvider>
         </MantineProvider>

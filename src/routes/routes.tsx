@@ -1,6 +1,5 @@
 import { createBrowserRouter, json } from "react-router-dom";
 import { isAuthorized } from "../common/helpers/auth";
-import logo from "../logo.svg";
 import AdminMain from "../pages/admin-dashboard/main";
 import StudentMain from "../pages/main-dashboard/main.dashboard"
 // import mainMain from "../pages/main/main"
@@ -114,7 +113,7 @@ const router = createBrowserRouter([
         ],
       },
     ],
-    errorElement: <>Error</>,
+    
   },
 
 ]);

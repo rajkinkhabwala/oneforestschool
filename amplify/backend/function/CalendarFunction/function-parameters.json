@@ -1,25 +1,21 @@
 {
   "lambdaLayers": [],
-  "permissions": {
-    "api": {
-      "ofsapplication": [
-        "Query",
-        "Mutation"
-      ]
-    }
-  },
+  "permissions": {},
   "environmentVariableList": [
     {
       "cloudFormationParameterName": "googleClientId",
       "environmentVariableName": "GOOGLE_CLIENT_ID"
     },
     {
-      "cloudFormationParameterName": "googleSecret",
-      "environmentVariableName": "GOOGLE_SECRET"
-    },
-    {
       "cloudFormationParameterName": "redirectUri",
       "environmentVariableName": "REDIRECT_URI"
+    },
+    {
+      "cloudFormationParameterName": "tableName",
+      "environmentVariableName": "TABLE_NAME"
     }
+  ],
+  "secretNames": [
+    "GOOGLE_SECRET_VALUE"
   ]
 }
