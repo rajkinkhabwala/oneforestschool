@@ -16,7 +16,7 @@ import {
 } from "@aws-amplify/ui-react";
 import { Field, getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Course } from "../models";
-import { fetchByPath, validateField } from "./utils";
+import { fetchByPath, processFile, validateField } from "./utils";
 import { StorageManager } from "@aws-amplify/ui-react-storage";
 import { DataStore } from "aws-amplify";
 export default function CourseCreateForm(props) {
@@ -407,6 +407,7 @@ export default function CourseCreateForm(props) {
               return value;
             });
           }}
+          processFile={processFile}
           accessLevel={"protected"}
           acceptedFileTypes={["image/*"]}
           isResumable={false}
