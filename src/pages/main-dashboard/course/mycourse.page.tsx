@@ -57,7 +57,7 @@ export function Component() {
 
   const {data, isLoading, isError, error} = useListCourseQuery()
 
-  const rows = data?.items.map((item: any) => (
+  const rows = data?.map((item: any) => (
     <Grid.Col span={3} key={item.id}>
         <Card withBorder radius="md" className={classes.card} key={item.id}>
         <Card.Section className={classes.imageSection}>

@@ -1,4 +1,5 @@
 import { Course, GetCourseQuery } from "../../../API"
+import { LazyCourse } from "../../../models"
 
 type FormModal<T> = {
     formType: "new" | "edit" | null | undefined,
@@ -9,6 +10,6 @@ type NotificationFormType<T> = {editState?: string, setEditState?: (value?: Reac
 
 
 
-type EventFormType<T> = {course: GetCourseQuery | undefined} & FormModal<T>
+type EventFormType<T> = {course: LazyCourse | undefined} & FormModal<T>
     
 

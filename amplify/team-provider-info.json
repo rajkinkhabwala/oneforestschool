@@ -24,7 +24,7 @@
         },
         "CalendarFunction": {
           "deploymentBucketName": "amplify-ofsapplication-dev-02345-deployment",
-          "s3Key": "amplify-builds/CalendarFunction-4d434a48366f4e4e4b70-build.zip",
+          "s3Key": "amplify-builds/CalendarFunction-4a69316e326e6e364d4a-build.zip",
           "secretsPathAmplifyAppId": "doeyq2sqnlbph",
           "googleClientId": "396573244367-cjr3e2it26rf8cb8v9s6dg1iv0cjf7jn.apps.googleusercontent.com",
           "redirectUri": "http://localhost:3000",

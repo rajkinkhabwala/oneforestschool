@@ -167,15 +167,16 @@ app.post("/calendar/create-tokens", async function (req, res, next) {
 app.post("/calendar/create-event", async function (req, res, next) {
   
   const { ssmParameters } = req;
-  const { summary, description, endDate, endDateTime, endTimeZone, startDate, startDateTime, startTimeZone, freq,count, visibility, byweekday, isRecurrence} = req.body
+  const { summary, description, endDate, endDateTime, endTimeZone, startDate, startDateTime, startTimeZone, freq,count, visibility, byweekday, isRecurrence, until, interval} = req.body
   var requestID = crypto.randomBytes(7).toString("hex")
   let rule;
   if(isRecurrence){
   rule = new rrule.RRule({
     freq: freq,
     count: count,
-    until: dayjs(endDateTime).toDate(),
-    byweekday: byweekday
+    until: dayjs(until).toDate(),
+    byweekday: byweekday,
+    interval: interval
   })
 }
   try {

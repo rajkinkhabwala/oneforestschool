@@ -1,44 +1,116 @@
-import { API } from "aws-amplify";
-import * as mutations from '../../../graphql/mutations';
-import * as queries from '../../../graphql/queries';
-import { GraphQLQuery, graphqlOperation, GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
-import { CreateCourseInput, CreateCourseMutation, Course, DeleteCourseMutation, GetCourseQuery, ListCoursesQuery, ModelCourseFilterInput, UpdateCourseInput, UpdateCourseMutation } from "../../../API";
-import { CourseGraphQLResult, GraphQLResult } from "../types/api";
+import { DataStore } from "aws-amplify";
+import { CreateCourseInput, UpdateCourseInput } from "../../../API";
+import { Course } from "../../../models";
+import { json } from "react-router-dom";
+
+export async function getCourse(id: string) {
+    try {
+        const course = DataStore.query(Course, id)
+        return course
+    } catch (error) {
+        console.log("Error While Getting Single Course: ",error)
+        throw json({
+            message: error
+        }, {
+            status: 500,
+            statusText: "Error While Getting Single Course."
+        })
+    }
+}
 
 
 export async function createCourse(course: CreateCourseInput) {
-    return await API.graphql<GraphQLQuery<CreateCourseMutation>>({...graphqlOperation(mutations.createCourse, { input: course }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
+    
+    try {
+        const newCourse = await DataStore.save(
+            new Course(course)
+        )
+        return newCourse
+    } catch (error) {
+        console.log("Error While Creating Course: ",error)
+        throw json({
+            message: error
+        }, {
+            status: 500,
+            statusText: "Error While Creating Course."
+        })
+    }
+}
+
+export async function listCourse()
+{
+
+    try {
+        const course = DataStore.query(Course)
+        return course
+    } catch (error) {
+        console.log("Error While Listing Course: ",error)
+        throw json({
+            message: error
+        }, {
+            status: 500,
+            statusText: "Error While Listing Course."
+        })
+    }
 }
 
 export async function updateCourse(course: UpdateCourseInput) {
-    return await API.graphql<GraphQLQuery<UpdateCourseMutation>>({...graphqlOperation(mutations.updateCourse, { input: course }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
+    
+    try {
+        const original = await DataStore.query(Course, course.id)
+        if(original){
+            return DataStore.save(
+                Course.copyOf(original, (updated) => {
+                    updated.name = course.name!
+                    updated.code = course.code!
+                    updated.description = course.description!
+                    updated.credit = course.credit!
+                    updated.departmentID = course.departmentID!
+                    updated.visibility = course.visibility!
+                    updated.start_date = course.start_date!
+                    updated.end_date = course.end_date!
+                    updated.main_image = course.main_image!
+                    updated.images = course.images
+                })
+            )
+        }
+    } catch (error) {
+        console.log("Error While Updating Course: ",error)
+
+        throw json({
+            message: error
+        }, {
+            status: 500,
+            statusText: "Error While Updating Course."
+        })
+        
+    }
 }
 
 export async function deleteCourse(id: string) {
-    return await API.graphql<GraphQLQuery<DeleteCourseMutation>>({...graphqlOperation(mutations.deleteCourse, { input: { id: id} }), authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS})
-}
+    try {
+        const course = await DataStore.query(Course, id)
 
-export async function listCourse(
-    filter?: ModelCourseFilterInput,
-    limit?: number,
-    nextToken?: string
-) :Promise<CourseGraphQLResult> {
-        return await new Promise((resolve, reject) =>{
-            API.graphql<GraphQLQuery<ListCoursesQuery>>(graphqlOperation(queries.listCourses, {
-                filter: filter,
-                limit: limit,
-                nextToken: nextToken
-            })).then((value) => {
-        resolve({
-            items: value.data?.listCourses?.items as Course[],
-            nextToken: value.data?.listCourses?.nextToken,
-            errors: value.errors,
-            extenstions: value.extensions,
-        })
-        }).catch((err) => reject(err))
+        if(course){
+            return DataStore.delete(course)
+        }else {
+            throw json({
+                message: "Data not found"
+            }, {
+                status: 404,
+                statusText: "Error While Deleting Course."
+            })
+        }
+
+    } catch (error) {
+        console.log("Error While Deleting Course: ",error)
+
+        throw json({
+            message: error
+        }, {
+            status: 500,
+            statusText: "Error While Deleting Course."
         })
     }
-
-export async function getCourse(course: string) {
-    return await API.graphql<GraphQLQuery<GetCourseQuery>>(graphqlOperation(queries.getCourse, { id: course }))
+    
 }

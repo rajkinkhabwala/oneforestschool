@@ -12,7 +12,7 @@ export function Component() {
         {status: 500}
       )
     }
-
+    
     return(
         <>
         {

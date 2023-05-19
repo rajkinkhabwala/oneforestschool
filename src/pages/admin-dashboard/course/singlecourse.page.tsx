@@ -1,4 +1,3 @@
-import { useToggle } from "@mantine/hooks";
 import { json, useParams } from "react-router-dom";
 import { Loader } from "@mantine/core";
 import { Tabs } from "@mantine/core";
@@ -8,7 +7,7 @@ import EventForm from "../../../common/components/form/event.form";
 import CourseForm from "../../../common/components/form/course.form";
 
 export function Component() {
-    const [value, toggle] = useToggle(['edit', 'view']);
+    
 
     const params = useParams();
 
@@ -35,16 +34,13 @@ export function Component() {
         </Tabs.List>
         <Tabs.Panel value="Edit" pt="xl">
                 {/* Course Table to be added */}
-                <CourseForm formType={"edit"} record={data?.data?.getCourse! as any}/>
+                <CourseForm formType={"edit"} record={data as any}/>
         </Tabs.Panel>
         <Tabs.Panel value="event" pt="xl">
-            <EventForm formType={"new"} course={data?.data!}/>
+            <EventForm formType={"new"} course={data}/>
         </Tabs.Panel>
             </Tabs>
-
-
-
-    )
+        )
 
 }
 Component.displayName = "SingleCourse"

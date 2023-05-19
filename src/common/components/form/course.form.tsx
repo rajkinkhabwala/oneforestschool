@@ -77,7 +77,7 @@ export default function CourseForm({ formType, record }: FormModal<Course>) {
       onSuccess(data, variables, context) {
         notifications.show({
           title: "Successful",
-          message: `Successfully added ${data.data?.createCourse?.name}`,
+          message: `Successfully added ${data.name}`,
           color: "green",
         });
         queryClient.invalidateQueries({queryKey: ["courses"]})
@@ -101,7 +101,7 @@ export default function CourseForm({ formType, record }: FormModal<Course>) {
       onSuccess(data, variables, context) {
         notifications.show({
           title: "Successful",
-          message: `Successfully updated ${data.data?.updateCourse?.name}`,
+          message: `Successfully updated ${data?.name}`,
           color: "green",
         });
         queryClient.invalidateQueries({queryKey: ["courses"]})
