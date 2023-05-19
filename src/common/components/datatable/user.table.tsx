@@ -1,8 +1,8 @@
 import { DataTable } from 'mantine-datatable';
 import { tableStyles } from "./table.styles"
 import { useEffect, useState } from 'react';
-import { IconEyeFilled, IconPlus, IconTrash } from '@tabler/icons-react';
-import { Button } from '@mantine/core';
+import { IconEyeFilled, IconPlus, IconBrowserOff } from '@tabler/icons-react';
+import { Button, Title } from '@mantine/core';
 import {LazyUser} from "../../../models";
 import { UserTableProps } from './table';
 import { useNavigate } from 'react-router-dom';
@@ -24,17 +24,13 @@ export default function UserTable({data, isLoading, enableHeader, columns} : Use
     }, [data, page]);
 
 
-    function removeUser(rowData:LazyUser){
-
-        
-
-    }
+    
 
 
     return (
         <div>
+            <Title size={"h2"}>Users</Title>
             <div className={classes.header}>
-                <h2>Table Title</h2>
                 {enableHeader ?
                     <Button className="add-user" leftIcon={<IconPlus />}>
                         Add User
@@ -59,8 +55,8 @@ export default function UserTable({data, isLoading, enableHeader, columns} : Use
                     { accessor: "Modify", title: "Modify", 
                     render(record: LazyUser, index) {
                         return (<div className={classes.modify}>
-                              {/* <span><IconEyeFilled cursor={"pointer"} strokeWidth={2} color={'gray'} onClick={() => navigate(`${rowData.id}`)}/></span> */}
-                              {/* <span onClick={() => removeUser(rowData)}><IconTrash cursor={"pointer"} strokeWidth={2} color={'red'}/></span> */}
+                              <span><IconEyeFilled cursor={"pointer"} strokeWidth={2} color={'gray'} onClick={() => navigate(`${record.id}`)}/></span>
+                              {/* <span onClick={() => disableUser(record)}><IconBrowserOff cursor={"pointer"} strokeWidth={2} color={'red'}/></span> */}
                             </div>)
                     },}
                 ]}
