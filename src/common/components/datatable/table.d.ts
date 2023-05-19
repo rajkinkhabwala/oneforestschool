@@ -1,4 +1,4 @@
-import { LazyCourse, LazyDepartment } from "../../../models";
+import { LazyCourse, LazyDepartment, LazyUser } from "../../../models";
 import { UserGraphQLResult, CourseGraphQLResult, NotificationGraphQLResult} from "../../api/types/api"
 import {DataTableColumn} from "mantine-datatable"
 
@@ -10,7 +10,7 @@ export type TableProps = {
 }
 
 export interface UserTableProps extends Omit<TableProps, "data"> {
-    data: UserGraphQLResult | undefined | null,
+    data: LazyUser[] | undefined | null,
 }
 
 export interface CourseTableProps extends Omit<TableProps, "data"> {
