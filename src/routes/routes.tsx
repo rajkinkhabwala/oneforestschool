@@ -152,8 +152,7 @@ const router = createBrowserRouter([
       },
       {
         path: "user/",
-        // Add Lazy to render element
-        
+        lazy: () => import("../pages/admin-dashboard/user/user.page"),
         children: [
           // add children as per needs
         ],
