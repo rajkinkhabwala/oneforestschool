@@ -20,14 +20,7 @@ export async function createCalendarEvents(value:any){
     let apiName = 'CalendarApi';
     let path = '/calendar/create-event';
     let myInit = {
-        body: {
-        "summary": "Event Form",
-        "description": "This is Event Description.",
-        "startDateTime": "2023-08-26T01:00:17.027Z",
-        "startTimeZone": "America/Los_Angeles",
-        "endDateTime": "2023-08-26T03:00:42.960Z",
-        "isRecurrence": false
-        },
+        body: value,
         headers: {
         'content-type' : 'application/json',
         Authorization: `${(await Auth.currentSession()).getIdToken().getJwtToken()}`,

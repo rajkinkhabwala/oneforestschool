@@ -3,7 +3,6 @@ import { tableStyles } from "./table.styles"
 import { useEffect, useState } from 'react';
 import { IconEyeCheck, IconEyeFilled, IconPlus, IconTrash } from '@tabler/icons-react';
 import { CourseTableProps } from './table';
-import { Course } from '../../../API';
 import { modals } from '@mantine/modals';
 import { deleteCourse } from '../../api/course/course.api';
 import { useMutation, useQueryClient } from 'react-query';
@@ -11,6 +10,7 @@ import { notifications } from '@mantine/notifications';
 import { useNavigate } from 'react-router-dom';
 import { IconEyeOff } from '@tabler/icons-react';
 import { Button, Title, Text } from '@mantine/core';
+import { LazyCourse } from '../../../models';
 
 
 
@@ -20,7 +20,7 @@ const PAGE_SIZE = 8;
 export default function CourseTable({data, isLoading, enableHeader} : CourseTableProps) {
   
     const [page, setPage] = useState(1);
-    const [records, setRecords] = useState(data?.items?.slice(0, PAGE_SIZE));
+    const [records, setRecords] = useState(data?.slice(0, PAGE_SIZE));
     const navigate = useNavigate();
     const deleteMutation = useMutation(deleteCourse);
     const queryClient = useQueryClient()
@@ -30,10 +30,10 @@ export default function CourseTable({data, isLoading, enableHeader} : CourseTabl
     useEffect(() => {
         const from = (page - 1) * PAGE_SIZE;
         const to = from + PAGE_SIZE;
-        setRecords(data?.items?.slice(from, to));
+        setRecords(data?.slice(from, to));
     }, [data, page]);
 
-    function removeCourse(rowData: Course): void {
+    function removeCourse(rowData: LazyCourse): void {
         modals.openConfirmModal({
             title: 'Delete the course',
             centered: true,
@@ -50,7 +50,7 @@ export default function CourseTable({data, isLoading, enableHeader} : CourseTabl
                 onSuccess(data, variables, context) {
                   notifications.show({
                     title: 'Successful',
-                    message: `Successfully deleted ${data.data?.deleteCourse?.name}!`,
+                    message: `Successfully deleted ${data?.name}!`,
                     color: 'red'
                   });
                   queryClient.invalidateQueries({queryKey: ["courses"]}) 
@@ -83,13 +83,13 @@ export default function CourseTable({data, isLoading, enableHeader} : CourseTabl
                 page={page}
                 recordsPerPage={PAGE_SIZE}
                 onPageChange={(p) => setPage(p)}
-                totalRecords={data?.items?.length}
+                totalRecords={data?.length}
                 columns={[
                     { accessor: "id", title: "Course Code" },
                     { accessor: "name", title: "Course Name" },
                     { accessor: "code", title: "Course Code"},
                     { accessor: "visibility", title: "Course Visibility",
-                        render: (vis: Course) => {
+                        render: (vis: LazyCourse) => {
                             return(
                             <div style={{textAlign: "center"}}>
                             {vis.visibility === true ? 
@@ -102,7 +102,7 @@ export default function CourseTable({data, isLoading, enableHeader} : CourseTabl
                         }
                     },
                     { accessor: "Modify", width:"20%",
-                      render: (rowData: Course) => {
+                      render: (rowData: LazyCourse) => {
                           
                         return(
                             <div className={classes.modify}>
