@@ -1,4 +1,4 @@
-import { Icon123, IconAbc, IconBuilding, IconNotification, IconSubscript, IconUser } from "@tabler/icons-react";
+import { Icon123, IconAbc, IconBuilding, IconNotification, IconProgress, IconReportAnalytics, IconSubscript, IconUser } from "@tabler/icons-react";
 
 export const logout_link = "Logout"
 
@@ -14,4 +14,16 @@ export const adminlinks = [
 export const mainlinks = [
     { link: '/main/courses', label: 'All Courses', icon: IconAbc },
     { link: '/main/mycourses', label: 'My Courses', icon: IconSubscript }
+]
+
+export const parentlinks = [
+    { link: '/parent/home', label: 'All Courses', icon: IconAbc },
+    { link: '/parent/progressandplan', label: 'My Courses', icon: IconProgress },
+    { link: '/parent/report', label: 'My Courses', icon: IconReportAnalytics }
+]
+
+export const teacherlinks = [
+    { link: '/teacher/home', label: 'All Courses', icon: IconAbc },
+    { link: '/teacher/progressandplan', label: 'My Courses', icon: IconProgress },
+    { link: '/teacher/report', label: 'My Courses', icon: IconReportAnalytics }
 ]

@@ -1,7 +1,8 @@
 import { createBrowserRouter, json } from "react-router-dom";
 import { isAuthorized } from "../common/helpers/auth";
 import AdminMain from "../pages/admin-dashboard/main";
-import StudentMain from "../pages/main-dashboard/main.dashboard"
+import StudentMain from "../pages/main-dashboard/main.dashboard";
+import ParentMain from "../pages/parent-dashboard/main.parent"
 // import mainMain from "../pages/main/main"
 import { notAuthorized } from "../common/constants/errors/errors";
 
@@ -38,6 +39,44 @@ const router = createBrowserRouter([
               import("../pages/main-dashboard/course/mycourse.page")
       }
     ]
+  },
+  {
+  path: "parent/",
+  element: <ParentMain supTitle={undefined} description={undefined} data={[]} />,
+  loader: async() => {
+    const value = await isAuthorized(["Parent"]);
+
+    if (value.status) {
+      return value;
+    }else {
+      throw json(
+        {
+          message: notAuthorized,
+        },
+        {
+          status: 401,
+          statusText: "UNAUTHORIZATION",
+        }
+      );
+    }
+  },
+  children: [
+    {
+      path: 'home/',
+      lazy: () =>
+            import("../pages/main-dashboard/course/viewallcourse.page"),
+    },
+    // {
+    //   path: 'progressandplan/',
+    //   lazy: () =>
+    //         import("../pages/main-dashboard/course/mycourse.page")
+    // },
+    // {
+    //   path:: 'report/',
+    //   lazy: () =>
+    //           import("../pages/parent-dashboard/progressandplan.parent")
+    // },
+  ]
   },
   {
     path: "admin/",
